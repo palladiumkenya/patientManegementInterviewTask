@@ -1,0 +1,22 @@
+{
+    "application": {
+        "host": "localhost",
+        "port": 8010,
+        "key": "conf/server.key",
+        "cert": "conf/server.crt",
+        "tls": false,
+        "uploadsDirectory":"uploads"
+    },
+    "mysql": {
+        "connectionLimit": 10,
+        "host": "127.0.0.1",
+        "port": "3306",
+        "user": "root",
+        "password": "test1234",
+        "database":"palladium",
+        "multipleStatements": true
+    }
+
+}
+
+
