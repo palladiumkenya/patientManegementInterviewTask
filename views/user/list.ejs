@@ -1,0 +1,58 @@
+
+<%- include ../layouts/header.ejs %>
+ 
+<% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+<% } %>
+ 
+<% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+<% } %>    
+ 
+<table width='80%' border=0>
+ 
+    <tr style='text-align:left; background-color:#CCC'>
+        <th>#ID</th>
+        <th>Name</th>
+        <th>D.O.B</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>Marital</th>
+        <th>Height</th>
+        <th>Weight</th>
+        <th>Date Enrolled</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Action</th>
+    </tr>
+    
+    <% if (data) { %>
+    <% data.forEach(function(user){ %>
+        <tr>
+            <td><%= user.UserID %></td>
+            <td><%= user.Name %></td>
+            <td><%= user.DateOfBirth.toDateString() %></td>
+            <td><%= user.Gender %></td>
+            <td><%= user.Age %></td>
+            <td><%= user.MaritalStatus %></td>
+            <td><%= user.Height %></td>
+            <td><%= user.Weight %></td>
+            <td><%= user.DateEnrolled.toDateString() %></td>
+            <td><%= user.PhoneNumber %></td>
+            <td><%= user.Email %></td>
+            <td>
+                <div style="float:left">
+                    <a href='/patients/edit/<%= user.UserID %>'>Edit</a> &nbsp;                            
+                    <form method="post" action="/patients/delete/<%= user.id %>" style="float:right">
+                        <input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" />
+                        <input type="hidden" name="_method" value="DELETE" />
+                    </form>
+                </div>
+            </td>
+        </tr>
+    <% }) %>
+    <% } %>
+ 
+</table>
+ 
+<%- include ../layouts/footer.ejs %>
