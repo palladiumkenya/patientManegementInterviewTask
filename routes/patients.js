@@ -20,52 +20,136 @@ app.get('/', function(req, res, next) {
         })
     })
 })
- 
+
 // new user form
 app.get('/add', function(req, res, next){    
     res.render('user/add', {
-        title: 'Create New User',
-        name: '',
-        age: '',
-        email: ''        
+        title: 'Enroll New User/Patient',
+        UserID: '',
+        FirstName: '',
+        LastName: '',
+        MiddleName: '',
+        DateOfBirth: '',
+        Gender: '',
+        Age: '',
+        MaritalStatus: '',
+        Height: '',
+        Weight: '',
+        UserType: '',
+        DateEnrolled: '',
+        Address: '',
+        PhoneNumber: '',
+        AltPhone: '',
+        Email: '',
+        County: '',
+        SubCounty: '',
+        Ward: '',
+        Village: '',
+        NokName: '',
+        NokEmail: '',
+        NokAddress: '',
+        Relationship: ''        
     })
 })
- 
 app.post('/add', function(req, res, next){    
-    req.assert('name', 'Name is required').notEmpty()          
-    req.assert('age', 'Age is required').notEmpty()             
-    req.assert('email', 'A valid email is required').isEmail() 
+    req.assert('UserID', 'Empty field detected').notEmpty() 
+    req.assert('FirstName', 'Empty field detected').notEmpty()          
+    req.assert('LastName', 'Empty field detected').notEmpty() 
+    req.assert('MiddleName', 'Empty field detected').notEmpty() 
+    req.assert('DateOfBirth', 'Empty field detected').notEmpty() 
+    req.assert('Gender', 'Empty field detected').notEmpty()
+    req.assert('Age', 'Empty field detected').notEmpty()  
+    req.assert('MaritalStatus', 'Empty field detected').notEmpty() 
+    req.assert('Height', 'Empty field detected').notEmpty()  
+    req.assert('Weight', 'Empty field detected').notEmpty()
+    req.assert('UserType', 'Empty field detected').notEmpty()
+    req.assert('DateEnrolled', 'Empty field detected').notEmpty()  
+    req.assert('Address', 'Empty field detected').notEmpty()    
+    req.assert('PhoneNumber', 'Empty field detected').notEmpty()
+    req.assert('AltPhone', 'Empty field detected').notEmpty()          
+    req.assert('Email', 'valid email is required').isEmail() 
+    req.assert('County', 'Empty field detected').notEmpty()          
+    req.assert('SubCounty', 'Empty field detected').notEmpty()
+    req.assert('Ward', 'Empty field detected').notEmpty() 
+    req.assert('Village', 'Empty field detected').notEmpty()                
+    req.assert('NokName', 'Empty field detected').notEmpty()          
+    req.assert('NokEmail', 'valid email is required').isEmail() 
+    req.assert('NokAddress', 'Empty field detected').notEmpty()          
+    req.assert('Relationship', 'Empty field detected').notEmpty()  
     var errors = req.validationErrors()
     if( !errors ) {   
-        //clean some inputs- security matters!
+        //secure user input
         var user = {
-            name: req.sanitize('name').escape().trim(),
-            age: req.sanitize('age').escape().trim(),
-            email: req.sanitize('email').escape().trim()
+            UserID: req.sanitize('UserID').escape().trim(),
+            FirstName: req.sanitize('FirstName').escape().trim(),
+            LastName: req.sanitize('LastName').escape().trim(),
+            MiddleName: req.sanitize('MiddleName').escape().trim(),
+            DateOfBirth: req.sanitize('DateOfBirth').escape().trim(),
+            Gender: req.sanitize('Gender').escape().trim(),
+            Age: req.sanitize('Age').escape().trim(),
+            MaritalStatus: req.sanitize('MaritalStatus').escape().trim(),
+            Height: req.sanitize('Height').escape().trim(),
+            Weight: req.sanitize('Weight').escape().trim(),
+            UserType: req.sanitize('UserType').escape().trim(),
+            DateEnrolled: req.sanitize('DateEnrolled').escape().trim()
+        }
+        var contact = {
+            UserID: req.sanitize('UserID').escape().trim(),
+            Address: req.sanitize('Address').escape().trim(),
+            PhoneNumber: req.sanitize('PhoneNumber').escape().trim(),
+            AltPhone: req.sanitize('AltPhone').escape().trim(),
+            Email: req.sanitize('Email').escape().trim(),
+            County: req.sanitize('County').escape().trim(),
+            SubCounty: req.sanitize('SubCounty').escape().trim(),
+            Ward: req.sanitize('Ward').escape().trim(),
+            Village: req.sanitize('Village').escape().trim()
+        }
+        var nextofkin = {
+            NokName: req.sanitize('NokName').escape().trim(),
+            NokEmail: req.sanitize('NokEmail').escape().trim(),
+            NokAddress: req.sanitize('NokAddress').escape().trim(),
+            Relationship: req.sanitize('Relationship').escape().trim(),
+            UserID: req.sanitize('UserID').escape().trim()
         }
 
         req.getConnection(function(error, conn) {
-            conn.query('INSERT INTO users SET ?', user, function(err, result) {
-                //if(err) throw err
+            conn.query('INSERT INTO `palladium_users` SET ?', user, function(err, result) {
                 if (err) {
                     req.flash('error', err)
                     
-                    // render to views/user/add.ejs
+                    // show form with user input
                     res.render('user/add', {
-                        title: 'Add New User',
-                        name: user.name,
-                        age: user.age,
-                        email: user.email                    
+                        title: 'Enroll New User/Patient',
+                        UserID: user.UserID,
+                        FirstName: user.FirstName,
+                        LastName: user.LastName, 
+                        MiddleName: user.MiddleName, 
+                        DateOfBirth: user.DateOfBirth, 
+                        Gender: user.Gender, 
+                        Age: user.Age, 
+                        MaritalStatus: user.MaritalStatus, 
+                        Height: user.Height, 
+                        Weight: user.Weight, 
+                        UserType: user.UserType, 
+                        DateEnrolled: user.DateEnrolled               
                     })
                 } else {                
-                    req.flash('success', 'Data added successfully!')
-                    
-                    // render to views/user/add.ejs
+                    req.flash('success', 'Added successfully!')
+                    // show form for another entry
                     res.render('user/add', {
-                        title: 'Add New User',
-                        name: '',
-                        age: '',
-                        email: ''                    
+                        title: 'Enroll New User/Patient',
+                        UserID: '',
+                        FirstName: '',
+                        LastName: '', 
+                        MiddleName: '', 
+                        DateOfBirth: '', 
+                        Gender: '', 
+                        Age: '', 
+                        MaritalStatus: '', 
+                        Height: '', 
+                        Weight: '', 
+                        UserType: '', 
+                        DateEnrolled:''                       
                     })
                 }
             })

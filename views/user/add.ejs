@@ -1,32 +1,53 @@
 <%- include ../layouts/header.ejs %>    
- 
-<% if (messages.error) { %>
-    <p style="color:red"><%- messages.error %></p>
-<% } %>
- 
-<% if (messages.success) { %>
-    <p style="color:green"><%- messages.success %></p>
-<% } %>
- 
-<form action="/users/add" method="post" name="form1">
-    <table width="25%" border="0">
-        <tr> 
-            <td>Name</td>
-            <td><input type="text" name="name" id="name" value="<%= name %>" /></td>
-        </tr>
-        <tr> 
-            <td>Age</td>
-            <td><input type="text" name="age" value="<%= age %>" /></td>
-        </tr>
-        <tr> 
-            <td>Email</td>
-            <td><input type="text" name="email" value="<%= email %>" /></td>
-        </tr>
-        <tr> 
-            <td></td>
-            <td><input type="submit" name="Submit" value="Add" /></td>
-        </tr>
-    </table>
-</form>
- 
+<div class="container">
+        <h1><%= title %></h1>
+        <% if (messages.error) { %>
+            <p style="color:red"><%- messages.error %></p>
+        <% } %>
+         
+        <% if (messages.success) { %>
+            <p style="color:green"><%- messages.success %></p>
+        <% } %>
+    <div class="row">
+        <div class="col-md-12" style="width:105%;">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-bookmark"></span> <%= title %></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-6">
+                          <a href="/" class="btn btn-danger btn-lg" role="button"><span class="glyphicon glyphicon-home"></span> <br/>Home</a>
+                          <a href="/patients" class="btn btn-warning btn-lg" role="button"><span class="glyphicon glyphicon-stats"></span> <br/>Patients</a>
+                          <a href="/patients/add" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> <br/>Add Users</a>
+                        </div>
+                    </div>
+                    <div class="hold" style ="width: 98%;overflow-x: auto;white-space: nowrap;">
+                            <form action="/patients/add" method="post" name="add-new-user">
+                                <table width="25%" border="0">
+                                    <tr> 
+                                        <td>First Name</td>
+                                        <td><input type="text" name="fname" id="fname" value="<%= fname %>" /></td>
+                                    </tr>
+                                    <tr> 
+                                        <td>Age</td>
+                                        <td><input type="text" name="age" value="<%= age %>" /></td>
+                                    </tr>
+                                    <tr> 
+                                        <td>Email</td>
+                                        <td><input type="text" name="email" value="<%= email %>" /></td>
+                                    </tr>
+                                    <tr> 
+                                        <td></td>
+                                        <td><input type="submit" name="Submit" value="Add" /></td>
+                                    </tr>
+                                </table>
+                            </form>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <%- include ../layouts/footer.ejs %>
