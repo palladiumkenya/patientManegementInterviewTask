@@ -13,6 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
+
+
+#Receives sms subscription service request 
+Route::post('api/version1/promotion/sms-request', 'Admin\ProcessorController@index');
+
+#Receives stop service request
+Route::post('api/version1/stop-service/sms-request', 'Admin\ProcessorController@stopService');
+
+#Receive data from DB
+Route::post('api/subscription/receive-data-from-db', 'Admin\SmsProcessorController@recieveSmsData');

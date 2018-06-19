@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Africa/Nairobi',
 
     /*
     |--------------------------------------------------------------------------
@@ -120,7 +120,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -171,6 +171,9 @@ return [
         /*
          * Application Service Providers...
          */
+        //jrean/laravel-user-verification
+        Jrean\UserVerification\UserVerificationServiceProvider::class,
+
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -182,6 +185,11 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         //Sentinel services
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
+        //Laravel Models Generators
+        Reliese\Coders\CodersServiceProvider::class,
+        //Laravel Migrations Generator
+        Way\Generators\GeneratorsServiceProvider::class,
+        Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
 
 
     ],
@@ -237,6 +245,8 @@ return [
         'Activation' => Cartalyst\Sentinel\Laravel\Facades\Activation::class,
         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
+        'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
+        'ChannelLog' => App\Contracts\Facades\ChannelLog::class,
 
     ],
 

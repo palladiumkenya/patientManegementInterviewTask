@@ -4,6 +4,25 @@ Login
 @stop
 @section('content')
 <div class = "container">
+                       <!-- Congrats message -->
+                    @if (session('info'))
+                        <div class="alert alert-success alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button"><i class="fa fa-close"></i>
+                        </button>
+                        <h4><i class="icon fa fa-check"></i>
+                            {{ session('info') }}
+                         </h4>   
+                        </div>
+                    @endif
+
+                    <!-- Error message -->
+                    @if (session('message'))
+                        <div class="alert alert-danger alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button"><i class="fa fa-close"></i></button> <h4><i class="icon fa fa-check"></i>
+                            {{ session('message') }}
+                         </h4>
+                        </div>
+                    @endif
   <div class="wrapper">
     @if (Session::has('message'))
      <div class="alert alert-{{(Session::get('status')=='error')?'danger':Session::get('status')}} " alert-dismissable fade in id="sessions-hide">
@@ -12,7 +31,7 @@ Login
       </div>
     @endif 
     {{ Form::open(array('url' => route('login'), 'class' => 'form-horizontal form-signin','files' => true)) }}    
-        <h3 class="form-signin-heading">Welcome Back! Please Sign In</h3>
+        <h5 class="form-signin-heading">Welcome Back</h5>
         <hr class="colorgraph"><br>
         {!! csrf_field() !!}
         <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
@@ -31,7 +50,6 @@ Login
         <button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit">Login</button>
 
         <div class="login-register">
-                <a href="{{url('register')}}">Register</a>
                 <a href="{{url('password/reset')}}">Forget Password</a>
                 @if ($errors->has('global'))
                 <span class="help-block danger">

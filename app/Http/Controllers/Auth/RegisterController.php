@@ -1,16 +1,24 @@
 <?php
 
+
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\organizationCreate;
+use App\Models\Organization;
+use App\Http\Requests\registerNewUser;
+
+use Jrean\UserVerification\Traits\VerifiesUsers;
+use Jrean\UserVerification\Facades\UserVerification;
 use Illuminate\Http\Request;
-use Redirect;
-use Sentinel;
-use Session;
-use Activation;
+use DB, Mail, Auth, Exception, Log;
+
+
+
 class RegisterController extends Controller
 {
     /*
@@ -20,18 +28,16 @@ class RegisterController extends Controller
     |
     | This controller handles the registration of new users as well as their
     | validation and creation. By default this controller uses a trait to
+
+ 
     | provide this functionality without requiring any additional code.
     |
     */
 
-    use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+    use RegistersUsers;
+    use VerifiesUsers;
+
 
     /**
      * Create a new controller instance.
@@ -40,53 +46,82 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
-   
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    
-    public function showRegistrationForm()
+
+    public function register(registerNewUser $request)
     {
-        return view('auth.register');
-    }
+         try 
+         {
+            DB::beginTransaction();
+            
+            $user = new User;
+            $user->first_name = $request->first_name;
+            $user->last_name = $request->second_name;
+            $user->email = $request->email;
+            $user->password = bcrypt(str_random(15));
+            $user->verification_token = str_random(30);
+            $user->org_id = Auth::user()->org_id;
+            $user->save();
 
-    public function register(Request $request){
+            UserVerification::generate($user);
+            UserVerification::send($user, 'Account Verification Mail');
 
-        $validation = Validator::make($request->all(), [
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:6|confirmed',
-            ]);
+            DB::commit();
+            return back()->withAlert('Register successfully, please verify your email.');
 
-          if ($validation->fails()) {
-                return Redirect::back()->withErrors($validation)->withInput();
+         } 
+        catch (Exception $e) 
+         {
+            Log::error($e);
+            DB::rollback(); 
+            return back()->with('message', 'Ooops! Something Went Wrong!');
          }
-
-         $user = Sentinel::register($request->all());
-        //Activate the user ** 
-         $activation = Activation::create($user);
-         $activation = Activation::complete($user, $activation->code);
-        //End activation
-
-        if($user){
-            $user->roles()->sync([2]); // 2 = client
-            Session::flash('message', 'Registration is completed');
-            Session::flash('status', 'success');
-           return redirect('/'); 
-        }
-         Session::flash('message', 'There was an error with the registration' );
-         Session::flash('status', 'error');
-         return Redirect::back();
+        
+      
     }
 
 
 
+
+    public function registerOrganization(organizationCreate $request)
+    {
+        try 
+         {
+            DB::beginTransaction();
+
+           $organization = new Organization;
+           $organization->name = $request->name;
+           $organization->type = 2;
+           $organization->parent = 1;
+           $organization->save();
+
+
+           $user = new User;
+           $user->first_name = $request->first_name;
+           $user->last_name = $request->second_name;
+           $user->email = $request->email;
+           $user->password = bcrypt(str_random(15));
+           $user->verification_token = str_random(30);
+           $user->org_id = $organization->id;
+           $user->save();
+
+           UserVerification::send($user, 'Account Verification Mail');
+           
+           DB::commit();
+           return back()->with('info', "New Profile Created");
+            
+         } 
+        catch (Exception $e) 
+         {
+            Log::error($e);
+            DB::rollback(); 
+            return back()->with('message', 'Ooops! Something Went Wrong!');
+         }
+       
+
+
+    }
 }
