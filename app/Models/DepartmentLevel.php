@@ -10,30 +10,28 @@ namespace App\Models;
 use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class MailsLog
+ * Class DepartmentLevel
  * 
  * @property int $id
- * @property string $message_id
- * @property string $to
- * @property \Carbon\Carbon $send_at
+ * @property string $level_id
  * @property string $deleted_at
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
+ * 
+ * @property \Illuminate\Database\Eloquent\Collection $departments
  *
  * @package App\Models
  */
-class MailsLog extends Eloquent
+class DepartmentLevel extends Eloquent
 {
 	use \Illuminate\Database\Eloquent\SoftDeletes;
-	protected $table = 'mails_log';
-
-	protected $dates = [
-		'send_at'
-	];
 
 	protected $fillable = [
-		'message_id',
-		'to',
-		'send_at'
+		'level_id'
 	];
+
+	public function departments()
+	{
+		return $this->hasMany(\App\Models\Department::class, 'level_id');
+	}
 }
