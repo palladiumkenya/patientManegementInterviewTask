@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Requests\organizationCreate;
-use App\Models\Organization;
+use App\Models\Department;
 use App\Http\Requests\registerNewUser;
 
 use Jrean\UserVerification\Traits\VerifiesUsers;
@@ -62,8 +62,8 @@ class RegisterController extends Controller
             $user->last_name = $request->second_name;
             $user->email = $request->email;
             $user->password = bcrypt(str_random(15));
-            $user->verification_token = str_random(30);
-            $user->org_id = Auth::user()->org_id;
+            $user->verification_token = str_random(40);
+            $user->depart_id = Auth::user()->org_id;
             $user->save();
 
             UserVerification::generate($user);
@@ -92,10 +92,9 @@ class RegisterController extends Controller
          {
             DB::beginTransaction();
 
-           $organization = new Organization;
+           $organization = new Department;
            $organization->name = $request->name;
-           $organization->type = 2;
-           $organization->parent = 1;
+           $organization->level_id = 2;
            $organization->save();
 
 
@@ -103,9 +102,9 @@ class RegisterController extends Controller
            $user->first_name = $request->first_name;
            $user->last_name = $request->second_name;
            $user->email = $request->email;
-           $user->password = bcrypt(str_random(15));
-           $user->verification_token = str_random(30);
-           $user->org_id = $organization->id;
+           $user->password = bcrypt(str_random(35));
+           $user->verification_token = str_random(40);
+           $user->depart_id = $organization->id;
            $user->save();
 
            UserVerification::send($user, 'Account Verification Mail');
@@ -123,5 +122,12 @@ class RegisterController extends Controller
        
 
 
+    }
+
+
+
+
+    public function createUser($request){
+      
     }
 }
