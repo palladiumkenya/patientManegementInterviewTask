@@ -24,6 +24,7 @@ var def = {
     searchPatientbyName:searchPatientbyName,
     createNextOfKin:createNextOfKin,
     getVoidedPatients: getVoidedPatients,
+    createPatient:createPatient,
     getListOfPatientNextOfKin:getListOfPatientNextOfKin,
     getAllPatients:getAllPatients,
     getPatientsByAgeCohort:getPatientsByAgeCohort
@@ -207,12 +208,14 @@ function getListOfPatientNextOfKin(patientId) {
             .field('t2.birth_date')
             .field('YEAR(CURDATE()) - YEAR(t2.birth_date)','age')
             .field('t3.phone_number')
+            .field('t4.patient_id','nexKinIsPatient')
             .from('palladium.nextOfKin', 't1')
             .join('palladium.person','t2', 't1.next_of_kin_id = t2.person_id')
             .left_outer_join('palladium.contacts','t3', 't2.person_id = t3.person_id')
+            .left_outer_join('palladium.patient','t4', 't2.person_id = t4.patient_id')
             .where('t1.patient_id = ?', patientId)
             .toString();
-        console.log('nextofKinequery',query);
+        console.log('nextofKinquery',query);
         runner.executeQuery(query)
             .then((results) => {
                 resolve( results);
@@ -235,7 +238,6 @@ function getPersonIdSquel() {
             .toString()
         runner.executeQuery(query)
             .then((results) => {
-                console.log('id=====',results);
                 resolve( results);
             })
             .catch((error) => {
@@ -272,7 +274,7 @@ function getPatient(patientId, name) {
                     .or('p.name  like ?', '%'+name + '%')
                     .or('p.person_id  like ?', '%'+patientId + '%')
             )
-           // .where('pat.voided = ?', 0)
+            .where('pat.voided = ?', 0)
             .toString();
         console.log('query',query);
         runner.executeQuery(query)

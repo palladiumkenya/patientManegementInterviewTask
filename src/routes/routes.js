@@ -114,6 +114,36 @@ module.exports = function () {
             }
         },
         {
+            method: 'POST',
+            path: '/enroll-next-of-kin-as-patient/{personId}',
+            config: {
+                //  auth: 'simple',
+                plugins: {},
+                handler: function (request, reply) {
+
+                    var payload = request.payload;
+                    var personId = request.params['personId'];
+                    patientList.createPatient(personId,payload)
+                        .then(function (newReportStore) {
+                            reply(newReportStore);
+
+                        })
+                        .catch(function (error) {
+                            if (error && error.isValid === false) {
+                                reply(Boom.badRequest('Validation errors:' + JSON.stringify(error)));
+                            } else {
+                                console.error(error);
+                                reply(error);
+                                //Boom.create(500, 'Internal server error.', error)
+                            }
+                        });
+                },
+                description: "Create a patient details",
+                notes: "Api endpoint that creates patients",
+                tags: ['api']
+            }
+        },
+        {
             method: 'GET',
             path: '/patient-next-of-kin-list/{patientId}',
             config: {
