@@ -16,19 +16,19 @@ class CreateUsersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('email', 191)->unique();
-			$table->string('password', 191);
-			$table->text('permissions', 65535)->nullable();
+			$table->unsignedInteger('depart_id');
+			$table->foreign('depart_id')->references('id')->on('departments');
+			$table->string('password', 191)->nullable();
 			$table->dateTime('last_login')->nullable();
 			$table->string('first_name', 191)->nullable();
 			$table->string('last_name', 191)->nullable();
 			$table->dateTime('last_login_at')->nullable();
 			$table->string('last_login_ip', 191)->nullable();
-			$table->string('org_id', 191)->nullable();
 			$table->string('remember_token', 100)->nullable();
-			$table->softDeletes();
-			$table->timestamps();
 			$table->boolean('verified')->default(0);
 			$table->string('verification_token', 191)->nullable();
+			$table->softDeletes();
+			$table->timestamps();
 		});
 	}
 

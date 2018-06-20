@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateOrganizationsTable extends Migration {
+class CreateDepartmentLevelsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,10 @@ class CreateOrganizationsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('organizations', function(Blueprint $table)
+		Schema::create('department_levels', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 191)->nullable();
-			$table->string('type', 191)->nullable();
-			$table->string('parent', 191)->nullable();
+			$table->string('level_id')->nullable();
 			$table->softDeletes();
 			$table->timestamps();
 		});
@@ -31,7 +29,7 @@ class CreateOrganizationsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('organizations');
+		Schema::drop('department_levels');
 	}
 
 }

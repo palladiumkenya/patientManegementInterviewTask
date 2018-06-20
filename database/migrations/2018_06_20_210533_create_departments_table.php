@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateOrganizationLevelsTable extends Migration {
+class CreateDepartmentsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,13 @@ class CreateOrganizationLevelsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('organization_levels', function(Blueprint $table)
+		Schema::create('departments', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('level_name')->nullable();
+			$table->string('name', 191)->nullable();
+			$table->unsignedInteger('level_id');
+			$table->foreign('level_id')->references('id')->on('department_levels');
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}
@@ -28,7 +31,7 @@ class CreateOrganizationLevelsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('organization_levels');
+		Schema::drop('departments');
 	}
 
 }
