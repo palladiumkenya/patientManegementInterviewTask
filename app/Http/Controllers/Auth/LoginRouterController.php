@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Organization;
+use App\Models\Department;
 use Exception, Log, Auth, DB, Hash;
 use App\Http\Requests\setpassword;
-use App\Models\OrganizationLevels;
+use App\Models\DepartmentLevel;
 use Illuminate\Support\Facades\Validator;
 
 class LoginRouterController extends Controller {
@@ -44,24 +44,22 @@ class LoginRouterController extends Controller {
     public function routeUser()
     {
        
-       $org_type = Organization::where('id', User::where('email', Auth::user()->email)->value('org_id'))->value('type');
+       $level_id = Department::where('id', User::where('email', Auth::user()->email)->value('depart_id'))->value('level_id');
 
-       if ($org_type === '1'){
+       if ($level_id === '1'){
            
            return redirect('return-view/admin-dashboard'); 
           
            
         }
-       elseif ($org_type === '2') {
+       elseif ($level_id === '2') {
 
            return redirect('return-view/dashboard');
            
-          
         }
        else{
 
            return redirect('login');
-           Log::error("User: " . Auth::user()->email . " NOT FOUND");
        }
     }
 
@@ -92,7 +90,10 @@ class LoginRouterController extends Controller {
          
       }
 
-
+     /**
+       * 
+       * set password of the registered user
+       */
       public function setPassword(setpassword $request)
       {
         try 
