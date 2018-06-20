@@ -18,3 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/add-member', 'HomeController@addMember');
+
+Route::get('/patients/deleted', 'HomeController@deletedPatients');
+
+Route::get('/patients/below-15', 'HomeController@belowAge');
+
+Route::post('/save/patient', 'HomeController@savePatient');
+
+Route::post('/update/contacts', 'HomeController@updateContacts');
+
+Route::get('/profile/{id}', 'HomeController@profile');
