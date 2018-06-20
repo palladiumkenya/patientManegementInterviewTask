@@ -18,8 +18,15 @@ var def = {
     updatePerson:updatePerson,
     updateLocation: updateLocation,
     getPatient:getPatient,
-    createContaacts:createContaacts,
-    createLocation:createLocation
+    createContacts:createContacts,
+    createLocation:createLocation,
+    createNextOfAsPerson:createNextOfAsPerson,
+    searchPatientbyName:searchPatientbyName,
+    createNextOfKin:createNextOfKin,
+    getVoidedPatients: getVoidedPatients,
+    getListOfPatientNextOfKin:getListOfPatientNextOfKin,
+    getAllPatients:getAllPatients,
+    getPatientsByAgeCohort:getPatientsByAgeCohort
 };
 
 module.exports = def;
@@ -32,8 +39,18 @@ function getPatientById(patientId) {
             .field('p.person_id')
             .field('p.name')
             .field('p.gender')
-            .field('p.voided')
+            .field('p.birth_date')
+            .field('YEAR(CURDATE()) - YEAR(p.birth_date)','age')
+            .field('loc.sub_county')
+            .field('loc.county')
+            .field('loc.ward')
+            .field('loc.village')
+            .field('con.alternative_phone_number')
+            .field('con.phone_number')
+            .field('con.email_address')
             .from('palladium.person', 'p')
+            .left_outer_join('palladium.location','loc', 'p.person_id = loc.patient_id')
+            .left_outer_join('palladium.contacts','con', 'p.person_id = con.person_id')
             .where('p.person_id = ?', patientId)
             .toString();
         runner.executeQuery(query)
@@ -47,8 +64,7 @@ function getPatientById(patientId) {
 
     });
 }
-
-function getPatient(patientId) {
+function getAllPatients() {
     return new Promise(function (resolve, reject) {
         var runner = getSqlRunner();
 
@@ -56,22 +72,251 @@ function getPatient(patientId) {
             .field('p.person_id')
             .field('p.name')
             .field('p.gender')
+            .field('p.birth_date')
+            .field('YEAR(CURDATE()) - YEAR(p.birth_date)','age')
             .field('loc.sub_county')
             .field('loc.county')
             .field('loc.ward')
+            .field('loc.village')
             .field('con.alternative_phone_number')
             .field('con.phone_number')
             .field('con.email_address')
-            .field('p.voided')
             .from('palladium.person', 'p')
-            .join('palladium.patient','pat', 'p.person_id = pat.patient_id')
-            .join('palladium.location','loc', 'p.person_id = loc.person_id')
-            .join('palladium.contacts','con', 'p.person_id = con.person_id')
-            .where('p.person_id = ?', patientId)
-            .where('pat.voided = ?', 0)
+            .join('palladium.patient','pt', 'p.person_id = pt.patient_id')
+            .left_outer_join('palladium.location','loc', 'p.person_id = loc.patient_id')
+            .left_outer_join('palladium.contacts','con', 'p.person_id = con.person_id')
+            .where('pt.voided = ?', 0)
             .toString();
+        console.log('querryyyy',query);
         runner.executeQuery(query)
             .then((results) => {
+                resolve( results);
+            })
+            .catch((error) => {
+                reject(error)
+            });
+
+
+    });
+}
+function getPatientsByAgeCohort(startAge, endAge) {
+    return new Promise(function (resolve, reject) {
+        var runner = getSqlRunner();
+
+        var query = squel.select()
+            .field('p.person_id')
+            .field('p.name')
+            .field('p.gender')
+            .field('p.birth_date')
+            .field('YEAR(CURDATE()) - YEAR(p.birth_date)','age')
+            .field('loc.sub_county')
+            .field('loc.county')
+            .field('loc.ward')
+            .field('loc.village')
+            .field('con.alternative_phone_number')
+            .field('con.phone_number')
+            .field('con.email_address')
+            .from('palladium.person', 'p')
+            .join('palladium.patient','pt', 'p.person_id = pt.patient_id')
+            .left_outer_join('palladium.location','loc', 'p.person_id = loc.patient_id')
+            .left_outer_join('palladium.contacts','con', 'p.person_id = con.person_id')
+            .where('YEAR(CURDATE()) - YEAR(p.birth_date) <= ?', endAge)
+            .where('YEAR(CURDATE()) - YEAR(p.birth_date) >= ?', startAge)
+            .where('pt.voided = ?', 0)
+            .toString();
+        console.log('querryyyy',query);
+        runner.executeQuery(query)
+            .then((results) => {
+                resolve( results);
+            })
+            .catch((error) => {
+                reject(error)
+            });
+
+
+    });
+}
+function createNextOfAsPerson(id,payload) {
+    return new Promise(function (resolve, reject) {
+
+        {
+            var runner = getSqlRunner();
+            var query = squel.insert()
+                .into('palladium.person')
+                .set('name', payload.name)
+                .set('birth_date',payload.birth_date)
+                .set('gender', payload.gender)
+                .set('date_created', squel.fval('NOW()'))
+                .set('creator', getCurrentUserIdSquel())
+                .set('voided', 0)
+                .toString();
+            runner.executeQuery(query)
+                .then((results) => {
+                resolve( results);
+
+                })
+                .catch((error) => {
+                    reject(error)
+                });
+
+        }
+
+
+    });
+
+}
+
+function getVoidedPatients() {
+    return new Promise(function (resolve, reject) {
+        var runner = getSqlRunner();
+
+        var query = squel.select()
+            .field('t1.patient_id')
+            .field('t1.date_voided')
+            .field('t2.person_id')
+            .field('t2.name')
+            .field('t2.gender')
+            .field('t2.birth_date')
+            .field('YEAR(CURDATE()) - YEAR(t2.birth_date)','age')
+            .from('palladium.patient', 't1')
+            .join('palladium.person','t2', 't1.patient_id = t2.person_id')
+            .where('t1.voided = ?', 1)
+            .toString();
+        console.log('query===',query)
+        runner.executeQuery(query)
+            .then((results) => {
+                resolve( results);
+            })
+            .catch((error) => {
+                reject(error)
+            });
+
+
+    });
+}
+function getListOfPatientNextOfKin(patientId) {
+    return new Promise(function (resolve, reject) {
+        var runner = getSqlRunner();
+
+        var query = squel.select()
+            .field('t1.patient_id')
+            .field('t1.next_of_kin_id')
+            .field('t2.person_id')
+            .field('t2.name')
+            .field('t2.gender')
+            .field('t2.birth_date')
+            .field('YEAR(CURDATE()) - YEAR(t2.birth_date)','age')
+            .field('t3.phone_number')
+            .from('palladium.nextOfKin', 't1')
+            .join('palladium.person','t2', 't1.next_of_kin_id = t2.person_id')
+            .left_outer_join('palladium.contacts','t3', 't2.person_id = t3.person_id')
+            .where('t1.patient_id = ?', patientId)
+            .toString();
+        console.log('nextofKinequery',query);
+        runner.executeQuery(query)
+            .then((results) => {
+                resolve( results);
+            })
+            .catch((error) => {
+                reject(error)
+            });
+
+
+    });
+}
+
+function getPersonIdSquel() {
+    return new Promise(function (resolve, reject) {
+        var runner = getSqlRunner();
+
+        var query = squel.select()
+            .field('MAX(person_id)')
+            .from('palladium.person')
+            .toString()
+        runner.executeQuery(query)
+            .then((results) => {
+                console.log('id=====',results);
+                resolve( results);
+            })
+            .catch((error) => {
+                reject(error)
+            });
+    });
+}
+
+function getPatient(patientId, name) {
+    return new Promise(function (resolve, reject) {
+        var runner = getSqlRunner();
+
+        var query = squel.select()
+            .field('p.person_id')
+            .field('p.name')
+            .field('p.gender')
+            .field('p.birth_date')
+            .field('YEAR(CURDATE()) - YEAR(p.birth_date)','age')
+            .field('pat.patient_id')
+            .field('loc.sub_county')
+            .field('loc.county')
+            .field('loc.ward')
+            .field('loc.village')
+            .field('con.alternative_phone_number')
+            .field('con.phone_number')
+            .field('con.email_address')
+           // .field('p.voided')
+            .from('palladium.patient','pat') //'palladium.person', 'p'
+            .join('palladium.person', 'p', 'pat.patient_id = p.person_id')
+            .left_outer_join('palladium.location','loc', 'p.person_id = loc.patient_id')
+            .left_outer_join('palladium.contacts','con', 'p.person_id = con.person_id')
+            .where(
+                squel.expr()
+                    .or('p.name  like ?', '%'+name + '%')
+                    .or('p.person_id  like ?', '%'+patientId + '%')
+            )
+           // .where('pat.voided = ?', 0)
+            .toString();
+        console.log('query',query);
+        runner.executeQuery(query)
+            .then((results) => {
+          //      console.log('results',results);
+                resolve( results);
+            })
+            .catch((error) => {
+                reject(error)
+            });
+
+
+    });
+}
+
+function searchPatientbyName(name) {
+    return new Promise(function (resolve, reject) {
+        var runner = getSqlRunner();
+
+        var query = squel.select()
+            .field('p.person_id')
+            .field('p.name')
+            .field('p.gender')
+            .field('p.birth_date')
+            .field('YEAR(CURDATE()) - YEAR(p.birth_date)','age')
+            .field('loc.sub_county')
+            .field('loc.county')
+            .field('loc.ward')
+            .field('loc.village')
+            .field('con.alternative_phone_number')
+            .field('con.phone_number')
+            .field('con.email_address')
+            // .field('p.voided')
+            .from('palladium.person', 'p')
+            // .join('palladium.patient','pat', 'p.person_id = pat.patient_id')
+            .left_outer_join('palladium.location','loc', 'p.person_id = loc.patient_id')
+            .left_outer_join('palladium.contacts','con', 'p.person_id = con.person_id')
+            .where('p.name = ?', name)
+            // .where('pat.voided = ?', 0)
+            .toString();
+        // console.log('query',query);
+        runner.executeQuery(query)
+            .then((results) => {
+                //      console.log('results',results);
                 resolve( results);
             })
             .catch((error) => {
@@ -91,8 +336,9 @@ function voidPatient(PatientId) {
             .set('voided', 1)
             .set('date_voided', squel.fval('NOW()'))
             .set('voided_by', getCurrentUserIdSquel())
-            .where('report_store_id = ?', PatientId)
+            .where('patient_id = ?', PatientId)
             .toString();
+        console.log('querryyy',query);
         runner.executeQuery(query)
             .then((results) => {
                 resolve( results);
@@ -107,62 +353,64 @@ function voidPatient(PatientId) {
 
 function createPerson(newPerson) {
     return new Promise(function (resolve, reject) {
-      //  var requiredFieldsCheck = hasRequireReportStoreFields(newPerson);
 
-        /*if (!requiredFieldsCheck.isValid) {
-            return reject(requiredFieldsCheck);
-        }*/
-            /*validateCreatePayload(newPerson)
-                .then(function (validationStatus) {
-                    if (validationStatus.isValid === false) {
-                        reject(validationStatus);
-                    } else*/
-                        {
-                          //  console.log('newPerson=====', newPerson);
-                            var runner = getSqlRunner();
-                                var query = squel.insert()
-                                    .into('palladium.person')
-                                    .set('name', newPerson.name)
-                                    .set('birth_date',newPerson.birth_date)
-                                    .set('gender', newPerson.gender)
-                                    .set('date_created', squel.fval('NOW()'))
-                                    .set('creator', getCurrentUserIdSquel())
-                                    .set('voided', 0)
-                                    .toString();
+        {
+            var runner = getSqlRunner();
+                var query = squel.insert()
+                    .into('palladium.person')
+                    .set('name', newPerson.name)
+                    .set('birth_date',newPerson.birth_date)
+                    .set('gender', newPerson.gender)
+                    .set('date_created', squel.fval('NOW()'))
+                    .set('creator', getCurrentUserIdSquel())
+                    .set('voided', 0)
+                    .toString();
 
 
 
-                            runner.executeQuery(query)
-                                .then((results) => {
-                                    createPatient(results)
-                                        .then((res) =>{
-                                            resolve( res);
+            runner.executeQuery(query)
+                .then((results) => {
+                    createContacts(results.insertId,newPerson)
+                        .then((con) => {
+
+                            createPatient(results.insertId,newPerson)
+                                .then((res) => {
+                                    createLocation(results.insertId,newPerson)
+                                        .then((loc) =>{
+                                            console.log('con---===',loc);
+                                            resolve( loc);
                                         });
-                                    console.log('results',results);
 
-                                })
-                                .catch((error) => {
-                                    reject(error)
                                 });
 
-                    }
 
-               // });
+                            resolve( con);
+
+
+                        })
+                })
+                .catch((error) => {
+                    reject(error)
+                });
+
+    }
+
+
     });
 }
-function createPatient(newPatient) {
+function createPatient(newPatient, payload) {
     return new Promise(function (resolve, reject) {
         var runner = getSqlRunner();
         var query = squel.insert()
             .into('palladium.patient')
-            .set('patient_id', newPatient.insertId)
+            .set('patient_id', newPatient)
             .set('date_created', squel.fval('NOW()'))
             .set('voided', 0)
             .set('creator', getCurrentUserIdSquel())
             .toString();
         runner.executeQuery(query)
             .then((results) => {
-                createEnrollment(newPatient)
+                createEnrollment(newPatient, payload)
                     .then((res)=>{
                         resolve( res);
                     });
@@ -179,13 +427,13 @@ function createPatient(newPatient) {
 }
 
 
-function createContaacts(newContacts) {
+function createContacts(personId,newContacts) {
     return new Promise(function (resolve, reject) {
         var runner = getSqlRunner();
 
         var query = squel.insert()
             .into('palladium.contacts')
-            .set('person_id', newContacts.person_id)
+            .set('person_id', personId)
             .set('phone_number', newContacts.phone_number)
             .set('alternative_phone_number', newContacts.alternative_phone_number)
             .set('email_address', newContacts.email_address)
@@ -205,16 +453,17 @@ function createContaacts(newContacts) {
     });
 
 }
-function createLocation(newlocation) {
+function createLocation(personId,newlocation) {
     return new Promise(function (resolve, reject) {
         var runner = getSqlRunner();
 
         var query = squel.insert()
             .into('palladium.location')
-            .set('patient_id', newlocation.person_id)
+            .set('patient_id', personId)
             .set('sub_county', newlocation.sub_county)
             .set('county', newlocation.county)
             .set('ward', newlocation.ward)
+            .set('village', newlocation.village)
             .set('voided', 0)
             .set('date_created', squel.fval('NOW()'))
             .set('creator', getCurrentUserIdSquel())
@@ -230,12 +479,13 @@ function createLocation(newlocation) {
     });
 
 }
-function createEnrollment(newEnrollment) {
+function createEnrollment(newEnrollment, payload) {
     return new Promise(function (resolve, reject) {
         var runner = getSqlRunner();
         var query = squel.insert()
             .into('palladium.enrollment')
-            .set('patient_id', newEnrollment.insertId)
+            .set('patient_id', newEnrollment)
+            .set('date_of_enrollement', payload.date_of_enrollement)
             .set('voided', 0)
             .set('date_created', squel.fval('NOW()'))
             .set('creator', getCurrentUserIdSquel())
@@ -243,6 +493,35 @@ function createEnrollment(newEnrollment) {
         runner.executeQuery(query)
             .then((results) => {
                 resolve( results);
+            })
+            .catch((error) => {
+                reject(error)
+            });
+
+
+
+    });
+
+}
+
+function createNextOfKin(id,payload) {
+    return new Promise(function (resolve, reject) {
+        var runner = getSqlRunner();
+        var query = squel.insert()
+            .into('palladium.nextOfKin')
+            .set('patient_id', id)
+            .set('next_of_kin_id',payload.person_id)
+            .set('voided', 0)
+            .set('date_created', squel.fval('NOW()'))
+            .set('creator', getCurrentUserIdSquel())
+            .toString();
+        runner.executeQuery(query)
+            .then((results) => {
+               // createNextOfAsPerson(payload)
+                  //  .then((res) => {
+                        resolve( results);
+                    //})
+
             })
             .catch((error) => {
                 reject(error)
@@ -300,9 +579,10 @@ function updateLocation(personId, newLocationData) {
                         .set('sub_county', newLocationData.sub_county)
                         .set('county', newLocationData.county)
                         .set('ward', newLocationData.ward)
+                        .set('village', newLocationData.village)
                         .set('date_changed', squel.fval('NOW()'))
                         .set('changed_by', getCurrentUserIdSquel())
-                        .where('person_id = ?', personId)
+                        .where('patient_id = ?', personId)
                         .toString();
                     runner.executeQuery(query)
                         .then((results) => {
@@ -359,6 +639,11 @@ function getCurrentUserIdSquel() {
         .from('palladium.users').where('user_id = ?', 233);
 }
 
+function getPersonIdSquel() {
+    return squel.select().field('MAX(person_id)')
+        .from('palladium.person')
+}
+
 
 function validateUpdatePayload(createPersonPayload) {
     return new Promise(function (resolve, reject) {
@@ -397,7 +682,7 @@ function getSqlRunner() {
     return new QueryService();
 }
 
-function hasRequireReportStoreFields(createPersonPayload) {
+function hasRequireFields(createPersonPayload) {
     var validationResult = {
         isValid: true,
         errors: []
