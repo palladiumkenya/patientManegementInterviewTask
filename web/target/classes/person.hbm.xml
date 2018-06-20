@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.palladium.healthcenter">
+
+	<class name="Person" table="person">
+		<id name="id" type="int" column="id" unsaved-value="0">
+			<generator class="native" />
+		</id>
+		<discriminator column="id" insert="false" />
+		<property name="name" type="java.lang.String" column="name"/>
+		<property name="dob" type="java.util.Date" column="birthdate"/>
+		<property name="gender" type="java.lang.String" column="gender"/>
+	</class>
+
+</hibernate-mapping>
