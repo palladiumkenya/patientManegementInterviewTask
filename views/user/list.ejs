@@ -52,7 +52,7 @@
                         <% data.forEach(function(user){ %>
                             <tr>
                                 <td><%= user.Name %></td>
-                                <td><%= user.DateOfBirth %></td>
+                                <td><%= user.DateOfBirth.toDateString() %></td>
                                 <td><%= user.Gender %></td>
                                 <td><%= user.Age %></td>
                                 <td><%= user.MaritalStatus %></td>

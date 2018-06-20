@@ -183,6 +183,33 @@ app.post('/add', function(req, res, next){
                         Village: ''                     
                     })
                 }
+            }),
+             //add next of kin
+             conn.query('INSERT INTO `palladium_contact_information` SET ?', nextofkin, function(err, result) {
+                if (err) {
+                    req.flash('error', err)
+                    
+                    // show form with user input
+                    res.render('user/add', {
+                        title: 'Enroll New User/Patient',
+                        NokName: nextofkin.NokName,
+                        NokEmail: nextofkin.NokEmail,
+                        NokAddress: nextofkin.NokAddress,
+                        Relationship: nextofkin.Relationship,
+                        UserID: nextofkin.UserID
+                    })
+                } else {                
+                    req.flash('success', 'Added successfully!')
+                    // show form for another entry
+                    res.render('user/add', {
+                        title: 'Enroll New User/Patient',
+                        NokName: '',
+                        NokEmail: '',
+                        NokAddress: '', 
+                        Relationship: '', 
+                        UserID: ''                   
+                    })
+                }
             })
         })
     }
