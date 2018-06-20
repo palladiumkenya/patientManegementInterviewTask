@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "AgeSearch";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        patientssearch();
+    });
+
+
+    function patientssearch() {
+        $('#patientscontainer').jtable({
+            title: 'Age Less Than <select id="Year" onchange="agechanged(this.value)"><option value="0"></option><option value="15">15</option></select>',
+            paging: false,
+            sorting: false,
+            actions: {
+                listAction: '/Patients/ListAged',
+            },           
+            //Columns definitions
+            fields: {
+                ID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Title: {
+                    title: 'Title'
+                },
+                Surname: {
+                    title: 'Surname'
+                },
+                Othernames: {
+                    title: 'Othernames'
+                },
+                Gender: {
+                    title: 'Gender'
+                },
+                DOB: {
+                    title: 'DOB',
+                    type: 'date',
+                    displayFormat: 'dd-MM-yy',
+                },
+                Enrollmentdate: {
+                    title: 'Enrollment Date',
+                    type: 'date',
+                    displayFormat: 'dd-MM-yy',
+                },
+                Enrollmentnumber: {
+                    title: 'Enrollmentnumber'
+                }
+            },
+        });
+
+       // $('#patientscontainer').jtable('load');
+    }
+
+    function agechanged(age) {
+        
+            $('#patientscontainer').jtable('load',
+                {
+                    age: age
+                });
+        
+       
+    }
+</script>
+
+
+<div id="pagecontainer">
+
+    <div id="patientscontainer">
+    </div>
+
+</div>
+
+

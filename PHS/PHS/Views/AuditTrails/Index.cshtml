@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        patientsaudit();
+    });
+
+
+    function patientsaudit() {
+        $('#patientscontainer').jtable({
+            title: 'Patients Audit Trail',
+            paging: false,
+            sorting: false,
+            actions: {
+                listAction: '/AuditTrails/PatientsList',                
+            },
+            messages: {
+                addNewRecord: 'Add NoK'
+            },
+            //Columns definitions
+            fields: {
+                ID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Title: {
+                    title: 'Title'
+                },
+                Surname: {
+                    title: 'Surname'
+                },
+                Othernames: {
+                    title: 'Othernames'
+                },
+                Gender: {
+                    title: 'Gender'
+                },
+                DOB: {
+                    title: 'DOB',
+                    type: 'date',
+                    displayFormat: 'dd-MM-yy',
+                },
+                Enrollmentdate: {
+                    title: 'Enrollment Date',
+                    type: 'date',
+                    displayFormat: 'dd-MM-yy',
+                },
+                Enrollmentnumber: {
+                    title: 'Enrollmentnumber'
+                },
+                Actiondate: {
+                    title: 'Action Date',
+                    type: 'date',
+                    displayFormat: 'dd-MM-yy',
+                }
+            },
+        });
+
+        $('#patientscontainer').jtable('load');
+    }
+</script>
+
+
+<div id="pagecontainer">
+    
+        <div id="patientscontainer">
+        </div>
+          
+</div>
+
+
