@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="165b1b05c70045568ccfcbf95ecbdcbd" Name="Diagram1">
+        <EntityTypeShape EntityType="PHCModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="7.5" />
+        <EntityTypeShape EntityType="PHCModel.AuditTrails" Width="1.5" PointX="2.75" PointY="7.5" />
+        <EntityTypeShape EntityType="PHCModel.Contacts" Width="1.5" PointX="12" PointY="5.125" />
+        <EntityTypeShape EntityType="PHCModel.NextOfKins" Width="1.5" PointX="12" PointY="1.75" />
+        <EntityTypeShape EntityType="PHCModel.Patients" Width="1.5" PointX="9.75" PointY="2.75" />
+        <EntityTypeShape EntityType="PHCModel.Counties" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="PHCModel.Occupations" Width="1.5" PointX="7.5" PointY="0.75" />
+        <EntityTypeShape EntityType="PHCModel.SubCounties" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="PHCModel.Villages" Width="1.5" PointX="7.5" PointY="3.5" />
+        <EntityTypeShape EntityType="PHCModel.Wards" Width="1.5" PointX="5.25" PointY="3.5" />
+        <AssociationConnector Association="PHCModel.FK_Contacts_Patients" />
+        <AssociationConnector Association="PHCModel.FK_NextOfKins_Patients" />
+        <AssociationConnector Association="PHCModel.FK_Patients_Occupations" />
+        <AssociationConnector Association="PHCModel.FK_Patients_Villages" />
+        <AssociationConnector Association="PHCModel.FK_SubCounties_Counties" />
+        <AssociationConnector Association="PHCModel.FK_Wards_SubCounties" />
+        <AssociationConnector Association="PHCModel.FK_Villages_Wards" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

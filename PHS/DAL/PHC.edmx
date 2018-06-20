@@ -1,0 +1,625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PHCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="AuditTrails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Action" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RecordTable" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RecordID" Type="int" Nullable="false" />
+          <Property Name="Record" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Actionby" Type="int" Nullable="false" />
+          <Property Name="ActionDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contacts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientID" Type="int" Nullable="false" />
+          <Property Name="Cellphone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cellphone2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="500" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NextOfKins">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientID" Type="int" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="OtherNames" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CellphoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="500" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="OtherNames" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="1" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="LocationID" Type="int" />
+          <Property Name="OccupationID" Type="int" />
+          <Property Name="EnrollmentDate" Type="date" />
+          <Property Name="EnrollmentNumber" Type="nvarchar" MaxLength="250" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Counties">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="County" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Occupations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Occupation" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubCounties">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountyID" Type="int" Nullable="false" />
+          <Property Name="SubCounty" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Villages">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WardID" Type="int" Nullable="false" />
+          <Property Name="Village" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wards">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubCountyID" Type="int" Nullable="false" />
+          <Property Name="Ward" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Contacts_Patients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+          <End Role="Contacts" Type="Self.Contacts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Contacts">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NextOfKins_Patients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+          <End Role="NextOfKins" Type="Self.NextOfKins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NextOfKins">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patients_Occupations">
+          <End Role="Occupations" Type="Self.Occupations" Multiplicity="0..1" />
+          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Occupations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="OccupationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patients_Villages">
+          <End Role="Villages" Type="Self.Villages" Multiplicity="0..1" />
+          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Villages">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubCounties_Counties">
+          <End Role="Counties" Type="Self.Counties" Multiplicity="1" />
+          <End Role="SubCounties" Type="Self.SubCounties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Counties">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubCounties">
+              <PropertyRef Name="CountyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Villages_Wards">
+          <End Role="Wards" Type="Self.Wards" Multiplicity="1" />
+          <End Role="Villages" Type="Self.Villages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wards">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Villages">
+              <PropertyRef Name="WardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wards_SubCounties">
+          <End Role="SubCounties" Type="Self.SubCounties" Multiplicity="1" />
+          <End Role="Wards" Type="Self.Wards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubCounties">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wards">
+              <PropertyRef Name="SubCountyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PHCModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditTrails" EntityType="Self.AuditTrails" Schema="General" store:Type="Tables" />
+          <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="Records" store:Type="Tables" />
+          <EntitySet Name="NextOfKins" EntityType="Self.NextOfKins" Schema="Records" store:Type="Tables" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" Schema="Records" store:Type="Tables" />
+          <EntitySet Name="Counties" EntityType="Self.Counties" Schema="Setups" store:Type="Tables" />
+          <EntitySet Name="Occupations" EntityType="Self.Occupations" Schema="Setups" store:Type="Tables" />
+          <EntitySet Name="SubCounties" EntityType="Self.SubCounties" Schema="Setups" store:Type="Tables" />
+          <EntitySet Name="Villages" EntityType="Self.Villages" Schema="Setups" store:Type="Tables" />
+          <EntitySet Name="Wards" EntityType="Self.Wards" Schema="Setups" store:Type="Tables" />
+          <AssociationSet Name="FK_Contacts_Patients" Association="Self.FK_Contacts_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NextOfKins_Patients" Association="Self.FK_NextOfKins_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="NextOfKins" EntitySet="NextOfKins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patients_Occupations" Association="Self.FK_Patients_Occupations">
+            <End Role="Occupations" EntitySet="Occupations" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patients_Villages" Association="Self.FK_Patients_Villages">
+            <End Role="Villages" EntitySet="Villages" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubCounties_Counties" Association="Self.FK_SubCounties_Counties">
+            <End Role="Counties" EntitySet="Counties" />
+            <End Role="SubCounties" EntitySet="SubCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Villages_Wards" Association="Self.FK_Villages_Wards">
+            <End Role="Wards" EntitySet="Wards" />
+            <End Role="Villages" EntitySet="Villages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wards_SubCounties" Association="Self.FK_Wards_SubCounties">
+            <End Role="SubCounties" EntitySet="SubCounties" />
+            <End Role="Wards" EntitySet="Wards" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PHCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PHCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="PHCModel.sysdiagrams" />
+          <EntitySet Name="AuditTrails" EntityType="PHCModel.AuditTrails" />
+          <EntitySet Name="Contacts" EntityType="PHCModel.Contacts" />
+          <EntitySet Name="NextOfKins" EntityType="PHCModel.NextOfKins" />
+          <EntitySet Name="Patients" EntityType="PHCModel.Patients" />
+          <EntitySet Name="Counties" EntityType="PHCModel.Counties" />
+          <EntitySet Name="Occupations" EntityType="PHCModel.Occupations" />
+          <EntitySet Name="SubCounties" EntityType="PHCModel.SubCounties" />
+          <EntitySet Name="Villages" EntityType="PHCModel.Villages" />
+          <EntitySet Name="Wards" EntityType="PHCModel.Wards" />
+          <AssociationSet Name="FK_Contacts_Patients" Association="PHCModel.FK_Contacts_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NextOfKins_Patients" Association="PHCModel.FK_NextOfKins_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="NextOfKins" EntitySet="NextOfKins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patients_Occupations" Association="PHCModel.FK_Patients_Occupations">
+            <End Role="Occupations" EntitySet="Occupations" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patients_Villages" Association="PHCModel.FK_Patients_Villages">
+            <End Role="Villages" EntitySet="Villages" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubCounties_Counties" Association="PHCModel.FK_SubCounties_Counties">
+            <End Role="Counties" EntitySet="Counties" />
+            <End Role="SubCounties" EntitySet="SubCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wards_SubCounties" Association="PHCModel.FK_Wards_SubCounties">
+            <End Role="SubCounties" EntitySet="SubCounties" />
+            <End Role="Wards" EntitySet="Wards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Villages_Wards" Association="PHCModel.FK_Villages_Wards">
+            <End Role="Wards" EntitySet="Wards" />
+            <End Role="Villages" EntitySet="Villages" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="AuditTrails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RecordTable" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RecordID" Type="Int32" Nullable="false" />
+          <Property Name="Record" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Actionby" Type="Int32" Nullable="false" />
+          <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Contacts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="Cellphone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cellphone2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Patients" Relationship="PHCModel.FK_Contacts_Patients" FromRole="Contacts" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="NextOfKins">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="OtherNames" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CellphoneNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Patients" Relationship="PHCModel.FK_NextOfKins_Patients" FromRole="NextOfKins" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="OtherNames" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="LocationID" Type="Int32" />
+          <Property Name="OccupationID" Type="Int32" />
+          <Property Name="EnrollmentDate" Type="DateTime" Precision="0" />
+          <Property Name="EnrollmentNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Contacts" Relationship="PHCModel.FK_Contacts_Patients" FromRole="Patients" ToRole="Contacts" />
+          <NavigationProperty Name="NextOfKins" Relationship="PHCModel.FK_NextOfKins_Patients" FromRole="Patients" ToRole="NextOfKins" />
+          <NavigationProperty Name="Occupations" Relationship="PHCModel.FK_Patients_Occupations" FromRole="Patients" ToRole="Occupations" />
+          <NavigationProperty Name="Villages" Relationship="PHCModel.FK_Patients_Villages" FromRole="Patients" ToRole="Villages" />
+        </EntityType>
+        <EntityType Name="Counties">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="County" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SubCounties" Relationship="PHCModel.FK_SubCounties_Counties" FromRole="Counties" ToRole="SubCounties" />
+        </EntityType>
+        <EntityType Name="Occupations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Occupation" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Patients" Relationship="PHCModel.FK_Patients_Occupations" FromRole="Occupations" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="SubCounties">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountyID" Type="Int32" Nullable="false" />
+          <Property Name="SubCounty" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Counties" Relationship="PHCModel.FK_SubCounties_Counties" FromRole="SubCounties" ToRole="Counties" />
+          <NavigationProperty Name="Wards" Relationship="PHCModel.FK_Wards_SubCounties" FromRole="SubCounties" ToRole="Wards" />
+        </EntityType>
+        <EntityType Name="Villages">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WardID" Type="Int32" Nullable="false" />
+          <Property Name="Village" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Patients" Relationship="PHCModel.FK_Patients_Villages" FromRole="Villages" ToRole="Patients" />
+          <NavigationProperty Name="Wards" Relationship="PHCModel.FK_Villages_Wards" FromRole="Villages" ToRole="Wards" />
+        </EntityType>
+        <EntityType Name="Wards">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubCountyID" Type="Int32" Nullable="false" />
+          <Property Name="Ward" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SubCounties" Relationship="PHCModel.FK_Wards_SubCounties" FromRole="Wards" ToRole="SubCounties" />
+          <NavigationProperty Name="Villages" Relationship="PHCModel.FK_Villages_Wards" FromRole="Wards" ToRole="Villages" />
+        </EntityType>
+        <Association Name="FK_Contacts_Patients">
+          <End Type="PHCModel.Patients" Role="Patients" Multiplicity="1" />
+          <End Type="PHCModel.Contacts" Role="Contacts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Contacts">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NextOfKins_Patients">
+          <End Type="PHCModel.Patients" Role="Patients" Multiplicity="1" />
+          <End Type="PHCModel.NextOfKins" Role="NextOfKins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NextOfKins">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patients_Occupations">
+          <End Type="PHCModel.Occupations" Role="Occupations" Multiplicity="0..1" />
+          <End Type="PHCModel.Patients" Role="Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Occupations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="OccupationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patients_Villages">
+          <End Type="PHCModel.Villages" Role="Villages" Multiplicity="0..1" />
+          <End Type="PHCModel.Patients" Role="Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Villages">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubCounties_Counties">
+          <End Type="PHCModel.Counties" Role="Counties" Multiplicity="1" />
+          <End Type="PHCModel.SubCounties" Role="SubCounties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Counties">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SubCounties">
+              <PropertyRef Name="CountyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wards_SubCounties">
+          <End Type="PHCModel.SubCounties" Role="SubCounties" Multiplicity="1" />
+          <End Type="PHCModel.Wards" Role="Wards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubCounties">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wards">
+              <PropertyRef Name="SubCountyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Villages_Wards">
+          <End Type="PHCModel.Wards" Role="Wards" Multiplicity="1" />
+          <End Type="PHCModel.Villages" Role="Villages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wards">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Villages">
+              <PropertyRef Name="WardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PHCModelStoreContainer" CdmEntityContainer="PHCEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PHCModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditTrails">
+            <EntityTypeMapping TypeName="PHCModel.AuditTrails">
+              <MappingFragment StoreEntitySet="AuditTrails">
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+                <ScalarProperty Name="Actionby" ColumnName="Actionby" />
+                <ScalarProperty Name="Record" ColumnName="Record" />
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+                <ScalarProperty Name="RecordTable" ColumnName="RecordTable" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="PHCModel.Contacts">
+              <MappingFragment StoreEntitySet="Contacts">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Cellphone2" ColumnName="Cellphone2" />
+                <ScalarProperty Name="Cellphone" ColumnName="Cellphone" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NextOfKins">
+            <EntityTypeMapping TypeName="PHCModel.NextOfKins">
+              <MappingFragment StoreEntitySet="NextOfKins">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CellphoneNumber" ColumnName="CellphoneNumber" />
+                <ScalarProperty Name="OtherNames" ColumnName="OtherNames" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="PHCModel.Patients">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="EnrollmentNumber" ColumnName="EnrollmentNumber" />
+                <ScalarProperty Name="EnrollmentDate" ColumnName="EnrollmentDate" />
+                <ScalarProperty Name="OccupationID" ColumnName="OccupationID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="OtherNames" ColumnName="OtherNames" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Counties">
+            <EntityTypeMapping TypeName="PHCModel.Counties">
+              <MappingFragment StoreEntitySet="Counties">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Occupations">
+            <EntityTypeMapping TypeName="PHCModel.Occupations">
+              <MappingFragment StoreEntitySet="Occupations">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubCounties">
+            <EntityTypeMapping TypeName="PHCModel.SubCounties">
+              <MappingFragment StoreEntitySet="SubCounties">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SubCounty" ColumnName="SubCounty" />
+                <ScalarProperty Name="CountyID" ColumnName="CountyID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Villages">
+            <EntityTypeMapping TypeName="PHCModel.Villages">
+              <MappingFragment StoreEntitySet="Villages">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Village" ColumnName="Village" />
+                <ScalarProperty Name="WardID" ColumnName="WardID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wards">
+            <EntityTypeMapping TypeName="PHCModel.Wards">
+              <MappingFragment StoreEntitySet="Wards">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="SubCountyID" ColumnName="SubCountyID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

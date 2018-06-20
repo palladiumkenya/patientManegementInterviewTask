@@ -1,0 +1,679 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<style>
+    #Edit-Occupationid {
+        width: 60%;
+    }
+
+    #Edit-Villageid {
+        width: 60%;
+    }
+    .tworowsstyle .jtable-input-field-container {
+        width: 600px !important;
+    }
+
+        .tworowsstyle .jtable-input-field-container .jtable-input-label {
+            width: 200px !important;
+            float: left !important;
+        }
+</style>
+<script type="text/javascript">
+    var RowNumber = 0;
+    $(document).ready(function () {
+       
+
+        patients();
+
+        
+        $('#Bttnfilter').click(function (e) {
+            e.preventDefault();
+            RowNumber = 0;
+            $('#patientscontainer').jtable('load', {
+                Name: $('#patientname').val(),
+              //  CellPhone: $('#cellphone').val(),
+                Enrollmentdate: $('#enrollmentdate').val(),
+                Enrollmentnumber: $('#enrollmentnumber').val(),
+                Type: $('#Type').val(),
+            });
+        });
+    });
+
+    function patients() {
+       
+        $('#patientscontainer').jtable({
+            title:'Patients list',           
+            paging: false,
+            sorting: false,
+            actions: {
+                listAction: '/Patients/List',
+               // createAction: '',
+                //updateAction: '',
+                deleteAction: '/Patients/Delete'
+            },
+            toolbar: {
+                hoverAnimation: false,
+                items: [{
+                    text: '<img src="../Scripts/jtable/themes/metro/add.png"></img> Add New Patient',
+                    click: function () {
+                        opendialog(0);
+                    }
+                }]
+            },          
+            //Columns definitions
+            fields: {
+                ID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                }, 
+                Rownumber: {
+                    title: '#',
+                    display: function () {
+                        RowNumber++;
+                        return RowNumber;
+                    }
+                },
+                Surname: {
+                    title: 'Name',
+                    create: false,
+                    edit: false,
+                },
+                Othernames: {
+                    title: 'Other Names',
+                    create: false,
+                    edit: false,
+                },
+                DOB: {
+                    title: 'Date of Birth',
+                    type: 'date',
+                    displayFormat: 'dd-MM-yy',
+                    create: false,
+                    edit: false,
+                },
+                Type: {
+                    title: 'Type',
+                    create: false,
+                    edit: false,
+                },
+            BttnView: {
+                title: '',
+                display: function (data) {
+                    var $view;
+                    if (data.record.Type=='Patient') {
+                        $view = $('<span class="fa fa-search fa-lg imgbutton" title="View"></span>');
+                        $view.click(function () {
+                            opendialog(data.record.ID);
+                        });
+                    }
+                    else
+                    {
+                        $view = $('<span class="fa fa-calendar fa-lg imgbutton" title="Patient"></span>');
+                        $view.click(function () {
+                            makepatient(data.record.ID);
+                        });
+                    }
+                    
+                    
+                    return $view;
+                }
+            }
+            },
+            rowInserted: function (event, data) {
+                if (data.record.Type == 'NoK') {
+                    $(data.row).find('.jtable-delete-command-button').remove();
+                }
+            },
+        });
+
+        $('#patientscontainer').jtable('load', {
+            Name: $('#patientname').val(),
+           // CellPhone: $('#cellphone').val(),
+            Enrollmentdate: $('#enrollmentdate').val(),
+            Enrollmentnumber: $('#enrollmentnumber').val(),
+            Type: $('#Type').val(),
+        });
+    };
+
+
+    function opendialog(id) {
+        var dialog = $('#addnew_dialog');
+        dialog.dialog({
+            width: $(document).width()-20,
+            height: 520,
+            position: 'center',
+            autoOpen: false,
+            modal: true,
+            title: 'New Patient',
+            resizable: false,
+            closeOnEscape: false,
+            open: function (event, ui) {
+               // $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+            }
+        });
+
+        $('#addnew_dialog').dialog('open');
+
+        patientbiodata(id);
+
+        patientlocation(id);
+
+        patientcontacts(id);
+
+        patientnok(id);
+    }
+
+    function makepatient(id) {
+        $.ajax({
+            async: false,
+            url: "/Patients/MakeNOKPatient",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({ "id": id }),
+            success: function (result) {
+                if (result.Result == 'OK') {
+                    $('#patientscontainer').jtable('load', {
+                        Name: $('#patientname').val(),
+                       // CellPhone: $('#cellphone').val(),
+                        Enrollmentdate: $('#enrollmentdate').val(),
+                        Enrollmentnumber: $('#enrollmentnumber').val(),
+                        Type: $('#Type').val(),
+                    });
+                    
+                }
+
+            },
+            error: function (xhr, status, error) {
+                notify('Error making nok patient', 'error');
+            },
+        });
+    }
+
+    function patientbiodata(id) {
+        $('#biocontainer').jtable({
+            title: 'Biodata',
+            paging: false,
+            sorting: false,
+            actions: {
+                listAction: '/Patients/Get',             
+                createAction: '/Patients/Create',
+                updateAction: '/Patients/Create',
+            },
+            messages: {
+                addNewRecord: 'Add Biodata'
+            },
+            //Columns definitions
+            fields: {
+                ID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Title: {
+                    title: 'Title',
+                    options: { '': '', 'Mr': 'Mr', 'Mrs': 'Mrs', 'Ms': 'Ms', 'Master': 'Master' },
+                    optionsSorting: 'value',
+                    width: '3%'
+                },
+                Surname: {
+                    title: 'Surname',
+                    inputClass: 'validate[required]',
+                    width: '5%'
+                },
+                Othernames: {
+                    title: 'Other Names',
+                    inputClass: 'validate[required]'
+                },
+                Gender: {
+                    title: 'Gender',
+                    options: { '': '', 'M': 'Male', 'F': 'Female' },
+                    inputClass: 'validate[required]',
+                    optionsSorting: 'value',
+                    width: '5%'
+                },
+                DOB: {
+                    title: 'Date of Birth',
+                    type: 'date',
+                    displayFormat: 'dd-MM-yy',
+                    inputClass: 'validate[required]'
+                },             
+                Occupationid: {
+                    title: 'Occupation',
+                    options: '/Occupations/Getoptions',
+                    inputClass: 'validate[required]'
+                },
+                Occupation: {
+                    title: 'Occupation',
+                    type: 'hidden'
+                },
+                Enrollmentdate: {
+                    title: 'Enrollment Date',
+                    type: 'date',
+                    displayFormat: 'dd-MM-yy',
+                    inputClass: 'validate[required]'
+                },
+                Enrollmentnumber: {
+                    title: 'Enrollment No.',
+                    inputClass: 'validate[required]'
+                },
+            },
+            recordsLoaded: function (event, data) {               
+                if (data.serverResponse.TotalRecordCount > 0) {
+                    $('#biocontainer .jtable-toolbar').hide();
+                }
+                else
+                {
+                    $('#biocontainer .jtable-toolbar').show();
+                }
+
+            },
+            formCreated: function (event, data) {
+                data.form.addClass("tworowsstyle");
+                //data.form.css('width', '350px');
+                data.form.css('height', '450px');
+                
+                $("#Edit-Occupationid").html('');
+                if (data.formType=="edit" && data.record.Occupationid!=0) {
+                    $('#Edit-Occupationid').html('').select2({ data: [{ id: data.record.Occupationid, text: data.record.Occupation }] });
+                }
+               
+                //load occupations
+                $("#Edit-Occupationid").select2({
+                    placeholder: 'Type Occupation',
+                    dropdownParent: $('#' + data.form[0].id),
+                    tags: true,
+                    delay: 0,
+                    allowClear: true,
+                    minimumResultsForSearch: Infinity,
+                    ajax: {
+                        type: "GET",
+                        contentType: "application/json; charset=utf-8",
+                        cache: false,
+                        dataType: 'json',
+                        url: "/Occupations/GetOccupation_Search",
+                        data: function (term, page) {
+                            return {
+                                searchTerm: term.term
+                            };
+                        },
+                        results: function (data, page) {
+                            return { results: data };
+                        },
+                        processResults: function (data, page) {
+                            return {
+                                results: data.searchresults
+                            };
+                        },
+                    },
+                    minimumInputLength: 1,
+                });
+            },
+            formSubmitting: function (event, data) {                                
+                if (isNaN($('#Edit-Occupationid').val())) {
+                    $('#Edit-Occupation').val($('#Edit-Occupationid').val());
+                }
+                return data.form.validationEngine('validate');
+            }
+
+        });
+
+        $('#biocontainer').jtable('load', {
+            ID: id
+        });
+    }
+
+    function patientlocation(id) {
+        $('#locationcontainer').jtable({
+            title: 'Location',
+            paging: false,
+            sorting: false,
+            actions: {
+                listAction: '/Patients/GetPatientVillage',
+                createAction: '/Patients/AddPatientVillage',
+                updateAction: '/Patients/UpdatePatientVillage',
+            },
+            messages: {
+                addNewRecord: 'Add Location'
+            },
+            //Columns definitions
+            fields: {
+                ID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Countyid: {
+                    title: 'County',
+                    options: '/Counties/Getoptions',
+                    inputClass: 'validate[required]'
+                },
+                Subcountyid: {
+                    title: 'Subcounty',
+                    dependsOn: 'Countyid',
+                    options: function (data) {                       
+                        return '/Subcounties/Getoptions?countyid=' + data.dependedValues.Countyid;
+                    },
+                    inputClass: 'validate[required]'
+                },                
+                Wardid: {
+                    title: 'Ward',
+                    dependsOn: 'Subcountyid',
+                    options: function (data) {
+                        return '/Wards/Getoptions?subcountyid=' + data.dependedValues.Subcountyid;
+                    },                   
+                    inputClass: 'validate[required]'
+                },
+                Villageid: {
+                    title: 'Village',
+                   // options: {},
+                    dependsOn: 'Wardid',
+                    options: function (data) {
+                        if (data.source=='list') {
+                            return '/Villages/Getoptions?wardid=' + data.dependedValues.Wardid;
+                        }
+                       
+                    }, 
+                    inputClass: 'validate[required]'
+                },
+                Village: {
+                    title: 'Village',
+                    type: 'hidden'
+                },
+                Patientid: {
+                    title: 'Patientid',
+                    type: 'hidden',
+                    defaultValue: function() {
+                        return id;
+                    }
+                    
+                },
+            },
+            recordsLoaded: function (event, data) {
+                if (data.serverResponse.TotalRecordCount > 0) {
+                    $('#locationcontainer .jtable-toolbar').hide();
+                }
+                else {
+                    $('#locationcontainer .jtable-toolbar').show();
+                }
+
+            },
+            formCreated: function (event, data) {
+                data.form.addClass("tworowsstyle");
+                //data.form.css('width', '350px');
+                data.form.css('height', '250px');
+
+                $("#Edit-Villageid").html('');
+                if (data.formType == "edit" && data.record.Villageid != 0) {
+                    $('#Edit-Villageid').html('').select2({ data: [{ id: data.record.Villageid, text: data.record.Village }] });
+                }
+
+                //load occupations
+                $("#Edit-Villageid").select2({
+                    placeholder: 'Type Village',
+                    dropdownParent: $('#' + data.form[0].id),
+                    tags: true,
+                    delay: 0,
+                    allowClear: true,
+                    minimumResultsForSearch: Infinity,
+                    ajax: {
+                        type: "GET",
+                        contentType: "application/json; charset=utf-8",
+                        cache: false,
+                        dataType: 'json',
+                        url: "/Villages/GetVillage_Search",
+                        data: function (term, page) {
+                            return {
+                                searchTerm: term.term, wardid: $("#Edit-Wardid").val()
+                            };
+                        },
+                        results: function (data, page) {
+                            return { results: data };
+                        },
+                        processResults: function (data, page) {
+                            return {
+                                results: data.searchresults
+                            };
+                        },
+                    },
+                    minimumInputLength: 1,
+                });
+            },
+            formSubmitting: function (event, data) {
+                if (isNaN($('#Edit-Villageid').val())) {
+                    $('#Edit-Village').val($('#Edit-Villageid').val());
+                }
+                return data.form.validationEngine('validate');
+            }
+
+        });
+
+        $('#locationcontainer').jtable('load', {
+            ID: id
+        });
+    }
+
+    function patientcontacts(id) {
+        $('#contactscontainer').jtable({
+            title: 'Contacts',
+            paging: false,
+            sorting: false,
+            actions: {
+                listAction: '/Patients/GetPatientContacts',
+                createAction: '/Patients/UpdatePatientContacts',
+                updateAction: '/Patients/UpdatePatientContacts',
+            },
+            messages: {
+                addNewRecord: 'Add Contacts'
+            },
+            //Columns definitions
+            fields: {
+                ID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Cellphone: {
+                    title: 'Cell Phone',
+                    inputClass: 'validate[required]'
+                },
+                Cellphone2: {
+                    title: 'Cell Phone 2',
+                },
+                Email: {
+                    title: 'Email',
+                },
+            Patientid: {
+                title: 'Patientid',
+                type: 'hidden',
+                defaultValue: function () {
+                    return id;
+                }
+
+            },
+            },
+            recordsLoaded: function (event, data) {
+                if (data.serverResponse.TotalRecordCount > 0) {
+                    $('#contactscontainer .jtable-toolbar').hide();
+                }
+                else {
+                    $('#contactscontainer .jtable-toolbar').show();
+                }
+
+            },
+            formCreated: function (event, data) {
+                data.form.addClass("tworowsstyle");
+                //data.form.css('width', '350px');
+                data.form.css('height', '250px');              
+            },
+            formSubmitting: function (event, data) {                
+                return data.form.validationEngine('validate');
+            }
+
+        });
+
+        $('#contactscontainer').jtable('load', {
+            ID: id
+        });
+    }
+
+    function patientnok(id) {
+        $('#nokcontainer').jtable({
+            title: 'Next of Kin',
+            paging: false,
+            sorting: false,
+            actions: {
+                listAction: '/Nok/List',
+                createAction: '/Nok/Create',
+                updateAction: '/Nok/Update',
+                deleteAction: '/Nok/Delete'
+            },
+            messages: {
+                addNewRecord: 'Add NoK'
+            },
+            //Columns definitions
+            fields: {
+                ID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Surname: {
+                    title: 'Surname',
+                    inputClass: 'validate[required]'
+                },
+                Othernames: {
+                    title: 'Othernames',
+                    inputClass: 'validate[required]'
+                },
+                Cellphone: {
+                    title: 'Cell Phone',
+                    inputClass: 'validate[required]'
+                },
+                Email: {
+                    title: 'Email',
+                },
+                Patientid: {
+                    title: 'Patientid',
+                    type: 'hidden',
+                    defaultValue: function () {
+                        return id;
+                    }
+
+                },
+            },
+            recordsLoaded: function (event, data) {
+                //if (data.serverResponse.TotalRecordCount > 0) {
+                //    $('#contactscontainer .jtable-toolbar').hide();
+                //}
+                //else {
+                //    $('#contactscontainer .jtable-toolbar').show();
+                //}
+
+            },
+            formCreated: function (event, data) {
+                data.form.addClass("tworowsstyle");
+                //data.form.css('width', '350px');
+                data.form.css('height', '250px');
+            },
+            formSubmitting: function (event, data) {
+                return data.form.validationEngine('validate');
+            }
+
+        });
+
+        $('#nokcontainer').jtable('load', {
+            ID: id
+        });
+    }
+
+    function closepatientdialog() {
+        $('#addnew_dialog').dialog("close");
+    }
+</script>
+
+<div id="pagecontainer">
+    <div id="filter" style="padding-bottom:20px">
+
+        <div class="row">
+            <div class="col-xs-2 filterlabels">
+                <label for="patientname">Patient's Name:</label>
+            </div>
+
+            <div class="col-xs-2">
+                <input id="patientname" type="text" />
+            </div>
+
+            <div class="col-xs-2 dividerpadding"> </div>
+
+            <div class="col-xs-2 filterlabels">
+                <label for="cellphone"> Type:</label>
+            </div>
+
+            <div class="col-xs-2">
+                @*<input id="cellphone" type="text" />*@
+                <select id="Type" name="status">
+                    <option value="0">All</option>
+                    <option value="1">Patient</option>
+                    <option value="2">NOK</option>
+                </select>
+            </div>
+
+            <div class="col-xs-2 rightpadding"> </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-2 filterlabels">
+                <label for="enrollmentdate"> Enrollment Date:</label>
+            </div>
+
+            <div class="col-xs-2">
+                <input id="enrollmentdate" type="date" />
+            </div>
+
+            <div class="col-xs-2 dividerpadding"> </div>
+
+            <div class="col-xs-2 filterlabels">
+                <label for="enrollmentnumber"> Enrollment Number:</label>
+            </div>
+
+            <div class="col-xs-2">
+                <input id="enrollmentnumber" type="text" />
+            </div>
+            <div class="col-xs-2 rightpadding"> </div>
+        </div>       
+
+        <div class="row" style="text-align:center;padding-top:10px">
+            <input id="Bttnfilter" type="button" value="Search" style="width:120px" />
+        </div>
+    </div>
+
+    <div id="patientscontainer">
+    </div>
+
+
+    <div id="addnew_dialog" class="form-horizontal" style="display: none;">
+        <div id="biocontainer">
+        </div>
+        <div id="locationcontainer">
+        </div>
+        <div id="contactscontainer">
+        </div>
+        <div id="nokcontainer">
+        </div>
+
+        <div class="row" style="text-align:center;padding-top:10px">
+            <input id="Bttnclose" type="button" value="Close" onclick="closepatientdialog()" style="width:120px" />
+        </div>
+    </div>
+</div>
+

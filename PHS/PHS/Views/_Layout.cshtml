@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+
+<style>
+    html {
+        height: 100%;
+    }
+
+    .ui-dialog {
+        z-index: 9000 !important;
+    }
+
+
+    #pagecontainer {
+        padding-bottom: 20px;
+    }
+</style>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Palladium Health Centre</title>
+
+    <!-- #region jquery -->
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <!-- #endregion -->
+    <!-- #region bootstrap -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- #endregion -->
+    <!-- #region fontawesome -->
+    <link href="~/Content/font-awesome.css" rel="stylesheet">
+    <!-- #endregion -->
+    <!-- #region Layout -->
+    <link href="~/Content/animate.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/Layout.css" rel="stylesheet" type="text/css">
+    <script src="~/Scripts/jquery.metisMenu.js"></script>
+    <script src="~/Scripts/jquery.slimscroll.min.js"></script>
+    <!-- #endregion -->
+
+    <!-- #region jTables -->
+    <link href="~/Scripts/jtable/themes/jqueryui/jtable_jqueryui.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jtable/themes/metro/blue/jtable.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="~/Scripts/jtable/jquery.jtable.js"></script>
+    <!-- #endregion -->
+    <!-- #region jqueryvalidationengine -->
+    <link href="/Content/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/Scripts/jquery.validationEngine.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.validationEngine-en.js"></script>
+    <!-- #endregion -->
+    <!-- #region toastr -->
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <script src="~/Scripts/toastr.js"></script>
+    <!-- #endregion -->
+    <!-- #region Select2 -->
+    <link href="~/Content/css/select2.min.css" rel="stylesheet" />
+    <script src="~/Scripts/select2.min.js"></script>
+    <!-- #endregion -->
+</head>
+<body>
+    @*<div id="wrapper">
+            @RenderBody()
+        </div>*@
+
+    <div id="wrapper">
+
+        <!-- #region leftsidemenu -->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <span>
+                            </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                                    <span class="block m-t-xs">
+                                        <strong class="font-bold">Admin</strong>
+                                    </span>
+                                </span>
+                            </a>
+
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="/Home/Index"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
+                    </li>
+
+
+                    <li>
+                        <a href="#"><i class="fa fa-gavel"></i> <span class="nav-label">Registry</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="/Patients/Index">Patients</a></li>
+                        </ul>
+                    </li>
+                    <li id="administration">
+                        @*class="active"*@
+                        <a href="index.html"><i class="fa fa-users"></i> <span class="nav-label">Audit Trail</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="/AuditTrails/Index">Deleted Patient</a></li>                           
+                        </ul>
+                    </li>
+                    @*<li id="administration">
+                        <a href="index.html"><i class="fa fa-gear"></i> <span class="nav-label">Configuration</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="/CaseCategoriesStageTypes/Index">Case Categories Stage Types</a></li>
+                            <li><a href="/StageTypesSittingResults/Index">Stage Types Sitting Results</a></li>
+                        </ul>
+                    </li>*@
+                    <li>
+                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Lookups</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="/Occupations/Index">Occupations</a></li>
+                            <li><a href="/Counties/Index">Counties</a></li>
+                            <li><a href="/Subcounties/Index">Subcounties</a></li>
+                            <li><a href="/Wards/Index">Wards</a></li>
+                            <li><a href="/Villages/Index">Villages</a></li>                           
+                        </ul>
+                    </li>
+                    <li id="reports">
+                        <a href="index.html"><i class="fa fa-file"></i> <span class="nav-label">Reports</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="/Patients/AgeSearch">Patients Age Report</a></li>
+                            <li><a href="/Patients/PatientsNoK">Patients NOK</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- #endregion -->
+
+        <div id="page-wrapper" class="white-bg dashbard-1">
+
+            <!-- #region Topmenu -->
+            <div class="row border-bottom gray-bg">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header row col-xs-12">
+                        <div class="col-xs-4">
+                            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <img src="~/Content/Images/Logo.png" />
+                        </div>
+
+                        <div class="col-xs-4">
+                            <ul class="navbar-top-links navbar-right">
+
+                                <li class="dropdown user user-menu">
+                                    <a href="#" class="icons dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-user fa-2x pull-left" aria-hidden="true"><span class="caret"></span></i>
+                                        <span id="username" class="hidden-xs pull-right"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="user-header">
+                                            <a href="/Login/Changepassword"><i class="fa fa-key"></i> <span class="nav-label">Change Password</span></a>
+                                        </li>
+                                        <li class="user-header">
+                                            <a href="/Login/Logout"><i class="fa fa-sign-out"></i> <span class="nav-label">Log out</span></a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+
+
+
+                </nav>
+            </div>
+            <!-- #endregion -->
+            <!-- #region Renderedbody -->
+            <div class="row white-bg dashboard-header">
+                <div class="col-lg-12">
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- #endregion -->
+            <!-- #region footer -->
+            <div class="footer navbar-fixed-bottom gray-bg">
+                <div class="col-lg-12">
+                    <div class="pull-right">
+                        <strong>Palladium Health Centre</strong>
+                    </div>
+                    <div>
+                        <strong>Copyright</strong> The Palladium Group &copy; 2018-2019
+                    </div>
+                </div>
+
+            </div>
+            <!-- #endregion -->
+
+        </div>
+
+    </div>
+
+    <script src="~/Scripts/layout.js"></script>
+</body>
+</html>

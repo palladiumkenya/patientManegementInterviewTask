@@ -1,0 +1,189 @@
+﻿
+@{
+    ViewBag.Title = "PatientsNoK";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var RowNumber = 0;
+    $(document).ready(function () {
+
+
+        patients();
+
+
+        $('#Bttnfilter').click(function (e) {
+            e.preventDefault();
+            RowNumber = 0;
+            $('#patientscontainer').jtable('load', {
+                Name: $('#patientname').val(),
+                Enrollmentdate: $('#enrollmentdate').val(),
+                Enrollmentnumber: $('#enrollmentnumber').val(),
+                Type: '1',
+            });
+        });
+    });
+
+    function patients() {
+
+        $('#patientscontainer').jtable({
+            title: 'Patients list',
+            paging: false,
+            sorting: false,
+            actions: {
+                listAction: '/Patients/List',
+            },
+            //Columns definitions
+            fields: {
+                ID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                Rownumber: {
+                    title: '#',
+                    display: function () {
+                        RowNumber++;
+                        return RowNumber;
+                    }
+                },
+                Surname: {
+                    title: 'Name',
+                    create: false,
+                    edit: false,
+                },
+                Othernames: {
+                    title: 'Other Names',
+                    create: false,
+                    edit: false,
+                },
+                //CHILD TABLE DEFINITION FOR "PHONE NUMBERS"
+                Nok: {
+                    title: '',
+                    width: '5%',
+                    sorting: false,
+                    edit: false,
+                    create: false,
+                    display: function (patientData) {
+                        //Create an image that will be used to open child table
+                        var $img = $('<span class="fa fa-angle-double-down fa-lg"></span>');
+                        //Open child table when user clicks the image
+                        $img.click(function () {
+                            $('#patientscontainer').jtable('openChildTable',
+                                $img.closest('tr'),
+                                {
+                                    title: patientData.record.Othernames + ' - Next of Kins',
+                                    actions: {
+                                        listAction: '/Nok/List?ID=' + patientData.record.ID,                                       
+                                    },
+                                    fields: {
+                                        Patientid: {
+                                            type: 'hidden',
+                                            defaultValue: patientData.record.ID
+                                        },
+                                        ID: {
+                                            key: true,
+                                            create: false,
+                                            edit: false,
+                                            list: false
+                                        },
+                                        Surname: {
+                                            title: 'Surname',                                           
+                                        },
+                                        Othernames: {
+                                            title: 'Othernames'
+                                        },
+                                        Cellphone: {
+                                            title: 'Cellphone',                                            
+                                        },
+                                        Email: {
+                                            title: 'Email',
+                                        }
+                                    }
+                                }, function (data) { //opened handler
+                                    data.childTable.jtable('load');
+                                });
+                        });
+                        //Return image to show on the person row
+                        return $img;
+                    }
+                },
+               
+            },
+        });
+
+        $('#patientscontainer').jtable('load', {
+            Name: $('#patientname').val(),
+            // CellPhone: $('#cellphone').val(),
+            Enrollmentdate: $('#enrollmentdate').val(),
+            Enrollmentnumber: $('#enrollmentnumber').val(),
+            Type: $('#Type').val(),
+        });
+    };
+           
+   
+</script>
+
+
+<div id="pagecontainer">
+    <div id="filter" style="padding-bottom:20px">
+
+        <div class="row">
+            <div class="col-xs-2 filterlabels">
+                <label for="patientname">Patient's Name:</label>
+            </div>
+
+            <div class="col-xs-2">
+                <input id="patientname" type="text" />
+            </div>
+
+            <div class="col-xs-2 dividerpadding"> </div>
+
+            <div class="col-xs-2 filterlabels">
+                @*<label for="cellphone"> Type:</label>*@
+            </div>
+
+            <div class="col-xs-2">
+                @*<select id="Type" name="status">
+                    <option value="0">All</option>
+                    <option value="1">Patient</option>
+                    <option value="2">NOK</option>
+                </select>*@
+            </div>
+
+            <div class="col-xs-2 rightpadding"> </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-2 filterlabels">
+                <label for="enrollmentdate"> Enrollment Date:</label>
+            </div>
+
+            <div class="col-xs-2">
+                <input id="enrollmentdate" type="date" />
+            </div>
+
+            <div class="col-xs-2 dividerpadding"> </div>
+
+            <div class="col-xs-2 filterlabels">
+                <label for="enrollmentnumber"> Enrollment Number:</label>
+            </div>
+
+            <div class="col-xs-2">
+                <input id="enrollmentnumber" type="text" />
+            </div>
+            <div class="col-xs-2 rightpadding"> </div>
+        </div>
+
+        <div class="row" style="text-align:center;padding-top:10px">
+            <input id="Bttnfilter" type="button" value="Search" style="width:120px" />
+        </div>
+    </div>
+
+    <div id="patientscontainer">
+    </div>
+    
+</div>
+
