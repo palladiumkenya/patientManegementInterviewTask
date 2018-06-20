@@ -7,12 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHS", "PHS\PHS.csproj", "{2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{7874BB35-763C-476B-8DC2-574878B64CA2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{963B1D2B-537B-4DB4-90C5-94EE57E85397}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\Users\bmacharia\Desktop\Benter\db.sql = ..\..\..\Users\bmacharia\Desktop\Benter\db.sql
-		..\..\..\Users\bmacharia\Desktop\Benter\PHCDocumentation.docx = ..\..\..\Users\bmacharia\Desktop\Benter\PHCDocumentation.docx
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
