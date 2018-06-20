@@ -36,7 +36,6 @@ app.get('/add', function(req, res, next){
         Height: '',
         Weight: '',
         UserType: '',
-        DateEnrolled: '',
         Address: '',
         PhoneNumber: '',
         AltPhone: '',
@@ -52,30 +51,29 @@ app.get('/add', function(req, res, next){
     })
 })
 app.post('/add', function(req, res, next){    
-    req.assert('UserID', 'Empty field detected').notEmpty() 
-    req.assert('FirstName', 'Empty field detected').notEmpty()          
-    req.assert('LastName', 'Empty field detected').notEmpty() 
-    req.assert('MiddleName', 'Empty field detected').notEmpty() 
-    req.assert('DateOfBirth', 'Empty field detected').notEmpty() 
-    req.assert('Gender', 'Empty field detected').notEmpty()
-    req.assert('Age', 'Empty field detected').notEmpty()  
-    req.assert('MaritalStatus', 'Empty field detected').notEmpty() 
-    req.assert('Height', 'Empty field detected').notEmpty()  
-    req.assert('Weight', 'Empty field detected').notEmpty()
-    req.assert('UserType', 'Empty field detected').notEmpty()
-    req.assert('DateEnrolled', 'Empty field detected').notEmpty()  
-    req.assert('Address', 'Empty field detected').notEmpty()    
-    req.assert('PhoneNumber', 'Empty field detected').notEmpty()
-    req.assert('AltPhone', 'Empty field detected').notEmpty()          
-    req.assert('Email', 'valid email is required').isEmail() 
-    req.assert('County', 'Empty field detected').notEmpty()          
-    req.assert('SubCounty', 'Empty field detected').notEmpty()
-    req.assert('Ward', 'Empty field detected').notEmpty() 
-    req.assert('Village', 'Empty field detected').notEmpty()                
-    req.assert('NokName', 'Empty field detected').notEmpty()          
-    req.assert('NokEmail', 'valid email is required').isEmail() 
-    req.assert('NokAddress', 'Empty field detected').notEmpty()          
-    req.assert('Relationship', 'Empty field detected').notEmpty()  
+    req.assert('UserID', 'User ID required').notEmpty() 
+    req.assert('FirstName', 'First name required').notEmpty()          
+    req.assert('LastName', 'Last name required').notEmpty() 
+    req.assert('MiddleName', 'middle name required').notEmpty() 
+    req.assert('DateOfBirth', 'DOB required').notEmpty() 
+    req.assert('Gender', 'Gender required').notEmpty()
+    req.assert('Age', 'Age required').notEmpty()  
+    req.assert('MaritalStatus', 'Status required').notEmpty() 
+    req.assert('Height', 'Health required').notEmpty()  
+    req.assert('Weight', 'Weight required').notEmpty()
+    req.assert('UserType', 'User type required').notEmpty()
+    req.assert('Address', 'Address required').notEmpty()    
+    req.assert('PhoneNumber', 'Tel required').notEmpty()
+    req.assert('AltPhone', 'Phone2 required').notEmpty()          
+    req.assert('Email', 'Email valid email is required').isEmail() 
+    req.assert('County', 'County required').notEmpty()          
+    req.assert('SubCounty', 'Subcounty required').notEmpty()
+    req.assert('Ward', 'Ward required').notEmpty() 
+    req.assert('Village', 'Village required').notEmpty()                
+    req.assert('NokName', 'Next of kin name required').notEmpty()          
+    req.assert('NokEmail', 'Next of kin email is required').isEmail() 
+    req.assert('NokAddress', 'Next of kin address required').notEmpty()          
+    req.assert('Relationship', 'Relationship required').notEmpty()  
     var errors = req.validationErrors()
     if( !errors ) {   
         //secure user input
@@ -90,8 +88,8 @@ app.post('/add', function(req, res, next){
             MaritalStatus: req.sanitize('MaritalStatus').escape().trim(),
             Height: req.sanitize('Height').escape().trim(),
             Weight: req.sanitize('Weight').escape().trim(),
-            UserType: req.sanitize('UserType').escape().trim(),
-            DateEnrolled: req.sanitize('DateEnrolled').escape().trim()
+            UserType: req.sanitize('UserType').escape().trim()
+            // DateEnrolled: req.sanitize('DateEnrolled').escape
         }
         var contact = {
             UserID: req.sanitize('UserID').escape().trim(),
@@ -152,6 +150,39 @@ app.post('/add', function(req, res, next){
                         DateEnrolled:''                       
                     })
                 }
+            }),
+            //add contact info
+            conn.query('INSERT INTO `palladium_contact_information` SET ?', contact, function(err, result) {
+                if (err) {
+                    req.flash('error', err)
+                    
+                    // show form with user input
+                    res.render('user/add', {
+                        title: 'Enroll New User/Patient',
+                        Address: contact.Address,
+                        PhoneNumber: contact.PhoneNumber,
+                        AltPhone: contact.AltPhone,
+                        Email: contact.Email,
+                        County: contact.County,
+                        SubCounty: contact.SubCounty,
+                        Ward: contact.Ward,
+                        Village: contact.Village
+                    })
+                } else {                
+                    req.flash('success', 'Added successfully!')
+                    // show form for another entry
+                    res.render('user/add', {
+                        title: 'Enroll New User/Patient',
+                        Address: '',
+                        PhoneNumber: '',
+                        AltPhone: '', 
+                        Email: '', 
+                        County: '', 
+                        SubCounty: '', 
+                        Ward: '', 
+                        Village: ''                     
+                    })
+                }
             })
         })
     }
@@ -163,10 +194,31 @@ app.post('/add', function(req, res, next){
         req.flash('error', error_msg)        
         
         res.render('user/add', { 
-            title: 'Add New User',
-            name: req.body.name,
-            age: req.body.age,
-            email: req.body.email
+            title: 'Enroll New User/Patient',
+            UserID: req.body.UserID,
+            FirstName: req.body.FirstName,
+            LastName: req.body.LastName,
+            MiddleName: req.body.MiddleName,
+            DateOfBirth: req.body.DateOfBirth,
+            Gender: req.body.Gender,
+            Age: req.body.Age,
+            MaritalStatus: req.body.MaritalStatus,
+            Height: req.body.Height,
+            Weight: req.body.Weight,
+            UserType: req.body.UserType,
+            Address: req.body.Address,
+            PhoneNumber: req.body.PhoneNumber,
+            AltPhone: req.body.AltPhone,
+            Email: req.body.Email,
+            County: req.body.County,
+            SubCounty: req.body.SubCounty,
+            Ward: req.body.Ward,
+            Village: req.body.Village,
+            NokName: req.body.NokName,
+            NokEmail: req.body.NokEmail,
+            NokAddress: req.body.NokAddress,
+            Relationship: req.body.Relationship
+
         })
     }
 })

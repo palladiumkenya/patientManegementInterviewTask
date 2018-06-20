@@ -24,27 +24,172 @@
                         </div>
                     </div>
                     <div class="hold" style ="width: 98%;overflow-x: auto;white-space: nowrap;">
-                            <form action="/patients/add" method="post" name="add-new-user">
-                                <table width="25%" border="0">
-                                    <tr> 
-                                        <td>First Name</td>
-                                        <td><input type="text" name="fname" id="fname" value="<%= fname %>" /></td>
-                                    </tr>
-                                    <tr> 
-                                        <td>Age</td>
-                                        <td><input type="text" name="age" value="<%= age %>" /></td>
-                                    </tr>
-                                    <tr> 
-                                        <td>Email</td>
-                                        <td><input type="text" name="email" value="<%= email %>" /></td>
-                                    </tr>
-                                    <tr> 
-                                        <td></td>
-                                        <td><input type="submit" name="Submit" value="Add" /></td>
-                                    </tr>
-                                </table>
-                            </form>
+                        <div class="stepwizard">
+                            <div class="stepwizard-row setup-panel">
+                                <div class="stepwizard-step col-xs-4"> 
+                                    <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>
+                                    <p><small>Bio Information</small></p>
+                                </div>
+                                <div class="stepwizard-step col-xs-4"> 
+                                    <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                                    <p><small>Contact Information</small></p>
+                                </div>
+                                <div class="stepwizard-step col-xs-4"> 
+                                    <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                                    <p><small>Next of Kin</small></p>
+                                </div>
                             </div>
+                        </div>
+                        <form role="form" class="" action="/patients/add" method="post" name="add">
+                            <div class="panel panel-primary setup-content" id="step-1">
+                                <div class="panel-heading">
+                                     <h3 class="panel-title">Bio Information</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                        <div class="form-group">
+                                                <input type="text" required="required" class="form-control" name="UserID" id="UserID" value="<%= UserID %>" />
+                                            <label class="control-label">First Name</label>
+                                            <input maxlength="100" type="text" required="required" class="form-control" name="FirstName" id="FirstName" value="<%= FirstName %>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Last Name</label>
+                                            <input maxlength="100" type="text" required="required" class="form-control" name="LastName" id="LastName" value="<%= LastName %>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Middle Name</label>
+                                            <input maxlength="100" type="text" required="required" class="form-control" name="MiddleName" id="MiddleName" value="<%= MiddleName %>" />
+                                        </div>
+                                        <div class="form-group">
+                                                <label class="control-label">Date Of Birth</label>
+                                                <input maxlength="100" type="date" required="required" class="form-control" name="DateOfBirth" id="DateOfBirth" value="<%= DateOfBirth %>" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Gender</label>
+                                                <select class="form-control" name="Gender" id="Gender" >
+                                                    <option>Female</option>
+                                                    <option>Male</option>
+                                                </select>
+                                            </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Age</label>
+                                                <input maxlength="100" type="number" required="required" class="form-control" name="Age" id="Age" value="<%= Age %>" />
+                                            </div>
+                                            <div class="form-group">
+                                                    <label class="control-label">Marital Status</label>
+                                                    <select class="form-control" name="MaritalStatus" id="MaritalStatus" >
+                                                            <option>Married</option>
+                                                            <option>Single</option>
+                                                            <option>Divorced</option>
+                                                            <option>Other</option>
+                                                    </select>
+                                            </div>
+                                            <div class="form-group">
+                                                    <label class="control-label">Height</label>
+                                                    <input maxlength="100" type="text" required="required" class="form-control" name="Height" id="Height" value="<%= Height %>" />
+                                            </div>
+                                            <div class="form-group">
+                                                    <label class="control-label">Weight</label>
+                                                    <input maxlength="100" type="text" required="required" class="form-control" name="Weight" id="Weight" value="<%= Weight %>" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">User type</label>
+                                                <select class="form-control" name="UserType" id="UserType" >
+                                                        <option value="1">Patient</option>
+                                                        <option value="2">Admin</option>
+                                                        <option value="3">User</option>
+                                                        <option value="4">Guest</option>
+                                                </select>
+                                            </div>
+                                    </div>
+                                    </div>
+                                    <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+                                </div>
+                            </div>
+                            
+                            <div class="panel panel-primary setup-content" id="step-2">
+                                <div class="panel-heading">
+                                     <h3 class="panel-title">Contact Information</h3>
+                                </div>
+                                <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Physical Address</label>
+                                                <input maxlength="300" type="text" required="required" class="form-control" name="Address" id="Address" value="<%= Address %>" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Phone Number</label>
+                                                <input maxlength="100" type="text" required="required" class="form-control" name="PhoneNumber" id="PhoneNumber" value="<%= PhoneNumber %>" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Alternative Phone</label>
+                                                <input maxlength="100" type="text" required="required" class="form-control" name="AltPhone" id="AltPhone" value="<%= AltPhone %>" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Email</label>
+                                                <input maxlength="100" type="text" required="required" class="form-control" name="Email" id="Email" value="<%= Email %>" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">County</label>
+                                                <input maxlength="100" type="text" required="required" class="form-control" name="County" id="County" value="<%= County %>" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Sub County</label>
+                                                <input maxlength="100" type="text" required="required" class="form-control" name="SubCounty" id="SubCounty" value="<%= SubCounty %>" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Ward</label>
+                                                <input maxlength="100" type="text" required="required" class="form-control" name="Ward" id="Ward" value="<%= Ward %>" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Village</label>
+                                                <input maxlength="100" type="text" required="required" class="form-control" name="Village" id="Village" value="<%= Village %>" />
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+                                </div>
+                            </div>
+                            
+                            <div class="panel panel-primary setup-content" id="step-3">
+                                <div class="panel-heading">
+                                     <h3 class="panel-title">Next of Kin</h3>
+                                </div>
+                                <div class="panel-body">
+                                        <div class="row">
+                                                <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Full Name</label>
+                                                    <input maxlength="300" type="text" required="required" class="form-control" name="NokName" id="NokName" value="<%= NokName %>" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Usable Email Address</label>
+                                                    <input maxlength="100" type="text" required="required" class="form-control" name="NokEmail" id="NokEmail" value="<%= NokEmail %>" />
+                                                </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Physical Address</label>
+                                                    <input maxlength="100" type="text" required="required" class="form-control" name="NokAddress" id="NokAddress" value="<%= NokAddress %>" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Relationship to User</label>
+                                                    <input maxlength="100" type="text" required="required" class="form-control" name="Relationship" id="Relationship" value="<%= Relationship %>" />
+                                                </div>
+                                                </div>
+                                    <button class="btn btn-success pull-right" type="submit" name="Submit">Create</button>
+                                </div>
+                            </div>
+                        </form> 
+                        <hr>
+                        <a href="" class="btn btn-success btn-lg btn-block" role="button"><span class="glyphicon glyphicon-globe"></span> CopyRight @ 2018</a>
+                    </div>
                 </div>
             </div>
         </div>
