@@ -24,15 +24,20 @@ namespace Palladium.HealthCentre.Models
             }
         }
 
-        public List<Location> GetAll(long parentId = -1)
+        public List<Location> GetAll(long id = -1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Location> GetByBioDataId(long id)
         {
             string sql = $"SELECT id,county_id AS countyId,sub_county_id AS subCountyId,ward_id AS wardId,bio_data_id AS BioDataId, " +
-                $"created_at AS createdAt, updated_at AS updatedAt, deleted_at AS deletedAt FROM location WHERE deleted_at IS NULL";
+                $"created_at AS createdAt, updated_at AS updatedAt, deleted_at AS deletedAt FROM location WHERE bio_data_id={id} AND deleted_at IS NULL";
             using (var connection = GetConnection())
             {
                 connection.Open();
-                var locs = connection.Query<Location>(sql).AsList();
-                return locs;
+                var locations = connection.Query<Location>(sql).AsList();
+                return locations;
             }
         }
 

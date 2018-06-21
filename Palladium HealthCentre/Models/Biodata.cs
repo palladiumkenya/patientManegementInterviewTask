@@ -11,5 +11,7 @@ namespace Palladium.HealthCentre.Models
         public string MiddleName { get; set; }
 
         public DateTime Dob { get; set; }
+
+        public string NationalId { get; set; }
     }
 }

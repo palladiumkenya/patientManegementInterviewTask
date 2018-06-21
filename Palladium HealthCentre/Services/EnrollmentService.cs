@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Palladium.HealthCentre.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,12 +14,14 @@ namespace Palladium.HealthCentre.Services
 
         public void Delete(long id)
         {
-            var ward = GetById(id);
-            string sql = $"UPDATE TABLE enrollment SET deleted_at=@DeletedAt WHERE id=@Id";
+            var enroll = GetById(id);
+            enroll.DeletedAt = DateTime.Now;
+
+            string sql = $"UPDATE enrollment SET deleted_at=@DeletedAt WHERE id=@Id";
             using (var connection = GetConnection())
             {
                 connection.Open();
-                connection.Execute(sql, ward);
+                connection.Execute(sql, enroll);
             }
         }
 
