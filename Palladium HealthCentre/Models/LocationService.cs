@@ -24,7 +24,7 @@ namespace Palladium.HealthCentre.Models
             }
         }
 
-        public List<Location> GetAll()
+        public List<Location> GetAll(long parentId = -1)
         {
             string sql = $"SELECT id,county_id AS countyId,sub_county_id AS subCountyId,ward_id AS wardId,bio_data_id AS BioDataId, " +
                 $"created_at AS createdAt, updated_at AS updatedAt, deleted_at AS deletedAt FROM location WHERE deleted_at IS NULL";

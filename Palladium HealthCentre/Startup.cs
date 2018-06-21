@@ -36,7 +36,7 @@ namespace Palladium_HealthCentre
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Palladium.HealthCentre.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,6 +15,7 @@ namespace Palladium.HealthCentre.Services
         public void Delete(long id)
         {
             var ward = GetById(id);
+            ward.DeletedAt = DateTime.Now;
             string sql = $"UPDATE TABLE ward SET deleted_at=@DeletedAt WHERE id=@Id";
             using (var connection = GetConnection())
             {
@@ -22,7 +24,7 @@ namespace Palladium.HealthCentre.Services
             }
         }
 
-        public List<Ward> GetAll()
+        public List<Ward> GetAll(long parentId = -1)
         {
             string sql = $"SELECT id, sub_county_id, name, created_at AS createdAt, updated_at AS updatedAt, deleted_at AS deletedAt " +
                 $"FROM ward WHERE deleted_at IS NULL";
@@ -32,6 +34,16 @@ namespace Palladium.HealthCentre.Services
                 var counties = connection.Query<Ward>(sql).AsList();
                 return counties;
             }
+        }
+
+        internal List<Ward> GetByParentId(long subCountyid, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal List<Ward> GetAllByParentId(long countyId)
+        {
+            throw new NotImplementedException();
         }
 
         public Ward GetById(long id)
@@ -58,7 +70,7 @@ namespace Palladium.HealthCentre.Services
 
         public void Update(Ward ward)
         {
-            string sql = $"UPDATE TABLE ward SET name=@Name, sub_county_id=@SubCountyId, updated_at=@UpdatedAt WHERE id=@Id";
+            string sql = $"UPDATE ward SET name=@Name, sub_county_id=@SubCountyId, updated_at=@UpdatedAt WHERE id=@Id";
             using (var connection = GetConnection())
             {
                 connection.Open();

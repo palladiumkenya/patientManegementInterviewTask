@@ -24,7 +24,7 @@ namespace Palladium.HealthCentre.Services
             }
         }
 
-        public List<BioData> GetAll()
+        public List<BioData> GetAll(long parentId = -1)
         {
             string sql = $"SELECT id, first_name AS firstName, surname, middle_name AS middleName, dob, " +
                 $"created_at AS createdAt, updated_at AS updatedAt, deleted_at AS deletedAt " +
