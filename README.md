@@ -9,6 +9,7 @@ Mbstring PHP Extension
 Tokenizer PHP Extension
 
 2.How to run the application-create an empty database named phc
+From .env.example create .env file and put datase as phc and your server user credentials
 export the sql phc.sql located in folder 
 phc\database
 
