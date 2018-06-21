@@ -33,17 +33,9 @@
         </li>
           <li><a><i class="fa fa-desktop"></i>Patient Details <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-           <li><a href="{{ url('return-view/list-subscribers') }}">Subscribers</a></li>
+           <li><a href="{{ url('return-view/list-patient-details') }}">Patient Details</a></li>
           </ul>
         </li>
-        <li><a><i class="fa fa-send"></i>Messages <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-            <li><a href="{{ url('return-view/messages-inbound') }}">Inbound</a></li>
-            <li><a href="{{ url('return-view/messages-outbound') }}">Outbound</a></li>
-          </ul>
-        </li>
-
-        
     </div>
     <div class="menu_section">
       <h3>Setting</h3>
@@ -51,11 +43,6 @@
         <li><a><i class="fa fa-users"></i> Users <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{{ url('return-view/all-users') }}"> Users</a></li>
-          </ul>
-        </li>
-          <li><a><i class="fa fa-cog"></i> Credentials <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-            <li><a href="{{ url('return-view/all-configs') }}">Credentials</a></li>
           </ul>
         </li>
       </ul>
