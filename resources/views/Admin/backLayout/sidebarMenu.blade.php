@@ -28,13 +28,12 @@
       <ul class="nav side-menu">
         <li><a><i class="fa fa-university"></i>Departments <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="{{ url('return-view/list-organization') }}">Organizations</a></li>
+            <li><a href="{{ url('return-view/list-departments') }}">Departments</a></li>
           </ul>
         </li>
-          <li><a><i class="fa fa-desktop"></i>Services <span class="fa fa-chevron-down"></span></a>
+          <li><a><i class="fa fa-desktop"></i>Patient Details <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
            <li><a href="{{ url('return-view/list-subscribers') }}">Subscribers</a></li>
-            <li><a href="{{ url('return-view/list-Content') }}">Content</a></li>
           </ul>
         </li>
         <li><a><i class="fa fa-send"></i>Messages <span class="fa fa-chevron-down"></span></a>
