@@ -33,7 +33,6 @@
 <h1>Dependancies</h1>
 <p>
 <ul>
-<li>Node js</li>
 <li>Express js Framework</li>
 <li>Express Validator</li>
 <li>Express body parser</li>
