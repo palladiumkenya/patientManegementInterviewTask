@@ -1,0 +1,20 @@
+{% extends "shared/main_layout.html" %}
+
+{% block content %}
+
+<h1>Enroll Next of Kin as Patient</h1>
+<p>
+  <strong>Name:</strong> {{ patient.first_name }} {% if patient.middle_name %} {{patient.middle_name}} {% else %}{% endif %} {{ patient.last_name }} <br/>
+  <strong>Location:</strong> {{ patient.get_county_display }}, {{ patient.ward }}, {{ patient.village }}<br/>
+  <strong>Age:</strong> {{ patient.calculate_age }} <br/>
+  <strong>Gender:</strong> {{ patient.get_gender_display }}
+</p>
+<p>Are you sure you want to enroll this next of Kin?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input class="btn btn-success" type="submit" value="Yes, Enroll." />
+  <a href="{% url 'patients' %}" class="btn btn-danger">Cancel</a>
+</form>
+
+{% endblock %}

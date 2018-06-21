@@ -1,0 +1,37 @@
+{% extends "shared/main_layout.html" %}
+
+{% block content %}
+
+    
+    <div class="p-3 mb-2 bg-primary text-white">
+        <h3>Audit Logs</h3>
+    </div>
+    
+    <div class="table-responsive p-3 bg-white box-shadow">
+        {% if auditlog_list %}
+            <table class="table table-hover table-striped tablesorter">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="header"> Date <i class="icon-sort"></i></th>
+                        <th class="header"> Action <i class="icon-sort"></i></th>
+                        <th class="header"> Narrative <i class="icon-sort"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                {% for audit in auditlog_list %}
+                    <tr>
+                        <td>{{ audit.date_recorded }}</td>
+                        <td>{{ audit.get_action_type_display }}</td>
+                        <td>{{ audit.narration }}</td>
+                    </tr>
+                {% endfor %}
+                
+                </tbody>
+            </table>
+        {% else %}
+        <p>There are no logs registered.</p>
+        {% endif %}
+    </div>
+    
+{% endblock %}

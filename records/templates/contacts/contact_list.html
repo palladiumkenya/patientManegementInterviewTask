@@ -1,0 +1,49 @@
+{% extends "shared/main_layout.html" %}
+
+{% block content %}
+
+    <div class="p-3 mb-2 bg-info text-white">
+        {{ patient.first_name }} {% if patient.middle_name %} {{patient.middle_name}} {% else %}{% endif %} {{ patient.last_name }}'s Contact Details
+    </div>
+    <div class="table-responsive p-3 bg-white">
+        <div class="text-right">
+            <a class="btn btn-primary" href="{% url 'contact_create' patient.id %}" title="Add Contact">
+                <span class="oi oi-plus" title="Add Contact" aria-hidden="true"></span>
+            </a>
+        </div>
+        {% if contact_list %}
+        <table class="table table-bordered table-hover table-striped tablesorter">
+            <thead>
+            <tr>
+                <th class="header"> Contact Type <i class="icon-sort"></i></th>
+                <th class="header"> Value <i class="icon-sort"></i></th>
+                <th class="header"> Actions <i class="icon-sort"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+        
+        {% for contact in contact_list %}
+            <tr>
+                <td>{{ contact.get_contact_type_display }}</td>
+                <td>{{ contact.value }}</td>
+                <td>
+                    <a class="btn btn-danger" href="{% url 'contact_delete' contact.id %}" title="Delete Contact"><span class="oi oi-trash" title="Delete Contact"></span></a>
+                </td>
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+        </table>
+        {% else %}
+        <p>There are no contact details registered for this patient.</p>
+        {% endif %} 
+    </div>
+    
+    <div class="text-left">
+        <a class="btn btn-default" href="{% url 'patients' %}" title="Back to list">
+            <span class="oi oi-arrow-left" title="Back to list" aria-hidden="true"></span> Back To List
+        </a>
+    </div>
+    <br/> 
+    
+{% endblock %}

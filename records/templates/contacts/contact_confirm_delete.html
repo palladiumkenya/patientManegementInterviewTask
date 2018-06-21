@@ -1,0 +1,19 @@
+{% extends "shared/main_layout.html" %}
+
+{% block content %}
+
+<h1>Delete Contact</h1>
+<p>
+  <strong>Contact Type:</strong> {{ contact.get_contact_type_display}} <br/>
+  <strong>Contact Value:</strong> {{ contact.value}}
+</p>
+<p>Are you sure you want to delete the contact?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input class="btn btn-success" type="submit" value="Yes, delete." />
+  <a href="{% url 'patients' %}" class="btn btn-danger">Cancel</a>
+  
+</form>
+
+{% endblock %}

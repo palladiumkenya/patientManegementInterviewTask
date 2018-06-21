@@ -1,0 +1,64 @@
+{% extends "shared/main_layout.html" %}
+
+{% block content %}
+
+    
+    <div class="p-3 mb-2 bg-primary text-white">
+        <h3>Patients List</h3>
+    </div>
+    
+    <div class="container table-responsive p-3 bg-white box-shadow">
+        <div class="row">
+            <div class="col-md-8">
+                <form class="form-inline" action="{% url 'patients' %}" method="get">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="searchval" name="q" placeholder="Search by Age..." value="{{request.GET.q}}">
+                    </div>
+                    <button type="submit" class="btn btn-success"><span class="oi oi-magnifying-glass"></span></button>
+                </form>
+            </div>
+            <div class="col-md-4 text-right">
+                <a class="btn btn-primary" href="{% url 'patient_create' %}" title="Enroll Patient">
+                    <span class="oi oi-plus" title="Enrol Patient" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+        
+        <br/>
+        {% if patient_list %}
+        <table class="table table-hover table-striped tablesorter">
+            <thead class="thead-dark">
+            <tr>
+                <th class="header"> Name <i class="icon-sort"></i></th>
+                <th class="header"> Enrollment # <i class="icon-sort"></i></th>
+                <th class="header"> Age <i class="icon-sort"></i></th>
+                <th class="header"> Gender <i class="icon-sort"></i></th>
+                <th class="header"> Actions <i class="icon-sort"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+        
+        {% for patient in patient_list %}
+            <tr>
+                <td>{{ patient.first_name }} {% if patient.middle_name %} {{patient.middle_name}} {% else %}{% endif %} {{ patient.last_name }}</td>
+                <td>{{ patient.enrollment_number }}</td>
+                <td>{{ patient.calculate_age }}</td>
+                <td>{{ patient.get_gender_display }}</td>
+                <td>
+                    <a class="btn btn-warning" href="{% url 'patient_update' patient.id %}" title="Edit Bio-Data"><span class="oi oi-pencil" title="Edit Bio-Data"></span></a>
+                    <a class="btn btn-info" href="{% url 'patient_location_update' patient.id %}" title="Edit Location"><span class="oi oi-map-marker" title="Edit Location"></span></a>
+                    <a class="btn btn-dark" href="{% url 'nok' patient.id %}" title="Next of Kin"><span class="oi oi-people" title="Next of Kin"></span></a>
+                    <a class="btn btn-success" href="{% url 'contacts' patient.id %}" title="Contacts"><span class="oi oi-phone" title="Contacts"></span></a>
+                    <a class="btn btn-danger" href="{% url 'patient_delete' patient.id %}" title="Delete Patient"><span class="oi oi-trash" title="Delete Patient"></span></a>
+                </td>
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+        </table>
+        {% else %}
+        <p>There are no patients registered.</p>
+        {% endif %}
+    </div>
+    
+{% endblock %}

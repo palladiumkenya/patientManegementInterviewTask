@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %}<title>PHC</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Add additional CSS in static file -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}"></link>
+
+    <!-- jQuery Script-->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</head>
+
+<body>
+    {% block topbar %}
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Patient Records</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'patients' %}">Manage Patients</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'patient_deleted_list' %}">Deleted Patients</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'audits' %}">Audit Logs</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% endblock %}
+
+    <main role="main" class="container">
+        {% block content %}{% endblock %}
+        <br/>
+        {% block pagination %}
+            {% if is_paginated %}
+                <div class="pagination">
+                    <span class="page-links">
+                        {% if page_obj.has_previous %}
+                            <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+                        <span class="page-current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+                        {% if page_obj.has_next %}
+                            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+        {% endblock %} 
+        <br/>
+    </main><!-- /.container -->
+    {% load static %}
+</body>
+</html>
