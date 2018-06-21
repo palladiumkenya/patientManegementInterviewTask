@@ -28,23 +28,12 @@ class SettingController extends Controller
     protected function users()
     {
        
-        $users =  User::where('org_id', Auth::user()->org_id)->orderBy('id', 'desc')->get();
+        $users =  User::where('depart_id', Auth::user()->org_id)->orderBy('id', 'desc')->get();
 
         return view('Admin.backEnd.users.user', compact('users'));
     }
 
-    /**
-     * Shows the gateway connectors.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function configs()
-    {
-       $configs = SubscribedService::all();
-
-       return view('Admin.backEnd.Setting.configs', compact('configs'));
-    }
-
+    
 
 
 
