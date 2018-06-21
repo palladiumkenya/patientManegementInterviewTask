@@ -22,7 +22,7 @@ namespace Palladium.HealthCentre.Services
             }
         }
 
-        public List<Enrollment> GetAll()
+        public List<Enrollment> GetAll(long parentId = -1)
         {
             string sql = $"SELECT enrollment_no AS enrollmentNo, enrollment_date AS enrollmentDate, bio_data_id AS bioDataId,created_at AS createdAt, " +
                 $"updated_at AS updatedAt, deleted_at AS deletedAt FROM enrollment WHERE deleted_at IS NULL";

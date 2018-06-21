@@ -24,7 +24,7 @@ namespace Palladium.HealthCentre.Services
             }
         }
 
-        public List<County> GetAll()
+        public List<County> GetAll(long parentId = -1)
         {
             string sql = $"SELECT id, name, created_at AS createdAt, updated_at AS updatedAt, deleted_at AS deletedAt " +
                 $"FROM county WHERE deleted_at IS NULL";

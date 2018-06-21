@@ -15,7 +15,8 @@ namespace Palladium.HealthCentre.Services
         public void Delete(long id)
         {
             var subCounty = GetById(id);
-            string sql = $"UPDATE TABLE sub_county SET deleted_at=@DeletedAt WHERE id=@Id";
+            subCounty.DeletedAt = DateTime.Now;
+            string sql = $"UPDATE sub_county SET deleted_at=@DeletedAt WHERE id=@Id";
             using (var connection = GetConnection())
             {
                 connection.Open();
@@ -23,15 +24,32 @@ namespace Palladium.HealthCentre.Services
             }
         }
 
-        public List<SubCounty> GetAll()
+        public List<SubCounty> GetAll(long parentId = -1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<SubCounty> GetAllByParentId(long parentId)
         {
             string sql = $"SELECT id, county_id, name, created_at AS createdAt, updated_at AS updatedAt, deleted_at AS deletedAt " +
-                $"FROM sub_county WHERE deleted_at IS NULL";
+                $"FROM sub_county WHERE county_id ={parentId} AND deleted_at IS NULL";
             using (var connection = GetConnection())
             {
                 connection.Open();
                 var counties = connection.Query<SubCounty>(sql).AsList();
                 return counties;
+            }
+        }
+
+        public List<SubCounty> GetByParentId(long countyId, int id)
+        {
+            string sql = $"SELECT id, county_id AS countyId, name, created_at AS createdAt, updated_at AS updatedAt, deleted_at AS deletedAt " +
+                $"FROM sub_county WHERE county_id ={countyId} AND id={id} AND deleted_at IS NULL";
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                var subCounty = connection.Query<SubCounty>(sql).AsList();
+                return subCounty;
             }
         }
 

@@ -23,7 +23,7 @@ namespace Palladium.HealthCentre.Services
             }
         }
 
-        public List<Contact> GetAll()
+        public List<Contact> GetAll(long parentId = -1)
         {
             string sql = $"SELECT id, cell_phone AS cellPhone, alternative_cell_phone AS AlternativeCellPhone, " +
                 "email, bio_data_id AS BioDataId, created_at AS createdAt, updated_at AS updatedAt, deleted_at AS deletedAt  FROM contact";

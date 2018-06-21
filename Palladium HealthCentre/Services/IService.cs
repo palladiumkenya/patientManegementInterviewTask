@@ -10,7 +10,7 @@ namespace Palladium.HealthCentre.Services
 
         void Delete(long id);
 
-        List<T> GetAll();
+        List<T> GetAll(long id = -1);
 
         T GetById(long id);
     }
