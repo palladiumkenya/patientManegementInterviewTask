@@ -15,5 +15,3 @@ use Illuminate\Http\Request;
 
 
 
-
-Route::get('/api/v1/patient/{id_number}', 'Account\ApiController@index');
