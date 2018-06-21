@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class updateContent extends FormRequest
+class createPatientsMetaDatum extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class updateContent extends FormRequest
     public function rules()
     {
         return [
-            'message'=> 'required|string|max:160',
-            'answer'=> 'required|string|max:160',
-            'id'=> 'required|string|max:10',
+             'first_name' => 'required|string|max:55',
+             'second_name' => 'required|string|max:55',
+             'id_number' => 'required|string|max:55|unique:patients_meta_data',
         ];
     }
 }

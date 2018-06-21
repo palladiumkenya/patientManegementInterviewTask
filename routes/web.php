@@ -36,10 +36,6 @@ Route::get('email-verification-check/{token}', 'Auth\LoginRouterController@verif
 
 		Route::get('return-view/all-users', 'Admin\SettingController@users');
 
- 
-
- 
-
 		Route::post('register-new-organization', 'Auth\RegisterController@registerOrganization');
 
 
@@ -56,8 +52,12 @@ Route::get('email-verification-check/{token}', 'Auth\LoginRouterController@verif
         Route::get('return-view/dashboard', 'Account\HomeController@index');
         Route::get('return/patient-records', 'Account\PatientController@index');
 
+        Route::get('view/more-about-patient', 'Account\PatientController@viewMore');
 
-       
+
+        Route::post('register-patient', 'Account\PatientController@store');
+        Route::post('update-patient-details', 'Account\PatientController@update');
+        
 
 
         Route::get('return/all-users', 'Account\SettingController@users');
