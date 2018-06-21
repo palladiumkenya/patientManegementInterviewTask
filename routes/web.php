@@ -29,7 +29,7 @@ Route::get('email-verification-check/{token}', 'Auth\LoginRouterController@verif
 		
 		
 
-		Route::get('return-view/list-departments', 'Admin\OrganizationController@index');
+		Route::get('return-view/list-departments', 'Admin\DepartmentController@index');
 
 		Route::get('return-view/all-users', 'Admin\SettingController@users');
 
