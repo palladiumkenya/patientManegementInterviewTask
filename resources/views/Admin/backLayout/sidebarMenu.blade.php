@@ -1,7 +1,7 @@
 
 <div class="left_col scroll-view">
   <div class="navbar nav_title" style="border: 0;">
-    <a href="{{ url('return-view/admin-dashboard')}}" class="site_title"><i class="fa fa-university"></i> <span>{{App\Models\Organization::where('id', Auth::user()->org_id)->value('name')}}</span></a>
+    <a href="{{ url('return-view/admin-dashboard')}}" class="site_title"><i class="fa fa-university"></i> <span>{{App\Models\Department::where('id', Auth::user()->org_id)->value('name')}}</span></a>
   </div>
 
   <div class="clearfix"></div>
@@ -26,7 +26,7 @@
 
       <h3>General</h3>
       <ul class="nav side-menu">
-        <li><a><i class="fa fa-university"></i>Organizations <span class="fa fa-chevron-down"></span></a>
+        <li><a><i class="fa fa-university"></i>Departments <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{{ url('return-view/list-organization') }}">Organizations</a></li>
           </ul>

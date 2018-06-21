@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Session;
 use App\Models\User;
-use App\Models\Organization;
+use App\Models\Department;
 use Auth, Exception;
 
 class superAdmin
@@ -21,9 +21,9 @@ class superAdmin
     {
         try 
           {
-            $org_type = Organization::where('id', User::where('email', Auth::user()->email)->value('org_id'))->value('type');
+            $level_id = Department::where('id', User::where('email', Auth::user()->email)->value('depart_id'))->value('level_id');
 
-            if($org_type != '1'){
+            if($level_id != 1){
                 Session::flush();
                 return redirect('login')->with('message', 'Ooops! Please log in');
             }

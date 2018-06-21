@@ -46,13 +46,12 @@ class LoginRouterController extends Controller {
        
        $level_id = Department::where('id', User::where('email', Auth::user()->email)->value('depart_id'))->value('level_id');
 
-       if ($level_id === '1'){
+       if ($level_id === 1){
            
            return redirect('return-view/admin-dashboard'); 
-          
            
         }
-       elseif ($level_id === '2') {
+       elseif ($level_id === 2) {
 
            return redirect('return-view/dashboard');
            

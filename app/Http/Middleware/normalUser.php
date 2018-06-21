@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Session, Exception;
 use App\Models\User;
-use App\Models\Organization;
+use App\Models\Department;
 use Auth;
 
 class normalUser
@@ -21,9 +21,9 @@ class normalUser
     {
         try 
           {
-            $org_type = Organization::where('id', User::where('email', Auth::user()->email)->value('org_id'))->value('type');
+            $level_id = Department::where('id', User::where('email', Auth::user()->email)->value('depart_id'))->value('level_id');
 
-            if($org_type != '2'){
+            if($level_id != 2){
                 Session::flush();
                 return redirect('login')->with('message', 'Ooops! Please log in');
             }
