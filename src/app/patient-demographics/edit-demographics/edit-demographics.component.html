@@ -1,0 +1,32 @@
+<p-dialog header="Edit Demographics" [(visible)]="display" modal="modal" width="auto" responsive="true">
+    <form name="personForm">
+      <div class="form-group">
+        <div *ngIf="showErrorAlert" style="color: red !important">
+          <div *ngFor="let error of errors">{{error.message}}</div>
+        </div>
+        <div class="alert alert-success" *ngIf="showSuccessAlert" style="margin-top:10px">
+          <strong>Done!</strong> {{successAlert}}
+        </div>
+        <div class="form-group" >
+          <label for="name">Name</label>
+          <input type="text" id="name"  class="form-control" [(ngModel)]="name" name="name">
+        </div>
+        <div class="form-group">
+          <label for="dateofBirth">Date of Birth</label>
+          <input type="date" id="dateofBirth"  class="form-control" [(ngModel)]="birth_date" name="dateofBirth" >
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select class="form-control" [(ngModel)]="gender" name="gender">
+            <option *ngFor="let opt of genderOptions" [value]="opt.val">{{opt.label}}</option>
+          </select>
+        </div>
+
+        <br>
+        <button class="btn btn-primary" type="button" (click)="editDemographics()"><span>Save</span></button>
+        <button class="btn btn-danger pull-right" type="button" (click)="dismissDialog()">
+          <span>Cancel</span></button>
+
+      </div>
+    </form>
+</p-dialog>

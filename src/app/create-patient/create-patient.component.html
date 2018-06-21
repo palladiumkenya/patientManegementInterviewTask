@@ -1,0 +1,142 @@
+
+<div class="wrapper">
+  <app-starter-header></app-starter-header>
+  <div class="content-wrapper">
+<div class="box-body" style="margin-right: 50px; margin-left: 50px">
+  <div class="component-wrapper">
+    <h4 class="component-title"><span></span> Create New Patient</h4>
+    <!--<form>-->
+      <fieldset>
+        <legend>Patient Bio Data</legend>
+      <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <label for="name">Name <span *ngIf="!name" class="required"> * </span></label>
+        <input type="text" id="name"  class="form-control" [(ngModel)]="name"  placeholder="Name" name="name"
+               required>
+      </div>
+
+      <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <label for="dateOfBirth">Date of Birth <span *ngIf="!dateOfbirth" class="required"> * </span> </label>
+        <input type="date" id="dateOfBirth"  class="form-control" [(ngModel)]="dateOfbirth" required>
+
+        <div>
+        </div>
+
+
+
+      </div>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label for="gender">Gender <span *ngIf="!gender" class="required"> * </span> </label>
+          <select class="form-control" [(ngModel)]="gender" [ngModelOptions]="{standalone: true}" required>
+            <option *ngFor="let opt of genderOptions" [value]="opt.val">{{opt.label}}</option>
+          </select>
+        </div>
+
+
+      </fieldset>
+
+   <!-- </form>-->
+
+  <div>
+   <!-- <form>-->
+
+      <fieldset>
+        <legend>Contacts</legend>
+            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <div>
+                <label for="patientPhoneNumber" class="control-label">Phone Number</label>
+                <input type="number" id="patientPhoneNumber" class="form-control" [(ngModel)]="patientPhoneNumber">
+              </div>
+            </div>
+
+              <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <label for="alternativePhoneNumber" class="control-label">Alternative Phone Number</label>
+                <input type="number" id="alternativePhoneNumber" class="form-control" [(ngModel)]="alternativePhoneNumber"
+                       name="alternativePhoneNumber" minlength="10" maxlength="15" [pattern]="pattern">
+                </div>
+              <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <label for="email" class="control-label">email</label>
+                <input type="text" id="email" class="form-control" name="email" [(ngModel)]="email" [pattern]="pattern" >
+              </div>
+      </fieldset>
+   <!-- </form>-->
+  </div>
+  <div>
+   <!-- <form>-->
+
+    <div *ngIf="showErrorAlert" style="color: red !important">
+      <div *ngFor="let error of errors">{{error.message}}</div>
+    </div>
+    <div class="alert alert-success" *ngIf="showSuccessAlert" style="margin-top:10px">
+      <strong>Done!</strong> {{successAlert}}
+    </div>
+      <fieldset>
+        <legend>Location</legend>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <div>
+            <label for="County" class="control-label">County</label>
+            <input type="text" id="County" class="form-control" [(ngModel)]="county">
+          </div>
+        </div>
+
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label for="subcounty" class="control-label">Sub County</label>
+          <input type="text" id="subcounty" class="form-control" [(ngModel)]="subCounty"
+                 name="alternativePhoneNumber" minlength="10" maxlength="15" [pattern]="pattern">
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label for="ward" class="control-label">Ward</label>
+          <input type="text" id="ward" class="form-control" name="ward" [(ngModel)]="ward"
+                 ward="ward" minlength="10" maxlength="15" [pattern]="pattern" >
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label for="village" class="control-label">Village</label>
+          <input type="text" id="village" class="form-control" name="ward" [(ngModel)]="village"
+                 ward="ward" minlength="10" maxlength="15" [pattern]="pattern" >
+        </div>
+      </fieldset>
+   <!-- </form>-->
+  </div>
+  <div>
+   <!-- <form>-->
+      <!--<fieldset>
+        <legend>Next-of-Kin</legend>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <label for="nextKinName">Name</label>
+          <input type="text" id="nextKinName"  class="form-control" [(ngModel)]="nextOfKinName"  placeholder="Name" name="nextOfKinName"
+                 required>
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <div>
+            <label for="nextKinPhoneNumber" class="control-label">Phone Number</label>
+            <input type="number" id="nextKinPhoneNumber" class="form-control" [(ngModel)] = "nextKinPhoneNumber">
+          </div>
+        </div>
+
+      </fieldset>-->
+   <!-- </form>-->
+  </div>
+  <div>
+    <!--<form>-->
+      <fieldset>
+        <legend>Enrollment</legend>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <div>
+            <label for="dateOfEnroloment" class="control-label">Dat of Enrollment</label>
+            <input type="date" id="dateOfEnroloment" class="form-control" [(ngModel)] = "dateOfEnroloment">
+          </div>
+        </div>
+
+      </fieldset>
+   <!-- </form>-->
+  </div>
+  <div>
+    <button type="submit" class="btn btn-primary" (click)="addPatient()">Save</button>
+  </div>
+  </div>
+</div>
+  </div>
+  <app-starter-control-sidebar></app-starter-control-sidebar>
+  <div class="control-sidebar-bg"></div>
+  <app-starter-footer></app-starter-footer>
+</div>
+

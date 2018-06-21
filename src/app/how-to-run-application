@@ -1,0 +1,20 @@
+Setting the patient-client-app
+
+Make sure you have Node version >= 5.0 and NPM >= 3 installed
+cd  patient-client-app #change directory to patient-client-app
+# install the repo with npm
+
+npm install
+
+# start the server
+
+npm start
+
+go to http://localhost:4200/starter in your browser
+
+Ensure also that the patient-app- server is set and is running
+
+Dependencies
+node and npm (brew install node)
+Ensure you're running the latest versions of Node v5.x.x+ (or v7.x.x) and NPM 3.x.x+
+npm install -g @angular/cli

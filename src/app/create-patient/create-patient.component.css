@@ -1,0 +1,32 @@
+
+FIELDSET {
+  margin: 8px;
+  border: 1px solid silver;
+  padding: 8px;
+  border-radius: 4px;
+}
+LEGEND{
+  padding: 2px;
+}
+.component-wrapper {
+  margin: 8px;
+  position: relative;
+  background: #fff;
+  box-shadow: 0 1px 2px 0 rgba(34, 36, 38, .15);
+  margin-bottom: 30px;
+  padding: 1em 1em;
+  font-size: 14px;
+  border: 1px solid rgba(34, 36, 38, .15);
+}
+.component-title {
+  font-size: 22px;
+  text-transform: capitalize;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(34, 36, 38, .15);
+  margin-bottom: 8px;
+}
+
+.component-title span {
+  display: inline-block;
+  margin-right: 12px;
+}
