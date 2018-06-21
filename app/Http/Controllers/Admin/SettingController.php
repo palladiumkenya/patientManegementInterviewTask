@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Cache, Auth, Exception;
-use App\Models\SubscribedService;
+
 
 class SettingController extends Controller
 {

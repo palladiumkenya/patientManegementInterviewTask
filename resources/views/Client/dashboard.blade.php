@@ -33,12 +33,12 @@ Dashboard
                                     <i class="fa fa-users fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"> </div>
-                                    <div>Subcribed members</div>
+                                    <div class="huge">{{$users}}</div>
+                                    <div>Users </div>
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ url('return/list-subscribers') }}">
+                        <a href="{{ url('return-view/list-subscribers') }}">
                             <div class="panel-footer">
                                 <span style="color:purple" class="pull-left">View Details</span>
                                 <span style="color:purple" class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -57,12 +57,12 @@ Dashboard
                                     <i class="fa fa-tasks fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"> </div>
-                                    <div>Inbound Sms</div>
+                                    <div class="huge">{{$patients}} </div>
+                                    <div>No of Patients</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ url('return/messages-inbound') }}">
+                        <a href="{{ url('return-view/messages-inbound') }}">
                             <div class="panel-footer">
                                 <span style="color:purple" class="pull-left">View Details</span>
                                 <span style="color:purple" class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -85,12 +85,12 @@ Dashboard
                                     <i class="fa fa-list fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"> </div>
-                                    <div>Content</div>
+                                    <div class="huge">{{$deleted_patients}}</div>
+                                    <div>Deleted Patients</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ url('return/list-Content') }}">
+                        <a href="{{ url('return-view/list-Content') }}">
                             <div class="panel-footer">
                                 <span style="color:purple" class="pull-left">View Details</span>
                                 <span style="color:purple" class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -112,12 +112,12 @@ Dashboard
                                     <i class="fa fa-send fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"> </div>
-                                    <div> Sent Sms</div>
+                                    <div class="huge">{{$last_date}} </div>
+                                    <div> Last Join Date</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ url('return/messages-outbound') }}">
+                        <a href="{{ url('return-view/all-users') }}">
                             <div class="panel-footer">
                                 <span style="color:purple" class="pull-left">View Details</span>
                                 <span style="color:purple" class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

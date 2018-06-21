@@ -35,8 +35,8 @@ Dashboard
                                     <i class="fa fa-users fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"> </div>
-                                    <div>Subcribed members</div>
+                                    <div class="huge">{{$users}}</div>
+                                    <div>Users </div>
                                 </div>
                             </div>
                         </div>
@@ -59,8 +59,8 @@ Dashboard
                                     <i class="fa fa-tasks fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"> </div>
-                                    <div>Inbound Sms</div>
+                                    <div class="huge">{{$patients}} </div>
+                                    <div>No of Patients</div>
                                 </div>
                             </div>
                         </div>
@@ -87,8 +87,8 @@ Dashboard
                                     <i class="fa fa-list fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"> </div>
-                                    <div>Content</div>
+                                    <div class="huge">{{$deleted_patients}}</div>
+                                    <div>Deleted Patients</div>
                                 </div>
                             </div>
                         </div>
@@ -114,8 +114,8 @@ Dashboard
                                     <i class="fa fa-send fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"> </div>
-                                    <div> Sent Sms</div>
+                                    <div class="huge">{{$last_date}} </div>
+                                    <div> Last Join Date</div>
                                 </div>
                             </div>
                         </div>
