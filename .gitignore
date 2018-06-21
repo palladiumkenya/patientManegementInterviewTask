@@ -10,5 +10,8 @@ app/storage/
 .env.php
 .env
 
+#phpintel is a common sublime plugin
+.phpintel
+
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
