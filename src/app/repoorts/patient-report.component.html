@@ -1,0 +1,21 @@
+<div class="wrapper" >
+  <app-starter-header></app-starter-header>
+  <div class="content-wrapper">
+    <div class="component-wrapper" style="margin-left: 50px; margin-right: 50px">
+<h4 class="component-title"><span></span> Patient Reports</h4>
+<div>
+  <p-tabView>
+    <p-tabPanel header="Deleted Patient List">
+      <deleted-patient-summary></deleted-patient-summary>
+    </p-tabPanel>
+    <p-tabPanel header="Patient List By Age Cohort">
+      <patient-by-age-summary></patient-by-age-summary>
+    </p-tabPanel>
+  </p-tabView>
+</div>
+</div>
+</div>
+<app-starter-control-sidebar></app-starter-control-sidebar>
+<div class="control-sidebar-bg"></div>
+<app-starter-footer></app-starter-footer>
+</div>

@@ -1,0 +1,51 @@
+<div class="wrapper" >
+<app-starter-header></app-starter-header>
+<div class="content-wrapper">
+
+<div class="component-wrapper" style="margin-left: 50px; margin-right: 50px">
+
+<h4 class="component-title"><i></i>Patient Information</h4>
+
+<div class="row patient-info-row">
+  <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+    <h5 class="info_section_title">Demographics</h5>
+
+    <a (click)="demographics.showDialog()" class="edit_link"><span><i class="fa fa-edit fa-fw"></i> Edit</span></a>
+
+  </div>
+  <app-edit-demographics #demographics></app-edit-demographics>
+  <app-patient-demographics></app-patient-demographics>
+</div>
+<hr class="intro-divider patient-info-divider" />
+<div class="row patient-info-row">
+  <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+    <h5 class="info_section_title">Contacts </h5>
+    <a class="edit_link" (click)="myModal.showDialog()"><span><i class="fa fa-edit fa-fw"></i> Edit</span></a>
+  </div>
+  <app-edit-contacts #myModal></app-edit-contacts>
+  <app-contacts></app-contacts>
+</div>
+<hr class="intro-divider" />
+<div class="row patient-info-row">
+  <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+    <h5 class="info_section_title">Location </h5>
+    <a  class="edit_link" (click)="location.showDialog()"><span><i class="fa fa-edit fa-fw"></i> Edit</span></a>
+  </div>
+  <app-edit-location #location></app-edit-location>
+  <app-location></app-location>
+</div>
+
+  <!--<hr class="intro-divider" />
+  <div class="row patient-info-row">
+    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+      <h5 class="info_section_title">Next of Kin </h5>
+    </div>
+    <app-edit-next-kin-list></app-edit-next-kin-list>
+  </div>-->
+<hr class="intro-divider patient-info-divider" />
+</div>
+</div>
+<app-starter-control-sidebar></app-starter-control-sidebar>
+<div class="control-sidebar-bg"></div>
+<app-starter-footer></app-starter-footer>
+</div>
