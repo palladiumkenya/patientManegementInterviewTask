@@ -50,7 +50,11 @@ Route::get('email-verification-check/{token}', 'Auth\LoginRouterController@verif
 
 
 
+
+
+
         Route::get('return-view/dashboard', 'Account\HomeController@index');
+        Route::get('return/patient-records', 'Account\PatientController@index');
 
 
        
