@@ -4,7 +4,7 @@
 <h1>Node js bundle</h1>
 <p>Is  Chrome's V8 based javascript frame work. It is asynch and works on request-response approach</p>
 <h1>Theming framework</h1>
-<p>Express js - EJS - this is an inbuilt node templating engine for quickly creating reusable UIs. It is free</p>
+<p>Express js - EJS - this is an inbuilt node templating engine for quickly creating reusable UIs. It is free, no license limitations</p>
 <h1>Javascript framework</h1>
 <p>Node.js - described above</p>
 <h1>Data Display framework/plugin/addon</h1>
@@ -16,7 +16,7 @@
 <h1>Minimum Requirements - test env</h1>
 <p>
 <ul>
-<li>MYSQL 5.5 ></li>
+<li>MYSQL 5.6 ></li>
 <li>Any windows version > Xp</li>
 </ul>
 </p>
