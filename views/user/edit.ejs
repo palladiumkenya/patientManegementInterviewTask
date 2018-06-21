@@ -1,0 +1,79 @@
+<%- include ../layouts/header.ejs %>    
+    <% if (messages.error) { %>
+        <p style="color:red"><%- messages.error %></p>
+    <% } %>
+        
+    <% if (messages.success) { %>
+        <p style="color:green"><%- messages.success %></p>
+    <% } %>
+<div class="hold" style ="width: 98%;overflow-x: auto;white-space: nowrap;">
+    <div class="stepwizard">
+        <form role="form" class="" action="/patients/edit/<%= UserID %>" method="post" name="edit">
+                <div class="row">
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="hidden" required="required" class="form-control" name="UserID" id="UserID" value="<%= UserID %>" />
+                        <label class="control-label">First Name</label>
+                        <input maxlength="100" type="text" required="required" class="form-control" name="FirstName" id="FirstName" value="<%= FirstName %>" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Last Name</label>
+                        <input maxlength="100" type="text" required="required" class="form-control" name="LastName" id="LastName" value="<%= LastName %>" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Middle Name</label>
+                        <input maxlength="100" type="text" required="required" class="form-control" name="MiddleName" id="MiddleName" value="<%= MiddleName %>" />
+                    </div>
+                    <div class="form-group">
+                            <label class="control-label">Date Of Birth</label>
+                            <input maxlength="15" type="date" required="required" class="form-control" name="DateOfBirth" id="DateOfBirth" value="<%= decodeURIComponent(DateOfBirth) %>" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Gender</label>
+                            <select class="form-control" name="Gender" id="Gender" >
+                                <option>Female</option>
+                                <option>Male</option>
+                            </select>
+                        </div>
+                </div>
+                <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Age</label>
+                            <input maxlength="100" type="number" required="required" class="form-control" name="Age" id="Age" value="<%= Age %>" />
+                        </div>
+                        <div class="form-group">
+                                <label class="control-label">Marital Status</label>
+                                <select class="form-control" name="MaritalStatus" id="MaritalStatus" >
+                                        <option>Married</option>
+                                        <option>Single</option>
+                                        <option>Divorced</option>
+                                        <option>Other</option>
+                                </select>
+                        </div>
+                        <div class="form-group">
+                                <label class="control-label">Height</label>
+                                <input maxlength="100" type="text" required="required" class="form-control" name="Height" id="Height" value="<%= Height %>" />
+                        </div>
+                        <div class="form-group">
+                                <label class="control-label">Weight</label>
+                                <input maxlength="100" type="text" required="required" class="form-control" name="Weight" id="Weight" value="<%= Weight %>" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">User type</label>
+                            <select class="form-control" name="UserType" id="UserType" >
+                                    <option value="1">Patient</option>
+                                    <option value="2">Admin</option>
+                                    <option value="3">User</option>
+                                    <option value="4">Guest</option>
+                            </select>
+                        </div>
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-success pull-center" type="submit" name="Submit">Update</button>
+                </div>
+                </div>
+                <input type="hidden" name="_method" value="PUT" />
+        </form>
+    </div>
+</div>
+<%- include ../layouts/footer.ejs %>

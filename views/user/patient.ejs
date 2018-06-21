@@ -1,0 +1,63 @@
+
+    <%- include ../layouts/header.ejs %>
+    <% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+    <% } %>
+
+    <% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+    <% } %> 
+    <hr>
+    <div><span style="font-size:24px;">Patients</span> | <a style="font-size:24px;" href="/patients/nextofkin">Next of Kin</a> | <a style="font-size:24px;" href="/patients/contact">Contact Data</a></div><br>
+    <div class="hold" style ="width: 98%;overflow-x: auto;white-space: nowrap;">
+    <table class="table table-striped table-dark" id="patients" style="width:100%;">
+    <thead>
+        <tr>
+        <th scope="col">Name</th>
+        <th scope="col">D.O.B</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Age</th>
+        <th scope="col">Marital</th>
+        <th scope="col">Height</th>
+        <th scope="col">Weight</th>
+        <th scope="col">Date Enrolled</th>
+        <th scope="col">#Enr. No</th>
+        <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    <% if (data) { %>
+    <% data.forEach(function(user){ %>
+    <tr>
+        <td><%= user.Name %></td>
+        <td><%= user.DateOfBirth.toDateString() %></td>
+        <td><%= user.Gender %></td>
+        <td><%= user.Age %></td>
+        <td><%= user.MaritalStatus %></td>
+        <td><%= user.Height %></td>
+        <td><%= user.Weight %></td>
+        <td><%= user.DateEnrolled.toDateString() %></td>
+        <td><%= user.UserID %></td>
+        <td>
+            <div style="float:left">
+                <a href='/patients/edit/<%= user.UserID %>'><i style="color:green;" class="glyphicon glyphicon-edit"></i></a> &nbsp;                            
+                <form method="post" action="/patients/delete/<%= user.UserID %>" style="float:right">
+                    <button type="submit" class="" name="delete" onClick="return confirm('Confirm Delete')"><i style="color:red;" class="glyphicon glyphicon-trash"></i></button>
+                    <input type="hidden" name="_method" value="DELETE" />
+                </form>
+            </div>
+        </td>
+    </tr>
+    <% }) %>
+    <% } %>
+    </tbody>
+    </table>
+    </div>
+    <hr>
+    <a href="" class="btn btn-success btn-lg btn-block" role="button"><span class="glyphicon glyphicon-globe"></span> CopyRight @ 2018</a>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <%- include ../layouts/footer.ejs %>

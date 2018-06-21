@@ -1,0 +1,42 @@
+<%- include ../layouts/header.ejs %>    
+<% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+<% } %>
+    
+<% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+<% } %>
+<div class="hold" style ="width: 98%;overflow-x: auto;white-space: nowrap;">
+<div class="stepwizard">
+    <form role="form" class="" action="/patients/editnok/<%= EntryID %>" method="post" name="edit">
+            <div class="row">
+                <div class="col-md-6"> 
+                <div class="form-group">
+                    <input type="hidden" required="required" class="form-control" name="EntryID" id="EntryID" value="<%= EntryID %>" />
+                    <label class="control-label">Full Name</label>
+                    <input maxlength="100" type="text" required="required" class="form-control" name="NokName" id="NokName" value="<%= NokName %>" />
+                </div>
+                <div class="form-group">
+                        <label class="control-label">Email</label>
+                        <input maxlength="100" type="email" required="required" class="form-control" name="NokEmail" id="NokEmail" value="<%= NokEmail %>" />
+                    </div>
+            </div>
+            <div class="col-md-6">
+                    <div class="form-group">
+                            <label class="control-label">Address</label>
+                            <input maxlength="100" type="text" required="required" class="form-control" name="NokAddress" id="NokAddress" value="<%= NokAddress %>" />
+                    </div>
+                    <div class="form-group">
+                            <label class="control-label">Relationship</label>
+                            <input maxlength="100" type="text" required="required" class="form-control" name="Relationship" id="Relationship" value="<%= Relationship %>" />
+                    </div>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-success pull-center" type="submit" name="Submit">Update</button>
+            </div>
+            </div>
+            <input type="hidden" name="_method" value="PUT" />
+    </form>
+</div>
+</div>
+<%- include ../layouts/footer.ejs %>

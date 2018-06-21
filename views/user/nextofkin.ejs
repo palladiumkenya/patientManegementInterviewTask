@@ -1,0 +1,58 @@
+
+    <%- include ../layouts/header.ejs %>
+    <% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+    <% } %>
+
+    <% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+    <% } %> 
+    <hr>
+    <div><a style="font-size:24px;" href="/patients/patient">Patients</a> | <span style="font-size:24px;">Next of Kin</span> | <a style="font-size:24px;" href="/patients/contact">Contact Data</a></div><br>
+    <div class="hold" style ="width: 98%;overflow-x: auto;white-space: nowrap;">
+    <table class="table table-striped table-dark" id="patients" style="width:100%;">
+    <thead>
+        <tr>
+        <th scope="col">Enrollment</th>
+        <th scope="col">Patient</th>
+        <th scope="col">Next of Kin</th>
+        <th scope="col">Next of kin Email</th>
+        <th scope="col">Next of kin Address</th>
+        <th scope="col">Relationship to patient</th>
+        <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    <% if (result) { %>
+    <% result.forEach(function(user){ %>
+    <tr>
+        <td><%= user.UserID %></td>
+        <td><%= user.Name %></td>
+        <td><%= user.NokName %></td>
+        <td><%= user.NokEmail %></td>
+        <td><%= user.NokAddress %></td>
+        <td><%= user.Relationship %></td>
+        
+        <td>
+            <div style="float:left">
+                <a href='/patients/editnok/<%= user.EntryID %>'><i style="color:green;" class="glyphicon glyphicon-edit"></i></a> &nbsp;                            
+                <form method="post" action="/patients/deletenok/<%= user.UserID %>" style="float:right">
+                    <button type="submit" class="" name="delete" onClick="return confirm('Are you sure you want to delete?')"><i style="color:red;" class="glyphicon glyphicon-trash"></i></button>
+                    <input type="hidden" name="_method" value="DELETE" />
+                </form>
+            </div>
+        </td>
+    </tr>
+    <% }) %>
+    <% } %>
+    </tbody>
+    </table>
+    </div>
+    <hr>
+    <a href="" class="btn btn-success btn-lg btn-block" role="button"><span class="glyphicon glyphicon-globe"></span> CopyRight @ 2018</a>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <%- include ../layouts/footer.ejs %>
