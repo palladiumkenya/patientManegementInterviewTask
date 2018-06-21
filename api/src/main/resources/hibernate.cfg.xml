@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.MySQLDialect
+        </property>
+        <property name="hibernate.connection.driver_class">
+            com.mysql.jdbc.Driver
+        </property>
+        <property name="hibernate.connection.url">
+            jdbc:mysql://localhost/healthcenter
+        </property>
+        <property name="hibernate.connection.username">
+            root
+        </property>
+        <property name="hibernate.connection.password">
+            root
+        </property>
+        <!-- List of XML mapping files -->
+        <mapping resource="person.hbm.xml"/>
+        <mapping resource="RelationshipType.hbm.xml"/>
+        <mapping resource="County.hbm.xml"/>
+        <mapping resource="SubCounty.hbm.xml"/>
+        <mapping resource="Ward.hbm.xml"/>
+        <mapping resource="Village.hbm.xml"/>
+        <mapping resource="PersonContact.hbm.xml"/>
+        <mapping resource="Patient.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,17 @@
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/Village.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/Patient.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/api/HibernateUtil.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/api/LocationService.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/County.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/api/PersonService.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/Enrollment.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/api/PatientService.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/SubCounty.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/api/hibernate/HibernatePatientDAO.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/api/hibernate/HibernatePersonDAO.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/RelationshipType.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/Person.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/Relationship.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/Ward.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/api/hibernate/HibernateLocationDAO.java
+/home/elly/Desktop/patientManegementInterviewTask/api/src/main/java/com/palladium/healthcenter/PersonContact.java

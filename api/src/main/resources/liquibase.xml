@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="ellymakuba" id="2018-06-21-12:30pm">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="person"></tableExists>
+            </not>
+        </preConditions>
+        <createTable tableName="person">
+            <column name="id" type="int(11)">
+                <constraints  nullable="false"  primaryKey="true"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)" >
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)" >
+                <constraints nullable="true"/>
+            </column>
+            <column name="gender" type="VARCHAR(255)" >
+                <constraints nullable="true"/>
+            </column>
+            <column name="birthdate" type="date" >
+                <constraints nullable="true"/>
+            </column>
+            <column name="county_id" type="int(11)" >
+                <constraints nullable="true"/>
+            </column>
+            <column name="subcounty_id" type="int(11)" >
+                <constraints nullable="true"/>
+            </column>
+            <column name="ward_id" type="int(11)" >
+                <constraints nullable="true"/>
+            </column>
+            <column name="village_id" type="int(11)" >
+                <constraints nullable="true"/>
+            </column>
+            <column name="date_created"  type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="creator" defaultValue="0"  type="int(11)">
+                <constraints nullable="true"/>
+            </column>
+            <column  name="voided" defaultValue="0" type="smallint(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int(11)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="date_voided"  type="datetime">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createIndex indexName="id" tableName="person">
+            <column name="id"/>
+        </createIndex>
+        <addAutoIncrement columnDataType="int" columnName="id" tableName="person"/>
+    </changeSet>
+    
+</databaseChangeLog>

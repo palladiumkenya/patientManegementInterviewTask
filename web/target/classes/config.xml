@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module configVersion="1.2">
+
+	<!-- Module Properties -->
+	<id>patient-management</id>
+	<name>patient manager Module</name>
+	<version>1.0-SNAPSHOT</version>
+	<package>com.palladium.healthcenter.patient-management</package>
+	<author>elly makuba</author>
+	<description>
+		module for managing patient records
+	</description>
+	<!-- / Module Properties -->
+
+	
+	<!-- Module Activator -->
+	<activator>com.palladium.healthcenter.patient-management.patientmanagerActivator</activator>
+	
+	
+	<!-- Adds link to admin page -->
+	<extension>
+		<point>org.openmrs.admin.list</point>
+		<class>com.palladium.healthcenter.patient-management.extension.html.AdminList</class>
+	</extension>
+	
+	<!-- Maps hibernate file's, if present -->
+	<mappingFiles>
+				
+		patientmanager.hbm.xml
+				
+	</mappingFiles>
+
+	<!-- Internationalization -->
+	<!-- All message codes should start with patient-management. -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
+	<messages>
+		<lang>es</lang>
+		<file>messages_es.properties</file>
+	</messages>
+	<!-- /Internationalization -->
+
+</module>
+

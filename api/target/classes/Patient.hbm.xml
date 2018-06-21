@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.palladium.healthcenter">
+
+    <class name="Patient" table="patient">
+        <id name="patientId" type="int" column="patient_id" unsaved-value="0">
+            <generator class="native" />
+        </id>
+        <discriminator column="id" insert="false" />
+        <many-to-one name="patientId" class="Person" not-null="true" column="patient_id" update="false" insert="false"/>
+        <property name="dateCreated" type="java.util.Date" column="date_created"/>
+        <property name="dateVoided" type="java.util.Date"  column="date_voided" />
+        <property name="voided" type="java.lang.Boolean" column="voided"/>
+        <property name="identifier" type="java.lang.String" column="identifier"/>
+    </class>
+
+</hibernate-mapping>
