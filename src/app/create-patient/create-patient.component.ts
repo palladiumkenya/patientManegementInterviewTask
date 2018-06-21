@@ -80,12 +80,10 @@ export class CreatePatientComponent implements OnInit {
         phone_number: this.patientPhoneNumber ? this.patientPhoneNumber.toString() : 0,
         email_address: this.email ? this.email : 'null',
         alternative_phone_number: this.alternativePhoneNumber ? this.alternativePhoneNumber.toString() : 0,
-       // next_of_phone_number: this.nextKinPhoneNumber ? this.nextKinPhoneNumber.toString() : 0,
         date_of_enrollement: this.dateOfEnroloment
 
 
       };
-      console.log('addPatientPayload==', addPatientPayload);
       this.patientResourceService.createPatient( addPatientPayload).subscribe(
         (success) => {
           this.displaySuccessAlert('Record added Successfully');
