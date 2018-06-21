@@ -4,7 +4,7 @@
 <h1>Node js bundle</h1>
 <p>Is  Chrome's V8 based javascript frame work. It is asynch and works on request-response approach</p>
 <h1>Theming framework</h1>
-<p>Express js - EJS - this is an inbuilt node templating engine for quickly creating reusable UIs. It is free, no license limitations</p>
+<p>EJS templating engine - EJS - this is an inbuilt node templating engine within express framework for quickly creating reusable UIs. It is free, no license limitations</p>
 <h1>Javascript framework</h1>
 <p>Node.js - described above</p>
 <h1>Data Display framework/plugin/addon</h1>
@@ -30,3 +30,18 @@
 <li>node main.js</li>
 <li>Go to http://127.0.0.1:3000 to view the App</li>
 </ul> </p>
+<h1>Installation & Running - test env</h1>
+<p>
+<ul>
+<li>Node js</li>
+<li>Express js Framework</li>
+<li>Express Validator</li>
+<li>Express body parser</li>
+<li>Method-override module</li>
+<li>Express-flash module</li>
+<li>Cookie-parser & Express-session</li>
+<li>EJS templating engine</li>
+<li>Mysql</li>
+<li>Express-myconnection</li>
+</ul>
+</p>
