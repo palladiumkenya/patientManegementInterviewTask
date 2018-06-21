@@ -1,6 +1,6 @@
 # patientManegementInterviewTask
 <h1>Implementation</h1>
-<p>The App is web based and is build on <b></b></p>
+<p>The App is web based and is build on <b>Node JS</b></p>
 <h1>Node js bundle</h1>
 <p>Is  Chrome's V8 based javascript frame work. It is asynch and works on request-response approach</p>
 <h1>Theming framework</h1>
