@@ -39,6 +39,44 @@ app.get('/patient', function(req, res, next) {
         })
     })
 })
+//GET PATIENT'S NEXT OF KIN
+app.get('/nextofkin', function(req, res, next) {
+    req.getConnection(function(error, conn) {
+        conn.query("SELECT  palladium_nextofkin.EntryID,palladium_users.`UserID`, CONCAT(`FirstName`,' ', `LastName`, ' ', `MiddleName`) as Name,`NokName`,`NokEmail`,`NokAddress`,`Relationship` FROM palladium_users,palladium_nextofkin WHERE palladium_users.UserID = palladium_nextofkin.UserID AND palladium_users.UserType = 1 AND palladium_nextofkin.IsDisabled = 0 AND palladium_nextofkin.IsDeleted = 0 GROUP BY palladium_users.UserID",function(err, rows, fields) {
+            if (err) {
+                req.flash('error', err)
+                res.render('user/nextofkin', {
+                    title: 'Patients Next of Kin', 
+                    data: ''
+                })
+            } else {
+                res.render('user/nextofkin', {
+                    title: 'Patients Next of Kin', 
+                    result: rows
+                })
+            }
+        })
+    })
+})
+//GET PATIENT'S CONTACT INFO
+app.get('/contact', function(req, res, next) {
+    req.getConnection(function(error, conn) {
+        conn.query("SELECT  palladium_contact_information.EntryID, CONCAT(`FirstName`,' ', `LastName`, ' ', `MiddleName`) as Name, palladium_contact_information.`UserID`,`Address`,`PhoneNumber`,`AltPhone`,`Email`,`County`,`SubCounty`,`Ward`,`Village` FROM palladium_users,palladium_contact_information WHERE palladium_users.UserID = palladium_contact_information.UserID AND palladium_users.UserType = 1 GROUP BY palladium_users.UserID",function(err, rows, fields) {
+            if (err) {
+                req.flash('error', err)
+                res.render('user/contact', {
+                    title: 'Patients Contact Information', 
+                    result: ''
+                })
+            } else {
+                res.render('user/contact', {
+                    title: 'Patients Contact Information', 
+                    result: rows
+                })
+            }
+        })
+    })
+})
 // DISPLAY ADD NEW FORM
 app.get('/add', function(req, res, next){    
     res.render('user/add', {
@@ -268,14 +306,14 @@ app.post('/add', function(req, res, next){
         })
     }
 })
-//DISPLAY UPDATE FORM
+//DISPLAY UPDATE FORM - USER
 app.get('/edit/(:id)', function(req, res, next){
     req.getConnection(function(error, conn) {
         conn.query('SELECT * FROM palladium_users WHERE UserID = ' + req.params.id, function(err, rows, fields) {
             if(err) throw err
             
             if (rows.length <= 0) {
-                req.flash('error', 'Zero Entries found with ID = ' + req.params.id)
+                req.flash('error', '404 - Zero Entries found with ID = ' + req.params.id)
                 res.redirect('/patients')
             }
             else { 
@@ -298,8 +336,31 @@ app.get('/edit/(:id)', function(req, res, next){
         })
     })
 })
+// UPDATE FORM - NEXT OF KIN
+app.get('/editnok/(:id)', function(req, res, next){
+    req.getConnection(function(error, conn) {
+        conn.query('SELECT * FROM `palladium_nextofkin` WHERE `EntryID` = ' + req.params.id, function(err, rows, fields) {
+            if(err) throw err
+            
+            if (rows.length <= 0) {
+                req.flash('error', '404 - Zero Entries found with ID = ' + req.params.id)
+                res.redirect('/patients')
+            }
+            else { 
+                res.render('user/editnok', {
+                    title: 'Manage System Users Next of Kin', 
+                    EntryID: rows[0].EntryID,
+                    NokName: rows[0].NokName,
+                    NokEmail: rows[0].NokEmail,
+                    NokAddress: rows[0].NokAddress, 
+                    Relationship: rows[0].Relationship                       
+                })
+            }            
+        })
+    })
+})
 //POST UPDATE SQL COMMAND
-app.post('/edit/(:id)', function(req, res, next) {
+app.put('/edit/(:id)', function(req, res, next) {
     req.assert('UserID', 'User ID required').notEmpty() 
     req.assert('FirstName', 'First name required').notEmpty()          
     req.assert('LastName', 'Last name required').notEmpty() 
@@ -329,7 +390,7 @@ app.post('/edit/(:id)', function(req, res, next) {
         }
         
         req.getConnection(function(error, conn) {
-            conn.query('UPDATE palladium_users SET ? WHERE id = ' + req.params.id, user, function(err, result) {
+            conn.query('UPDATE palladium_users SET ? WHERE UserID = ' + req.params.id, user, function(err, result) {
                 if (err) {
                     req.flash('error', err)
                     res.render('user/edit', {
@@ -388,21 +449,21 @@ app.post('/edit/(:id)', function(req, res, next) {
         })
     }
 })
-//SET DELETE FLAG TO 0
+//SET USER DELETE FLAG TO 0
 app.delete('/delete/(:id)', function(req, res, next) {
     var user = { id: req.params.id }
     
     req.getConnection(function(error, conn) {
-        conn.query('DELETE FROM users WHERE id = ' + req.params.id, user, function(err, result) {
+        conn.query('UPDATE `palladium_users` SET `IsDeleted`= 1,`DeletedOn`= NOW() WHERE `UserID` = ' + req.params.id, user, function(err, result) {
             //if(err) throw err
             if (err) {
                 req.flash('error', err)
                 // redirect to users list page
-                res.redirect('/users')
+                res.redirect('/patients')
             } else {
-                req.flash('success', 'User deleted successfully! id = ' + req.params.id)
+                req.flash('success', req.params.id + ' Sent to trash!')
                 // redirect to users list page
-                res.redirect('/users')
+                res.redirect('/patients')
             }
         })
     })

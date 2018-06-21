@@ -7,45 +7,39 @@
     <% if (messages.success) { %>
     <p style="color:green"><%- messages.success %></p>
     <% } %> 
-    <h2>All system users</h2>
+    <hr>
+    <div><a style="font-size:24px;" href="/patients/patient">Patients</a> | <a style="font-size:24px;" href="/patients/nextofkin">Next of Kin</a> | <span style="font-size:24px;">Contact Data</span></div><br>
     <div class="hold" style ="width: 98%;overflow-x: auto;white-space: nowrap;">
     <table class="table table-striped table-dark" id="patients" style="width:100%;">
     <thead>
         <tr>
-            <th rowspan="2">Name</th>
-            <th colspan="6" style="color:#3074ae;">Bio information</th>
-            <th colspan="2" style="color:#3074ae;">Enrollment</th>
-            <th colspan="2" style="color:#3074ae;">Contact</th>
-        </tr>
-        <tr>
-        <th scope="col">D.O.B</th>
-        <th scope="col">Gender</th>
-        <th scope="col">Age</th>
-        <th scope="col">Marital</th>
-        <th scope="col">Height</th>
-        <th scope="col">Weight</th>
-        <th scope="col">Date Enrolled</th>
-        <th scope="col">#Enr. No</th>
+        <th scope="col">Enrollment</th>
+        <th scope="col">Patient</th>
+        <th scope="col">Address</th>
         <th scope="col">Phone</th>
+        <th scope="col">Alt. Phone</th>
         <th scope="col">Email</th>
-        <th scope="col">Action</th>
+        <th scope="col">County</th>
+        <th scope="col">Sub County</th>
+        <th scope="col">Ward</th>
+        <th scope="col">Village</th>
         </tr>
     </thead>
     <tbody>
-    <% if (data) { %>
-    <% data.forEach(function(user){ %>
+    <% if (result) { %>
+    <% result.forEach(function(user){ %>
     <tr>
-        <td><%= user.Name %></td>
-        <td><%= user.DateOfBirth %></td>
-        <td><%= user.Gender %></td>
-        <td><%= user.Age %></td>
-        <td><%= user.MaritalStatus %></td>
-        <td><%= user.Height %></td>
-        <td><%= user.Weight %></td>
-        <td><%= user.DateEnrolled.toDateString() %></td>
         <td><%= user.UserID %></td>
+        <td><%= user.Name %></td>
+        <td><%= user.Address %></td>
         <td><%= user.PhoneNumber %></td>
+        <td><%= user.AltPhone %></td>
         <td><%= user.Email %></td>
+        <td><%= user.County %></td>
+        <td><%= user.SubCounty %></td>
+        <td><%= user.Ward %></td>
+        <td><%= user.Village %></td>
+        
         <td>
             <div style="float:left">
                 <a href='/patients/edit/<%= user.UserID %>'><i style="color:green;" class="glyphicon glyphicon-edit"></i></a> &nbsp;                            

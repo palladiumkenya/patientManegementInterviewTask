@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.15.9
--- https://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 20, 2018 at 03:20 PM
--- Server version: 5.6.37
--- PHP Version: 7.1.8
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jun 21, 2018 at 05:16 AM
+-- Server version: 5.7.19
+-- PHP Version: 7.0.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -26,8 +28,9 @@ SET time_zone = "+00:00";
 -- Table structure for table `palladium_contact_information`
 --
 
+DROP TABLE IF EXISTS `palladium_contact_information`;
 CREATE TABLE IF NOT EXISTS `palladium_contact_information` (
-  `EntryID` int(11) NOT NULL,
+  `EntryID` int(11) NOT NULL AUTO_INCREMENT,
   `UserID` int(25) DEFAULT NULL,
   `Address` text NOT NULL,
   `PhoneNumber` varchar(15) DEFAULT NULL,
@@ -37,7 +40,9 @@ CREATE TABLE IF NOT EXISTS `palladium_contact_information` (
   `SubCounty` varchar(35) DEFAULT NULL,
   `Ward` varchar(35) DEFAULT NULL,
   `Village` varchar(35) DEFAULT NULL,
-  `DateLogged` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `DateLogged` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`EntryID`),
+  KEY `UserID` (`UserID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
@@ -55,15 +60,18 @@ INSERT INTO `palladium_contact_information` (`EntryID`, `UserID`, `Address`, `Ph
 -- Table structure for table `palladium_nextofkin`
 --
 
+DROP TABLE IF EXISTS `palladium_nextofkin`;
 CREATE TABLE IF NOT EXISTS `palladium_nextofkin` (
-  `EntryID` int(11) NOT NULL,
+  `EntryID` int(11) NOT NULL AUTO_INCREMENT,
   `NokName` varchar(30) DEFAULT NULL,
   `NokEmail` varchar(35) DEFAULT NULL,
   `NokAddress` text,
   `Relationship` varchar(35) DEFAULT NULL,
   `UserID` int(25) DEFAULT NULL,
   `IsDisabled` int(1) NOT NULL DEFAULT '0',
-  `IsDeleted` int(1) NOT NULL DEFAULT '0'
+  `IsDeleted` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`EntryID`),
+  KEY `UserID` (`UserID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
@@ -81,12 +89,13 @@ INSERT INTO `palladium_nextofkin` (`EntryID`, `NokName`, `NokEmail`, `NokAddress
 -- Table structure for table `palladium_users`
 --
 
+DROP TABLE IF EXISTS `palladium_users`;
 CREATE TABLE IF NOT EXISTS `palladium_users` (
-  `UserID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(30) DEFAULT NULL,
   `LastName` varchar(30) DEFAULT NULL,
   `MiddleName` varchar(30) DEFAULT NULL,
-  `DateOfBirth` datetime DEFAULT NULL,
+  `DateOfBirth` date DEFAULT NULL,
   `Gender` varchar(25) DEFAULT NULL,
   `Age` int(3) DEFAULT NULL,
   `MaritalStatus` varchar(30) DEFAULT NULL,
@@ -95,17 +104,20 @@ CREATE TABLE IF NOT EXISTS `palladium_users` (
   `UserType` int(3) DEFAULT NULL,
   `DateEnrolled` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `IsDisabled` int(1) NOT NULL DEFAULT '0',
-  `IsDeleted` int(1) DEFAULT '0'
+  `IsDeleted` int(1) DEFAULT '0',
+  `DeletedOn` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`UserID`),
+  KEY `UserType` (`UserType`)
 ) ENGINE=InnoDB AUTO_INCREMENT=111003 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `palladium_users`
 --
 
-INSERT INTO `palladium_users` (`UserID`, `FirstName`, `LastName`, `MiddleName`, `DateOfBirth`, `Gender`, `Age`, `MaritalStatus`, `Height`, `Weight`, `UserType`, `DateEnrolled`, `IsDisabled`, `IsDeleted`) VALUES
-(111000, 'Moi', 'Daniel', 'Korir', '1924-04-24 00:00:00', 'Male', 99, 'Married', '15.000', '86.000', 1, '2018-06-20 11:52:44', 0, 0),
-(111001, 'Emmah', 'Kimani', 'Gathoni', '1998-07-21 00:00:00', 'Female', 17, 'Married', '15.000', '86.000', 1, '2018-06-20 12:25:43', 0, 0),
-(111002, 'Idd', 'Juma', 'Gathoni', '1994-12-01 00:00:00', 'Male', 24, 'Single', '15.000', '86.000', 2, '2018-06-20 12:36:24', 0, 0);
+INSERT INTO `palladium_users` (`UserID`, `FirstName`, `LastName`, `MiddleName`, `DateOfBirth`, `Gender`, `Age`, `MaritalStatus`, `Height`, `Weight`, `UserType`, `DateEnrolled`, `IsDisabled`, `IsDeleted`, `DeletedOn`) VALUES
+(111000, 'Moid', 'Daniel', 'Korir', '1924-09-24', 'Female', 99, 'Married', '15.000', '86.000', 1, '2018-06-20 11:52:44', 0, 0, NULL),
+(111001, 'Emmah', 'Kimani', 'Gathoni', '1988-12-12', 'Female', 17, 'Married', '15.000', '86.000', 1, '2018-06-20 12:25:43', 0, 0, NULL),
+(111002, 'Idd', 'Juma', 'Gathon', '1994-01-12', 'Female', 24, 'Married', '15.000', '86.000', 1, '2018-06-20 12:36:24', 0, 1, '2018-06-21 04:56:36');
 
 -- --------------------------------------------------------
 
@@ -113,11 +125,13 @@ INSERT INTO `palladium_users` (`UserID`, `FirstName`, `LastName`, `MiddleName`, 
 -- Table structure for table `palladium_usertypes`
 --
 
+DROP TABLE IF EXISTS `palladium_usertypes`;
 CREATE TABLE IF NOT EXISTS `palladium_usertypes` (
-  `UserType` int(11) NOT NULL,
+  `UserType` int(11) NOT NULL AUTO_INCREMENT,
   `Type` varchar(55) NOT NULL,
   `IsDisabled` int(11) NOT NULL DEFAULT '0',
-  `IsDeleted` int(11) NOT NULL DEFAULT '0'
+  `IsDeleted` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`UserType`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
@@ -130,61 +144,6 @@ INSERT INTO `palladium_usertypes` (`UserType`, `Type`, `IsDisabled`, `IsDeleted`
 (3, 'User', 0, 0),
 (4, 'Guest', 0, 0);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `palladium_contact_information`
---
-ALTER TABLE `palladium_contact_information`
-  ADD PRIMARY KEY (`EntryID`),
-  ADD KEY `UserID` (`UserID`);
-
---
--- Indexes for table `palladium_nextofkin`
---
-ALTER TABLE `palladium_nextofkin`
-  ADD PRIMARY KEY (`EntryID`),
-  ADD KEY `UserID` (`UserID`);
-
---
--- Indexes for table `palladium_users`
---
-ALTER TABLE `palladium_users`
-  ADD PRIMARY KEY (`UserID`),
-  ADD KEY `UserType` (`UserType`);
-
---
--- Indexes for table `palladium_usertypes`
---
-ALTER TABLE `palladium_usertypes`
-  ADD PRIMARY KEY (`UserType`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `palladium_contact_information`
---
-ALTER TABLE `palladium_contact_information`
-  MODIFY `EntryID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `palladium_nextofkin`
---
-ALTER TABLE `palladium_nextofkin`
-  MODIFY `EntryID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `palladium_users`
---
-ALTER TABLE `palladium_users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=111003;
---
--- AUTO_INCREMENT for table `palladium_usertypes`
---
-ALTER TABLE `palladium_usertypes`
-  MODIFY `UserType` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --
@@ -207,6 +166,7 @@ ALTER TABLE `palladium_nextofkin`
 ALTER TABLE `palladium_users`
   ADD CONSTRAINT `palladium_users_ibfk_1` FOREIGN KEY (`UserType`) REFERENCES `palladium_usertypes` (`UserType`),
   ADD CONSTRAINT `palladium_users_ibfk_2` FOREIGN KEY (`UserType`) REFERENCES `palladium_usertypes` (`UserType`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
