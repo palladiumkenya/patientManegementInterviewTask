@@ -27,7 +27,7 @@ class SettingController extends Controller
     protected function users()
     {
        
-        $users =  User::where('org_id', Auth::user()->org_id)->orderBy('id', 'desc')->get();
+        $users =  User::where('depart_id', Auth::user()->depart_id)->orderBy('id', 'desc')->get();
         
 
         return view('Client.backEnd.users.user', compact('users'));

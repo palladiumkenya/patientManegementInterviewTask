@@ -1,7 +1,7 @@
 
 <div class="left_col scroll-view">
   <div class="navbar nav_title" style="border: 0;">
-    <a href="{{ url('return-view/dashboard')}}" class="site_title"><i class="fa fa-university"></i> <span>{{App\Models\Department::where('id', Auth::user()->org_id)->value('name')}}</span></a>
+    <a href="{{ url('return-view/dashboard')}}" class="site_title"><i class="fa fa-university"></i> <span>{{App\Models\Department::where('id', Auth::user()->depart_id)->value('name')}}</span></a>
   </div>
 
   <div class="clearfix"></div>
@@ -30,13 +30,6 @@
           <ul class="nav child_menu">
             <li><a href="{{ url('return/messages-inbound') }}">Inbound</a></li>
             <li><a href="{{ url('return/messages-outbound') }}">Outbound</a></li>
-          </ul>
-        </li>
-
-        <li><a><i class="fa fa-desktop"></i>Subscription <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-            <li><a href="{{ url('return/list-subscribers') }}">Subscribers</a></li>
-            <li><a href="{{ url('return/list-Content') }}">Content</a></li>
           </ul>
         </li>
         
