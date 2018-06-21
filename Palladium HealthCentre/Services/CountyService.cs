@@ -3,7 +3,6 @@ using Palladium.HealthCentre.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Palladium.HealthCentre.Services
 {
@@ -16,7 +15,8 @@ namespace Palladium.HealthCentre.Services
         public void Delete(long id)
         {
             var county = GetById(id);
-            string sql = "UPDATE TABLE county SET deleted_at=@DeletedAt";
+            county.DeletedAt = DateTime.Now;
+            string sql = "UPDATE county SET deleted_at=@DeletedAt WHERE id=@Id";
             using (var connection = GetConnection())
             {
                 connection.Open();
@@ -60,7 +60,7 @@ namespace Palladium.HealthCentre.Services
 
         public void Update(County county)
         {
-            string sql = "UPDATE TABLE county SET name = @Name, updated_at = @UpdatedAt WHERE id=@Id";
+            string sql = "UPDATE county SET name=@Name,updated_at=@UpdatedAt WHERE id=@Id";
             using (var connection = GetConnection())
             {
                 connection.Open();
