@@ -100,7 +100,7 @@ Patient Record
                                                         {{ csrf_field() }}
 
 
-                                                        <p class="col-md-offset-6">Patient's Data</p>
+                                                        <p class="col-md-offset-2">Patient's Data</p>
 
                                                         <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
                                                             <label for="first_name" class="col-md-4 control-label">First Name </label>
@@ -146,7 +146,7 @@ Patient Record
                                                             </div>
                                                         </div>
 
-                                                        <p class="col-md-offset-6">Contact Details</p>
+                                                        <p class="col-md-offset-2">Contact Details</p>
 
                                                         <div class="form-group{{ $errors->has('cell_phone') ? ' has-error' : '' }}">
                                                             <label for="cell_phone" class="col-md-4 control-label">Phone </label>
@@ -190,7 +190,7 @@ Patient Record
                                                             </div>
                                                         </div>
 
-                                                      <p class="col-md-offset-6">Location Details</p>
+                                                      <p class="col-md-offset-2">Location Details</p>
 
                                                         <div class="form-group{{ $errors->has('village') ? ' has-error' : '' }}">
                                                             <label for="village" class="col-md-4 control-label">Village </label>
@@ -249,7 +249,7 @@ Patient Record
                                                             </div>
                                                         </div>
 
-                                                        <p class="col-md-offset-6">Next of Kin Details</p>
+                                                        <p class="col-md-offset-2">Next of Kin Details</p>
 
                                                         <div class="form-group{{ $errors->has('next_of_kin_name') ? ' has-error' : '' }}">
                                                             <label for="next_of_kin_name" class="col-md-4 control-label">Kin Name </label>
@@ -295,7 +295,7 @@ Patient Record
                                                             </div>
                                                         </div>
 
-                                                        <p class="col-md-offset-6">Enrollment Details</p>
+                                                        <p class="col-md-offset-2">Enrollment Details</p>
 
                                                         <div class="form-group{{ $errors->has('enrollment_number') ? ' has-error' : '' }}">
                                                             <label for="enrollment_number" class="col-md-4 control-label"> Enrollment Number </label>
@@ -328,7 +328,13 @@ Patient Record
                                     </div>
                                 </div>
                             </td>
-                            <td class="text-center"> </td>
+                            <td class="text-center">
+                            <form action="{{ url('delete-patient-data') }}" method="POST" id="form1">
+                              {{ csrf_field() }}
+                               <input type="hidden" name="id" required="required" value="{{$data->id}}">
+                             </form>
+                             <button class="btn btn-xs btn-danger btn-flat" type="submit" form="form1" value="Submit" onclick="if (!confirm('Are you sure about this?')) { return false }"><span><i class="fa fa-trash" aria-hidden="true"></i> </span></button>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

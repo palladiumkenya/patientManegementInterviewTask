@@ -9,7 +9,7 @@ use App\Models\PatientsContactDetail;
 use App\Models\PatientsEnrollmentDetail;
 use App\Models\PatientsKinDatum;
 use App\Models\PatientsMetaDatum;
-use Cache, Auth, Exception, DB, App\Http\Requests\createPatientsMetaDatum;
+use Cache, Auth, Log, Exception, DB, App\Http\Requests\createPatientsMetaDatum, App\Http\Requests\updatePatientData;
 
 class PatientController extends Controller
 {
@@ -133,8 +133,27 @@ class PatientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        try 
+          {
+             DB::beginTransaction();
+
+             PatientsMetaDatum::find($request->id)->delete();
+             PatientsKinDatum::where('patient_meta_data_id', $request->id)->delete();
+             PatientsAddress::where('patient_meta_data_id', $request->id)->delete();
+             PatientsContactDetail::where('patient_meta_data_id', $request->id)->delete();
+             PatientsEnrollmentDetail::where('patient_meta_data_id', $request->id)->delete();
+             
+
+             DB::commit();
+             return back()->with('info', 'Profile Deleted');
+          } 
+        catch (Exception $e) 
+          {
+             Log::error($e);
+             DB::rollback(); 
+             return back()->with('message', 'Ooops! Something Went Wrong!');
+          }
     }
 }
