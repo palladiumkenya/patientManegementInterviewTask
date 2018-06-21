@@ -30,7 +30,7 @@
 <li>node main.js</li>
 <li>Go to http://127.0.0.1:3000 to view the App</li>
 </ul> </p>
-<h1>Installation & Running - test env</h1>
+<h1>Dependancies</h1>
 <p>
 <ul>
 <li>Node js</li>
@@ -44,4 +44,5 @@
 <li>Mysql</li>
 <li>Express-myconnection</li>
 </ul>
+<span>All the above have been incorporated in the App, no need to install them</span>
 </p>
