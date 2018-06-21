@@ -6,6 +6,8 @@ public class Patient {
     private Integer patientId;
     private Date dateCreated;
     private Boolean voided;
+    private Date dateVoided;
+    private String identifier;
 
     public Integer getPatientId() {
         return patientId;
@@ -29,5 +31,21 @@ public class Patient {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public Date getDateVoided() {
+        return dateVoided;
+    }
+
+    public void setDateVoided(Date dateVoided) {
+        this.dateVoided = dateVoided;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 }

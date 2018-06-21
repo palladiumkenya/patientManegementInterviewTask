@@ -7,7 +7,6 @@ public class PersonContact {
     private int cellPhone;
     private String email;
     private int alternativeCellphone;
-    private Date dateCreated;
     private Boolean voided;
     private Person person;
 
@@ -57,13 +56,5 @@ public class PersonContact {
 
     public void setPerson(Person person) {
         this.person = person;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
     }
 }

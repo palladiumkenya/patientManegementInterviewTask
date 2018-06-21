@@ -13,7 +13,7 @@
         <property name="cellPhone" type="java.lang.Integer" column="cellphone"/>
         <property name="email" type="java.lang.String" column="email"/>
         <property name="alternativeCellphone" type="java.lang.Integer" column="alternative_cellphone"/>
-        <many-to-one name="creator" class="User" column="creator"/>
+        <many-to-one name="person" class="Person" column="person_id" />
         <property name="voided" type="java.lang.Boolean" column="voided"/>
     </class>
 

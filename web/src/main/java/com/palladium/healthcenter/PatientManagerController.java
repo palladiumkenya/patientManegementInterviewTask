@@ -20,7 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class PatientManagerController{
@@ -33,17 +35,32 @@ public class PatientManagerController{
         JSONArray personJsonArray=new JSONArray();
         for(Person person:personList){
             personJsonObject=new JSONObject();
-            personJsonObject.put("name",person.getName());
+            personJsonObject.put("name",person.getFirstName());
             personJsonObject.put("gender", person.getGender());
             personJsonArray.add(personJsonObject);
         }
         jsonObject.put("persons", personJsonArray);
         response.getWriter().print(jsonObject);
     }
+    @RequestMapping(value="/getAllCounties.form",method = RequestMethod.GET)
+    public void getAllCounties(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        LocationService locationService=new LocationService();
+        List<County> countyList=locationService.getAllCounties();
+        JSONObject jsonObject=new JSONObject();
+        JSONObject countyJsonObject;
+        JSONArray countyJsonArray=new JSONArray();
+        for(County county:countyList){
+            countyJsonObject=new JSONObject();
+            countyJsonObject.put("name", county.getName());
+            countyJsonArray.add(countyJsonObject);
+        }
+        jsonObject.put("counties", countyJsonArray);
+        response.getWriter().print(jsonObject);
+    }
     @RequestMapping(value="/personByName.form",method = RequestMethod.GET)
     public void getPersonByName(){
     }
-    @RequestMapping(value="/savePerson.form",method=RequestMethod.POST)
+   /* @RequestMapping(value="/savePerson.form",method=RequestMethod.POST)
     public void savePatient(@RequestBody String request,HttpServletResponse response){
         JSONParser parser=new JSONParser();
         PersonService personService=new PersonService();
@@ -56,7 +73,7 @@ public class PatientManagerController{
                 Person person=new Person();
                 name=(String)personJson.get("name");
                 gender=(String)personJson.get("gender");
-                person.setName(name);
+                person.setFirstName(name);
                 person.setGender(gender);
                 personService.savePerson(person);
             }
@@ -66,7 +83,7 @@ public class PatientManagerController{
         catch (IOException e){
 
         }
-    }
+    }*/
     @RequestMapping(value="/saveCounty.form",method=RequestMethod.POST)
     public void saveCounty(HttpServletRequest request,HttpServletResponse response) throws IOException, ParseException {
         JSONParser parser=new JSONParser();
@@ -182,20 +199,119 @@ public class PatientManagerController{
         personService.saveRelationshipType(relationshipType);
         response.getWriter().print("payload success");
     }
-    /*@RequestMapping(value="/getAllLocations.form",method = RequestMethod.GET)
-    public void getAllLocations(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    @RequestMapping(value="/savePatient.form",method=RequestMethod.POST)
+    public void savePatient(HttpServletRequest request,HttpServletResponse response) throws IOException, ParseException {
         LocationService locationService=new LocationService();
-        List<Location> locationList=locationService.getAllLocations();
-        JSONObject jsonObject=new JSONObject();
-        JSONObject locationJsonObject;
-        JSONArray locationJsonArray=new JSONArray();
-        for(Location location:locationList){
-            locationJsonObject=new JSONObject();
-            locationJsonObject.put("name",);
-            locationJsonObject.put("gender", person.getGender());
-            personJsonArray.add(personJsonObject);
+        PersonService personService=new PersonService();
+        JSONParser parser=new JSONParser();
+        String payload=request.getParameter("form");
+        Object object=parser.parse(payload);
+        System.out.println("save patient payload +++++++++++++++++++++++"+payload);
+        JSONArray jsonArray=(JSONArray)object;
+        Patient patient=new Patient();
+        Person person=new Person();
+        JSONObject currentObject;
+        String currentName,currentValue;
+        County county;
+        SubCounty subCounty;
+        Ward ward;
+        Village village;
+        Set<PersonContact> personContactSet=new HashSet<PersonContact>();
+        PersonContact personContact=new PersonContact();
+        for(int i=0; i<jsonArray.size(); i++){
+            currentObject=(JSONObject)jsonArray.get(i);
+            currentName=(String)currentObject.get("name");
+            currentValue=(String)currentObject.get("value");
+            if(currentName.equalsIgnoreCase("fname")){
+                person.setFirstName(currentValue);
+            }
+            else if(currentName.equalsIgnoreCase("lname")){
+                person.setLastName(currentValue);
+            }
+            else if(currentName.equalsIgnoreCase("person_county")){
+                county=locationService.getCountyByName(currentValue);
+                person.setCounty(county);
+            }
+            else if(currentName.equalsIgnoreCase("gender")){
+                person.setGender(currentValue);
+            }
+            else if(currentName.equalsIgnoreCase("person_subcounty")){
+                subCounty=locationService.getSubCountyByName(currentValue);
+                System.out.println("subcounty object +++++++++++++++++++++++++++"+subCounty);
+                person.setSubCounty(subCounty);
+            }
+            else if(currentName.equalsIgnoreCase("person_ward")){
+                ward=locationService.getWardByName(currentValue);
+                person.setWard(ward);
+            }
+            else if(currentName.equalsIgnoreCase("person_village")){
+                village=locationService.getVillageByName(currentValue);
+                person.setVillage(village);
+            }
+            else if(currentName.equalsIgnoreCase("cellphone")){
+                personContact.setCellPhone(Integer.valueOf(currentValue));
+            }
+            else if(currentName.equalsIgnoreCase("other_number")){
+                personContact.setAlternativeCellphone(Integer.valueOf(currentValue));
+            }
+            else if(currentName.equalsIgnoreCase("email")){
+                personContact.setEmail(currentValue);
+            }
+            else if(currentName.equalsIgnoreCase("enrollment_number")){
+                //
+            }
         }
-        jsonObject.put("persons", personJsonArray);
+        Date today=new Date();
+        person.setDateCreated(today);
+        person.setVoided(false);
+        personContactSet.add(personContact);
+        person.setContacts(personContactSet);
+        personService.savePerson(person);
+        response.getWriter().print("patient payload successfully processed");
+    }
+    @RequestMapping(value="/getAllSubCounties.form",method = RequestMethod.GET)
+    public void getAllSubCounties(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        LocationService locationService=new LocationService();
+        List<SubCounty> subCountyList=locationService.getAllSubCounties();
+        JSONObject jsonObject=new JSONObject();
+        JSONObject subCountyJsonObject;
+        JSONArray locationJsonArray=new JSONArray();
+        for(SubCounty subCounty:subCountyList){
+            subCountyJsonObject=new JSONObject();
+            subCountyJsonObject.put("name", subCounty.getName());
+            locationJsonArray.add(subCountyJsonObject);
+        }
+        jsonObject.put("subcounties", locationJsonArray);
         response.getWriter().print(jsonObject);
-    }*/
+    }
+    @RequestMapping(value="/getAllWards.form",method = RequestMethod.GET)
+    public void getAllWards(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        LocationService locationService=new LocationService();
+        List<Ward> wardList=locationService.getAllWards();
+        JSONObject jsonObject=new JSONObject();
+        JSONObject wardJsonObject;
+        JSONArray wardJsonArray=new JSONArray();
+        for(Ward ward:wardList){
+            wardJsonObject=new JSONObject();
+            wardJsonObject.put("name", ward.getName());
+            wardJsonArray.add(wardJsonObject);
+        }
+        jsonObject.put("wards",wardJsonArray);
+        response.getWriter().print(jsonObject);
+    }
+    @RequestMapping(value="/getAllVillages.form",method = RequestMethod.GET)
+    public void getAllVillages(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        LocationService locationService=new LocationService();
+        List<Village> villageList=locationService.getAllVillages();
+        JSONObject jsonObject=new JSONObject();
+        JSONObject villageJsonObject;
+        JSONArray villageJsonArray=new JSONArray();
+        for(Village village:villageList){
+            villageJsonObject=new JSONObject();
+            villageJsonObject.put("name", village.getName());
+            villageJsonArray.add(villageJsonObject);
+        }
+        jsonObject.put("villages",villageJsonArray);
+        response.getWriter().print(jsonObject);
+    }
 }

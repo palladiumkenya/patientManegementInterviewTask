@@ -36,7 +36,9 @@ public class HibernatePersonDAO {
             transaction = session.beginTransaction();
             session.saveOrUpdate(person);
             transaction.commit();
+            System.out.println("save person transaction successfull+++++++++++++++++++++++++++"+person);
         }catch (HibernateException e) {
+            System.out.println("hibernate exception in saveperson++++++++++++++++++++++++++++++");
             if (transaction!=null) transaction.rollback();
             e.printStackTrace();
         }finally {

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
    <head>
       <title>Patient Records Application</title>
-      <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
-        <link href = "resources/bootstrap/css/bootstrap.min.css" rel = "stylesheet">
-      <script type='text/javascript' src = "resources/js/jquery/jquery.js"></script>
-      <script type='text/javascript' src = "resources/bootstrap/js/bootstrap.min.js"></script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script type='text/javascript' src = "resources/js/custom.js"></script>
    </head>
    <body>
    <div class="container">
-   <ul id = "homeTab" class = "nav nav-tabs">
+   <ul id = "myTab" class="nav nav-tabs">
       <li class = "active">
          <a href = "#patient" data-toggle = "tab">Patient</a>
       </li>
@@ -42,35 +42,38 @@
         </div>
         <button type="submit" class="btn btn-default">Search</button>
       </form>
-       <form>
+       <form id="patientFrm" name="patientFrm">
         <div class="form-group">
           <label for="fname">First Name:</label>
-          <input type="fname" class="form-control" id="fname">
+          <input type="fname" class="form-control" id="fname" name="fname">
         </div>
         <div class="form-group">
            <label for="lname">Last Name:</label>
-           <input type="lname" class="form-control" id="lname">
+           <input type="lname" class="form-control" id="lname" name="lname">
            </div>
         <div class="form-group">
           <label for="gender">Gender:</label>
-          <input type="gender" class="form-control" id="gender">
+          <select class="form-control" id="gender" name="gender">
+            <option>Male</option>
+            <option>Female</option>
+          </select>
         </div>
         <h2>Location</h2>
         <div class="form-group">
          <label for="person_county">County:</label>
-          <input type="text" class="form-control" id="person_county" name="person_county">
+         <select class="form-control" id="person_county" name="person_county"></select>
         </div>
         <div class="form-group">
          <label for="person_subcounty">Sub-County:</label>
-          <input type="text" class="form-control" id="person_subcounty" name="person_subcounty">
+          <select class="form-control" id="person_subcounty" name="person_subcounty"></select>
         </div>
         <div class="form-group">
          <label for="person_ward">Ward:</label>
-          <input type="text" class="form-control" id="person_ward" name="person_ward">
+          <select class="form-control" id="person_ward" name="person_ward"></select>
         </div>
         <div class="form-group">
          <label for="person_village">Village:</label>
-          <input type="text" class="form-control" id="person_village" name="person_village">
+          <select class="form-control" id="person_village" name="person_village"></select>
         </div>
         <h2>Contact</h2>
         <div class="form-group">
@@ -85,15 +88,6 @@
          <label for="other_number">Alternative Cell Phone:</label>
           <input type="text" class="form-control" id="other_number" name="other_number">
         </div>
-        <h2>Relationship</h2>
-        <div class="form-group">
-         <label for="location">Person:</label>
-          <input type="text" class="form-control" id="person" name="person">
-        </div>
-        <div class="form-group">
-         <label for="relationship_type">Location:</label>
-          <input type="text" class="form-control" id="relationship_type" name="relationship_type">
-        </div>
         <h2>Enrollment</h2>
         <div class="form-group">
          <label for="enrollment_date">Enrollment Date:</label>
@@ -103,7 +97,7 @@
          <label for="enrollment_number">Enrollment Number:</label>
           <input type="text" class="form-control" id="enrollment_number" name="enrollment_number">
         </div>
-       <button type="submit" class="btn btn-default">Save</button>
+       <button type="submit" class="btn btn-default" id="patientBtn">Save</button>
       </form>
       </div>
 

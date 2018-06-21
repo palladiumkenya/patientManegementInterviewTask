@@ -5,11 +5,16 @@
 
 <hibernate-mapping package="com.palladium.healthcenter">
 
-    <joined-subclass name="Patient" table="patient" extends="Person">
-        <key column="patient_id" not-null="true" on-delete="cascade" />
-        <property name="patientId" type="int" not-null="true" column="patient_id" update="false" insert="false" />
-        <many-to-one name="creator" class="User" column="creator"/>
+    <class name="Patient" table="patient">
+        <id name="patientId" type="int" column="patient_id" unsaved-value="0">
+            <generator class="native" />
+        </id>
+        <discriminator column="id" insert="false" />
+        <many-to-one name="patientId" class="Person" not-null="true" column="patient_id" update="false" insert="false"/>
+        <property name="dateCreated" type="java.util.Date" column="date_created"/>
+        <property name="dateVoided" type="java.util.Date"  column="date_voided" />
         <property name="voided" type="java.lang.Boolean" column="voided"/>
-    </joined-subclass>
+        <property name="identifier" type="java.lang.String" column="identifier"/>
+    </class>
 
 </hibernate-mapping>

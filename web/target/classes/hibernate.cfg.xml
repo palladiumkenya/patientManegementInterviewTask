@@ -25,5 +25,7 @@
         <mapping resource="SubCounty.hbm.xml"/>
         <mapping resource="Ward.hbm.xml"/>
         <mapping resource="Village.hbm.xml"/>
+        <mapping resource="PersonContact.hbm.xml"/>
+        <mapping resource="Patient.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

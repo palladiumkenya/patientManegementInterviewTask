@@ -26,4 +26,25 @@ public class LocationService {
     public Ward saveWard(Ward ward) throws IOException{
         return locationDAO.saveWard(ward);
     }
+    public List<SubCounty> getAllSubCounties() throws IOException {
+        return locationDAO.getAllSubCounties();
+    }
+    public List<Ward> getAllWards() throws IOException {
+        return locationDAO.getAllWards();
+    }
+    public List<Village> getAllVillages() throws IOException {
+        return locationDAO.getAllVillages();
+    }
+    public County getCountyByName(String name) throws IOException {
+        return locationDAO.getCountyByName(name);
+    }
+    public SubCounty getSubCountyByName(String name) throws IOException {
+        return locationDAO.getSubCountyByName(name);
+    }
+    public Ward getWardByName(String name) throws IOException {
+        return locationDAO.getWardByName(name);
+    }
+    public Village getVillageByName(String name) throws IOException {
+        return locationDAO.getVillageByName(name);
+    }
 }
