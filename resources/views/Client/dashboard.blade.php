@@ -33,7 +33,7 @@ Dashboard
                                     <i class="fa fa-users fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">{{$reg_members}}</div>
+                                    <div class="huge"> </div>
                                     <div>Subcribed members</div>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@ Dashboard
                                     <i class="fa fa-tasks fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">{{$inboundSms}}</div>
+                                    <div class="huge"> </div>
                                     <div>Inbound Sms</div>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@ Dashboard
                                     <i class="fa fa-list fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">{{$content}}</div>
+                                    <div class="huge"> </div>
                                     <div>Content</div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@ Dashboard
                                     <i class="fa fa-send fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">{{$sent_sms}}</div>
+                                    <div class="huge"> </div>
                                     <div> Sent Sms</div>
                                 </div>
                             </div>
