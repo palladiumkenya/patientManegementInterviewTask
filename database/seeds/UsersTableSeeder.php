@@ -40,6 +40,7 @@ class UsersGenerate extends Seeder
 		$user->depart_id = 1;
         $user->first_name = "Admin";
 		$user->last_name = "Account";
+		$user->password = bcrypt("admin");
 	    $user->verified = 1;
 		$user->save();
 
@@ -49,6 +50,7 @@ class UsersGenerate extends Seeder
 		$user->depart_id = 2;
         $user->first_name = "Test";
 		$user->last_name = "User";
+		$user->password = bcrypt("depart");
 	    $user->verified = 1;
 		$user->save();
 

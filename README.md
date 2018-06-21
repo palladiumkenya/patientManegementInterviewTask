@@ -1,6 +1,6 @@
 # patientManegementInterviewTask
 
-
+The application rus on Laravel 
 
 ###Minimum Requeirements 
 * php >=5.6.4
