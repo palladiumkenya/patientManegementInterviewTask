@@ -26,10 +26,9 @@
       <h3>General</h3>
       <ul class="nav side-menu">
       
-        <li><a><i class="fa fa-send"></i>Messages <span class="fa fa-chevron-down"></span></a>
+        <li><a><i class="fa fa-send"></i>Patient Data <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="{{ url('return/messages-inbound') }}">Inbound</a></li>
-            <li><a href="{{ url('return/messages-outbound') }}">Outbound</a></li>
+            <li><a href="{{ url('return/patient-records') }}">Patient records</a></li>
           </ul>
         </li>
         
