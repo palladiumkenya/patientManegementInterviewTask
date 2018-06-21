@@ -11,7 +11,7 @@ namespace Palladium.HealthCentre.Services
     {
         private string _connectionString;
 
-        protected BaseService(string connectionString)
+        public BaseService(string connectionString)
         {
             _connectionString = connectionString;
         }

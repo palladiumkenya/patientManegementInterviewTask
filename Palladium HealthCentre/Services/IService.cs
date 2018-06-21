@@ -8,7 +8,7 @@ namespace Palladium.HealthCentre.Services
 
         void Update(T obj);
 
-        void Delete(T obj);
+        void Delete(long id);
 
         List<T> GetAll();
 

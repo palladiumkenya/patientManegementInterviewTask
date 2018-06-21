@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Palladium.HealthCentre.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,17 +8,19 @@ namespace Palladium.HealthCentre.Services
 {
     public class BioDataService : BaseService, IService<BioData>
     {
-        protected BioDataService(string connectionString) : base(connectionString)
+        public BioDataService(string connectionString) : base(connectionString)
         {
         }
 
-        public void Delete(BioData bio)
+        public void Delete(long id)
         {
-            string sql = "UPDATE TABLE biodata SET deleted_at=@DeletedAt";
+            var biodata = GetById(id);
+            biodata.DeletedAt = DateTime.Now;
+            string sql = $"UPDATE biodata SET deleted_at=@DeletedAt WHERE id=@Id";
             using (var connection = GetConnection())
             {
                 connection.Open();
-                connection.Execute(sql, bio);
+                connection.Execute(sql, biodata);
             }
         }
 
@@ -38,7 +41,7 @@ namespace Palladium.HealthCentre.Services
         {
             string sql = $"SELECT id, first_name AS firstName, surname, middle_name AS middleName, dob, " +
                 $"created_at AS createdAt, updated_at AS updatedAt, deleted_at AS deletedAt " +
-                $"FROM biodata WHERE id = {id} deleted_at IS NULL";
+                $"FROM biodata WHERE id = {id} AND deleted_at IS NULL";
             using (var connection = GetConnection())
             {
                 connection.Open();
@@ -59,7 +62,7 @@ namespace Palladium.HealthCentre.Services
 
         public void Update(BioData bio)
         {
-            string sql = "UPDATE TABLE biodata SET first_name = @firstName , surname=@Surname, middle_name=@MiddleName, dob=@Dob WHERE id = @Id";
+            string sql = "UPDATE biodata SET first_name = @firstName , surname=@Surname, middle_name=@MiddleName, dob=@Dob WHERE id = @Id";
             using (var connection = GetConnection())
             {
                 connection.Open();
