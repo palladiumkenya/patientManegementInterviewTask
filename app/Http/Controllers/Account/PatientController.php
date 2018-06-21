@@ -13,6 +13,17 @@ use Cache, Auth, Log, Exception, DB, App\Http\Requests\createPatientsMetaDatum, 
 
 class PatientController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+       $this->middleware('user');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -119,9 +130,6 @@ class PatientController extends Controller
             DB::rollback(); 
             return back()->with('message', 'Ooops! Something Went Wrong!');
           }
-
-
-
 
 
 
