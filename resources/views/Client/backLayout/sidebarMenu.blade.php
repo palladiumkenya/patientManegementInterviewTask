@@ -29,6 +29,8 @@
         <li><a><i class="fa fa-send"></i>Patient Data <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{{ url('return/patient-records') }}">Patient records</a></li>
+            <li><a href="{{ url('return/deleted-patients') }}">Deleted patients</a></li>
+            <li><a href="{{ url('return/patients-below-age') }}">Patient Below Age</a></li>
           </ul>
         </li>
         

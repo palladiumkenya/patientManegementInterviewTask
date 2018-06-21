@@ -164,4 +164,14 @@ class PatientController extends Controller
              return back()->with('message', 'Ooops! Something Went Wrong!');
           }
     }
+
+
+
+    public function deletedPatients()
+    {
+       $deleted = PatientsMetaDatum::onlyTrashed()->get();
+
+       return view('Client.backEnd.Patient.deletedRecords', compact('deleted')); 
+    }
+
 }
