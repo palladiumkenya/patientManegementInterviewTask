@@ -36,6 +36,7 @@ app.set('view engine', 'ejs')
  */ 
 var index = require('./routes/index')
 var patients = require('./routes/patients')
+var users = require('./routes/users')
  
 /**
  * Form Validator engine
@@ -79,9 +80,10 @@ app.use(session({
     cookie: { maxAge: 60000 }
 }))
 app.use(flash())
- 
+ //routing
 app.use('/', index)
 app.use('/patients', patients)
+app.use('/api/v0/users', users)
  
 app.listen(3000, function(){
     console.log('Server running at port 3000: http://127.0.0.1:3000')

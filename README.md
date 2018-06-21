@@ -18,6 +18,7 @@
 <ul>
 <li>MYSQL 5.6 ></li>
 <li>Any windows version > Xp</li>
+<li>POSTMAN for API endpoints test</li>
 </ul>
 </p>
 <h1>Installation & Running - test env</h1>
@@ -48,3 +49,8 @@
 </ul>
 <span>All the above have been incorporated in the App, no need to install them</span>
 </p>
+<h1>REST-ful API - Endpoints</h1>
+<p>You need POstman for test</p>
+<p>1. Fetch all users use http://127.0.0.1:3000/api/v0/users</p>
+<p>See below snap!</p>
+<img src="https://jacidd.com/wp-content/uploads/2018/06/postman.png"/>
