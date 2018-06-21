@@ -42,6 +42,9 @@
 <li>EJS templating engine</li>
 <li>Mysql</li>
 <li>Express-myconnection</li>
+<li>Bootstrap</li>
+<li>Fontawesome</li>
+<li>Data tables</li>
 </ul>
 <span>All the above have been incorporated in the App, no need to install them</span>
 </p>
