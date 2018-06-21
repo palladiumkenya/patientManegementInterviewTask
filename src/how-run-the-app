@@ -1,0 +1,18 @@
+Setting the patient_app_server
+Make sure you have Node version >= 5.0 and NPM >= 3 installed
+cd patient_app_server
+npm install
+cd conf
+set you mysql connection for example
+"mysql": {
+        "connectionLimit": 10,
+        "host": "127.0.0.1",
+        "port": "3306",
+        "user": "root", // mysql_user
+        "password": "test1234", // mysql_password
+        "database":"palladium",
+        "multipleStatements": true
+    }
+ N/B Ensure that you have created database using the sql dump provided and set the configuration as demonstrated above
+
+npm start // to start the patient_app_server
