@@ -39,6 +39,25 @@ app.get('/patient', function(req, res, next) {
         })
     })
 })
+//GET ARCHIVES
+app.get('/archives', function(req, res, next) {
+    req.getConnection(function(error, conn) {
+        conn.query("SELECT palladium_users.`UserID`, CONCAT(`FirstName`,' ', `LastName`, ' ', `MiddleName`) as Name, `DateOfBirth`, `Gender`, `Age`, `MaritalStatus`, `Height`, `Weight`, `DeletedOn` FROM `palladium_users` WHERE UserType = 1 AND palladium_users.IsDisabled = 0 AND palladium_users.IsDeleted = 1",function(err, rows, fields) {
+            if (err) {
+                req.flash('error', err)
+                res.render('user/archives', {
+                    title: 'Archives', 
+                    data: ''
+                })
+            } else {
+                res.render('user/archives', {
+                    title: 'Archives', 
+                    data: rows
+                })
+            }
+        })
+    })
+})
 //GET PATIENT'S NEXT OF KIN
 app.get('/nextofkin', function(req, res, next) {
     req.getConnection(function(error, conn) {
@@ -446,6 +465,66 @@ app.put('/edit/(:id)', function(req, res, next) {
             Height: req.body.Height,
             Weight: req.body.Weight,
             UserType: req.body.UserType
+        })
+    }
+})
+//POST UPDATE FOR NEXT OF KIN   
+app.put('/editnok/(:id)', function(req, res, next) {
+    req.assert('EntryID', 'User ID required').notEmpty() 
+    req.assert('NokName', 'Name required').notEmpty()          
+    req.assert('NokEmail', 'Valid email required').isEmail() 
+    req.assert('NokAddress', 'Address required').notEmpty() 
+    req.assert('Relationship', 'Field required').notEmpty() 
+    var errors = req.validationErrors()
+    if( !errors ) {   
+
+        var user = {
+            EntryID: req.sanitize('EntryID').escape().trim(),
+            NokName: req.sanitize('NokName').escape().trim(),
+            NokEmail: req.sanitize('NokEmail').escape().trim(),
+            NokAddress: req.sanitize('NokAddress').escape().trim(),
+            Relationship: req.sanitize('Relationship').escape().trim()
+        }
+        
+        req.getConnection(function(error, conn) {
+            conn.query('UPDATE `palladium_nextofkin` SET ? WHERE EntryID = ' + req.params.id, user, function(err, result) {
+                if (err) {
+                    req.flash('error', err)
+                    res.render('user/editnok', {
+                        title: 'Manage System Users Next of Kin',
+                        EntryID: req.params.id,
+                        NokName: req.body.NokName,
+                        NokEmail: req.body.NokEmail,
+                        NokAddress: req.body.NokAddress,
+                        Relationship: req.body.Relationship
+                    })
+                } else {
+                    req.flash('success', 'Changes Commited!')
+                    res.render('user/editnok', {
+                        title: 'Manage System Users Next of Kin',
+                        EntryID: req.params.id,
+                        NokName: req.body.NokName,
+                        NokEmail: req.body.NokEmail,
+                        NokAddress: req.body.NokAddress,
+                        Relationship: req.body.Relationship
+                    })
+                }
+            })
+        })
+    }
+    else {  
+        var error_msg = ''
+        errors.forEach(function(error) {
+            error_msg += error.msg + '<br>'
+        })
+        req.flash('error', error_msg)
+        res.render('user/editnok', { 
+            title: 'Manage System Users Next of Kin',
+            EntryID: req.params.id,
+            NokName: req.body.NokName,
+            NokEmail: req.body.NokEmail,
+            NokAddress: req.body.NokAddress,
+            Relationship: req.body.Relationship
         })
     }
 })
