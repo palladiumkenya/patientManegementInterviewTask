@@ -48,8 +48,17 @@
 
                         </tbody>
                     </table>
-<hr/>
+					<hr/>
+					<div class=" col-md-3">
                     <a href="#" class="btn btn-primary">Edit</a>
+					</div>
+					<div class=" col-md-4">
+					<form method="post" action="{{url('/patient/remove')}}" class="form-horizontal">
+					{{ csrf_field() }}
+					<input type="hidden" class="form-control" name="user"value="{{$patient->id}}">					
+					   <input type="submit" value="Remove Patient" class="btn-sm btn-danger">
+					</form>
+					</div>
                 </div>
 
                 <div class=" col-md-6 col-lg-6 ">
@@ -77,6 +86,7 @@
                     </table>
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
 					 Edit
+				   </button>
 				   </button>
 					<hr style="height:2px;border:none;color:#333;background-color:#333;" />
 					

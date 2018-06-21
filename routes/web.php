@@ -29,4 +29,6 @@ Route::post('/save/patient', 'HomeController@savePatient');
 
 Route::post('/update/contacts', 'HomeController@updateContacts');
 
+Route::post('/patient/remove', 'HomeController@deletePatient');
+
 Route::get('/profile/{id}', 'HomeController@profile');

@@ -105,4 +105,12 @@ class HomeController extends Controller
 		
 		return redirect('/profile/'.$request->get('user'));
 	}
+	
+	public function deletePatient(Request $request){
+		$patient = Patient::find($request->get('user'));
+		$patient->is_deleted = 1;
+		$patient->update();
+		
+		return redirect('/home');
+	}
 }
