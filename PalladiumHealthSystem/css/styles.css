@@ -1,0 +1,114 @@
+.container{
+  border: 30px;
+  overflow: auto;
+  align-items: center;
+}
+
+
+.jumbotron{
+  position: relative;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-family: 'PT Serif', serif;
+  height:  150px;
+
+}
+
+.img{
+  position: relative;
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+
+.h1{
+  color: white;
+  text-align: center;
+}
+
+.well{
+  position: relative;
+  background-color: white;
+  color: black;
+  text-align: center;
+}
+
+.button1{
+    background-color: #45B39D;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-left: 320px;
+    float:inherit;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.button2{
+    background-color: white;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-right: 200px;
+    box-sizing: border-box;
+    text-align: center;
+    float:
+}
+
+#btn{
+  text-align: center;
+}
+
+
+
+.button3{
+    background-color: white;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-right: 200px;
+    box-sizing: border-box;
+    text-align: center;
+    display:table-cell;
+     vertical-align:middle;
+}
+
+h3{
+  font-family:'Cormorant Garamond', serif;
+  font-size: 20px;
+  position: relative;
+  color:#45B39D;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+h1{
+font-family: 'Cormorant Garamond', serif;
+font-size: 40px;
+color: #45B39D;
+font-weight: bold;
+}
+
+
+h4{
+  font-family: 'Lateef', cursive;
+  font-size: 10px;
+  color: #45B39D;
+}
+
+.hr{
+  border-style: solid;
+  border-bottom: 100px;
+  border-color: #45B39D;
+}
+
+#btn2{
+  background-color: #45B39D;
+  padding-right: 40px;
+}
+
+#btn3{
+  background-color: red;
+  padding-right: 40px;
+}
