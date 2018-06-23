@@ -14,6 +14,7 @@
             "follow": "Suivez @java_hipster sur Twitter"
         },
         "like": "Si vous aimez JHipster, donnez nous une étoile sur",
-        "github": "GitHub "
+        "github": "GitHub ",
+        "homeIntroContent": "Tous vos patients enregistrent au même endroit"
     }
 }

@@ -1,0 +1,7 @@
+.no-bg{
+    background: none;
+}
+.home-header{
+    background: url("../../../content/images/bg1.jpg") no-repeat;
+    background-size: 100% 540px;
+}

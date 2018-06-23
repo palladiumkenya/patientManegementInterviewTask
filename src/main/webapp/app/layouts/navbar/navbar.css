@@ -3,12 +3,12 @@ Navbar
 ========================================================================== */
 .navbar-version {
     font-size: 10px;
-    color: #ccc
+    color: #000
 }
 
 .jh-navbar {
-    background-color: #353d47;
     padding: .2em 1em;
+    background: none !important;
 }
 
 .jh-navbar .profile-image {
@@ -36,16 +36,17 @@ Navbar
 
 .jh-navbar a.nav-link {
     font-weight: 400;
+    color: #000000;
 }
 
 .jh-navbar .jh-navbar-toggler {
-    color: #ccc;
+    color: #000;
     font-size: 1.5em;
     padding: 10px;
 }
 
 .jh-navbar .jh-navbar-toggler:hover {
-    color: #fff;
+    color: #000;
 }
 
 @media screen and (min-width: 768px) {
@@ -81,7 +82,15 @@ Logo styles
 
 .logo-img {
     height: 100%;
-    background: url("../../../content/images/logo-jhipster.png") no-repeat center center;
+    background: url("../../../content/images/logo2.png") no-repeat center center;
     background-size: contain;
+    width: 100%;
+}
+
+.home-intro3{
+    position: absolute;
+    top:0px;
+    background: url("../../../content/images/bg1.jpg") no-repeat center center;
+    height: 540px;
     width: 100%;
 }

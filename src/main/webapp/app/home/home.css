@@ -24,3 +24,36 @@ only screen and (                min-resolution: 2dppx) {
     }
 }
 
+.no-bg{
+    background: none !important;
+}
+.home-content{
+    min-height: 407px;
+}
+.home-intro{
+    border-radius: 8px;
+    margin-top: 8%;
+    color: white;
+    opacity: 0.4;
+    padding: 10px;
+    background-color: #0a0a0a;
+}
+.home-intro h1{
+    font-size: 50px;
+    font-weight: 400;
+}
+.lg-group{
+    margin-top: 15%;
+}
+.lg-group button{
+    margin-top: 20px;
+}
+.pd-top{
+    margin-top: 20px;
+}
+.pr-home-r2{
+    border-radius: 10px;
+    padding-top: 30px;
+    background-color: white;
+    padding-bottom: 30px;
+}
