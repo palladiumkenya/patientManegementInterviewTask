@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lateef" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/jquery-3.3.1.js"> </script>
+    <script src="js/location-script.js"> </script>
+    <title> Patient Details</title>
+  </head>
+  <body>
+    <div class="body">
+    <div class="jumbotron">
+      <img height="80px" src="img/pal3.png" alt="logo">
+      <h1> Palladium Patient Management System </h1>
+  </div>
+<div class="container">
+  <h1>Enter Patient Details</h1>
+<div class="row">
+  <h3>Enter Bio Data Information </h3>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="control-label"> First Name</label>
+      <input class="form-control" id="FirstName" required="required">
+    </div>
+    <div class="form-group">
+      <label class="control-label"> Last Name</label>
+      <input class="form-control" id="LastName" required="required">
+    </div>
+    <div class="form-group">
+      <label class="control-label"> Identification Type</label>
+      <select class="form-control selectpicker" id="IdType"
+       required="required">
+       <option> Select </option>
+       <option> NationalID </option>
+       <option> Passport </option>
+     </select>
+    </div>
+    <div class="form-group">
+      <label class="control-label"> Marital Status</label>
+      <select class="form-control selectpicker" id="MaritalStatus"
+       required="required">
+       <option> Select </option>
+       <option> Single </option>
+       <option> Married </option>
+       <option> Divorced </option>
+       <option> Widowed </option>
+     </select>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="control-label"> Other Name</label>
+      <input class="form-control" id="OtherName" required="required">
+    </div>
+    <div class="form-group">
+      <label class="control-label"> Date Of Birth</label>
+      <input type="date" class="form-control" id="OtherName" required="required">
+    </div>
+    <div class="form-group">
+      <label class="control-label"> Identification Number</label>
+      <input type="text" class="form-control" id="IdNumber" required="required">
+    </div>
+    <div class="form-group">
+      <label class="control-label"> Gender</label>
+      <select class="form-control selectpicker" id="MaritalStatus"
+       required="required">
+       <option> Select </option>
+       <option> Male </option>
+       <option> Female </option>
+     </select>
+    </div>
+  </div>
+</div>
+<hr class="hr">
+
+<div class="row">
+  <h3>Enter contact information</h3>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="control-label"> Phone Number</label>
+      <input class="form-control" id="PhoneNumber" required="required">
+  </div>
+  <div class="form-group">
+    <label class="control-label"> Alternate Phone Number</label>
+    <input class="form-control" id="AltPhoneNumber" required="required">
+  </div>
+</div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="control-label"> Email Address</label>
+      <input type="email" class="form-control" id="EmailAddress" required="required">
+    </div>
+  </div>
+
+</div>
+<hr class="hr">
+<div class="row">
+  <h3>Enter location information</h3>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="control-label"> Select County</label>
+      <select class="form-control selectpicker" name="County"
+       required="required">
+       <option value="0"> Select </option>
+       <option value="1"> Nairobi </option>
+       <option value="2"> Kisumu </option>
+       <option value="3">Mombasa </option>
+     </select>
+  </div>
+  <div class="form-group">
+    <label class="control-label"> Ward</label>
+    <input type="text" class="form-control" id="Ward" required="required">
+  </div>
+  <div class="form-group">
+    <label class="control-label"> Home Address</label>
+    <input type="text" class="form-control" id="HomeAddress" required="required">
+  </div>
+</div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="control-label">Select Subcounty</label>
+      <select
+       class="form-control selectpicker" id="SubCounty"
+       required="required">
+       <option value="0"> Select </option>
+       <option value="1"> Starehe </option>
+       <option value="1"> Kasarani </option>
+       <option value="1">Embakasi </option>
+       <option value="1">Ruaraka </option>
+       <option value="2"> Kisumu Central </option>
+       <option value="2"> Nyakach </option>
+       <option value="2"> Muhoroni </option>
+       <option value="2">Seme </option>
+       <option value="3">Mvita</option>
+       <option value="3"> Likoni </option>
+       <option value="3"> Nyali </option>
+       <option value="3">Kisumu </option>
+     </select>
+    </div>
+    <div class="form-group">
+      <label class="control-label"> Village</label>
+      <input type="text" class="form-control" id="Village" required="required">
+    </div>
+
+  </div>
+
+</div>
+<hr class="hr">
+<div class="row">
+  <h3>Next of Kin Details </h3>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="control-label"> First Name</label>
+      <input class="form-control" id="FirstName" required="required">
+    </div>
+    <div class="form-group">
+      <label class="control-label"> Relationship</label>
+      <select class="form-control selectpicker" id="Relationship"
+       required="required">
+       <option value="0"> Select </option>
+       <option value="1"> Mother </option>
+       <option value="2"> Father </option>
+       <option value="3">Sibling </option>
+     </select>
+    </div>
+
+</div>
+<div class="col-md-6">
+  <div class="form-group">
+    <label class="control-label"> Last Name</label>
+    <input class="form-control" id="LastName" required="required">
+  </div>
+  <div class="form-group">
+    <label class="control-label"> Phone Number</label>
+    <input class="form-control" id="PhoneNumber" required="required">
+  </div>
+</div>
+</div>
+<div>
+  <input type="submit"  id="btn2" class="btn btn bg-blue margin pull-left" value="Save">
+  <a href="PatientList.html" class="pull-right"> <h3> Back to list </h3> </a>
+</div>
+
+</div>
+
+  </body>
+</html>
