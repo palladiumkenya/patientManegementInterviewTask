@@ -3,11 +3,12 @@ from django.db import models
 
 class Patient(models.Model):
     # the bio-data
-    id_number = models.IntegerField(blank=False)
+    id_number = models.IntegerField(blank=False)  # if patient has no id use guardian's/kin's ID
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
-    weight = models.IntegerField()
-    height = models.IntegerField()
+    weight = models.IntegerField()  # in kilograms
+    height = models.IntegerField()  # in centimeters
+    age = models.IntegerField()
 
     # location details
     county = models.CharField(max_length=20)
@@ -23,7 +24,6 @@ class Patient(models.Model):
     # enrollment details
     enroll_date = models.DateField(auto_now_add=True)
     enroll_number = models.IntegerField()
-    # next_of_kin = models.ForeignKey(Kin)
 
     class Meta:
         verbose_name_plural = "Patients"
