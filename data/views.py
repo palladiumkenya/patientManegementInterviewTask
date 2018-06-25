@@ -1,10 +1,11 @@
-from django.shortcuts import render, get_object_or_404, render_to_response, reverse
+from django.shortcuts import render, get_object_or_404, render_to_response, reverse, redirect
 from django.http import HttpResponse
 from .models import Patient, Kin
 from django.views import generic
 from django.core.paginator import Paginator
 from django.views.generic import TemplateView, UpdateView, CreateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+from .forms import PatientForm
 
 
 class Index(TemplateView):
@@ -66,6 +67,18 @@ class DeletePatient(DeleteView):
     model = Patient
     template_name = 'patient.html'
     success_url = reverse_lazy('data:home')
+
+
+def patient_update(request, id):
+    instance = get_object_or_404(Patient, id=id)
+    form = PatientForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('home')
+    return render(request, 'update_patient.html', {'form': form})
+
+
+
 
 
 

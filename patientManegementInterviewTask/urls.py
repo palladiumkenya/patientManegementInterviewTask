@@ -18,11 +18,17 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from data import views as data_views
 
+
 admin.autodiscover()
 
 urlpatterns = [
     url(r'^$', data_views.Index.as_view(), name='index'),
-    url(r'^data/', include('data.urls')),
+    url(r'^data/', include('data.urls')),   # handles all routes inside data app
     url(r'^admin/', admin.site.urls),
+
+    # to handle the api
+    url(r'^api/', include('api.urls')),
+
+
 
 ]
