@@ -40,8 +40,18 @@ INSTALLED_APPS = [
     'data',
     'rest_framework',
     'api',
-    'tastypie',
+    'search',
+    'django_elasticsearch_dsl',
+
 ]
+
+# to handle the django elastic search app
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'localhost:9200'
+    },
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,8 +90,11 @@ WSGI_APPLICATION = 'patientManegementInterviewTask.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'USER': 'postgres',
+        'NAME': 'palladium',
+        'TEST': {'NAME': 'palladium_test', },
+
     }
 }
 

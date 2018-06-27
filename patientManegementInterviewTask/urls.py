@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
 from data import views as data_views
+from search import views as search_views
 
 
 admin.autodiscover()
@@ -28,6 +29,10 @@ urlpatterns = [
 
     # to handle the api
     url(r'^api/', include('api.urls')),
+
+    # to handle search in ElasticSearch
+    url(r'^search/', search_views.search, name='search')
+
 
 
 
