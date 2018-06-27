@@ -1,0 +1,25 @@
+
+{
+    "patientManegementTaskApp": {
+        "enrollment" : {
+            "home": {
+                "title": "Enrollments",
+                "createLabel": "Create a new Enrollment",
+                "createOrEditLabel": "Create or edit a Enrollment",
+                "search": "Search for Enrollment"
+            },
+            "created": "A new Enrollment is created with identifier {{ param }}",
+            "updated": "A Enrollment is updated with identifier {{ param }}",
+            "deleted": "A Enrollment is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Enrollment {{ id }}?"
+            },
+            "detail": {
+                "title": "Enrollment"
+            },
+            "enrollmentDate": "Enrollment Date",
+            "enrollmentNumber": "Enrollment Number",
+            "patient": "Patient"
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "patient",
+            "otherEntityName": "patient",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "enrollmentDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "enrollmentNumber",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180624193830",
+    "entityTableName": "enrollment",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

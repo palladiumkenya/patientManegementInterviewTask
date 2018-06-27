@@ -1,0 +1,50 @@
+
+<div *ngIf="changeSet">
+    <h2><span jhiTranslate="patientManegementTaskApp.changeSet.detail.title">Change Set</span> {{changeSet.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="patientManegementTaskApp.changeSet.tableName">Table Name</span></dt>
+        <dd>
+            <span>{{changeSet.tableName}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.changeSet.operation">Operation</span></dt>
+        <dd>
+            <span>{{changeSet.operation}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.changeSet.columnName">Column Name</span></dt>
+        <dd>
+            <span>{{changeSet.columnName}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.changeSet.entity">Entity</span></dt>
+        <dd>
+            <span>{{changeSet.entity}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.changeSet.user">User</span></dt>
+        <dd>
+            <span>{{changeSet.user}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.changeSet.oldValue">Old Value</span></dt>
+        <dd>
+            <span>{{changeSet.oldValue}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.changeSet.newValue">New Value</span></dt>
+        <dd>
+            <span>{{changeSet.newValue}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'change-set/'+ changeSet.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

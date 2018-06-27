@@ -40,6 +40,13 @@ public class CacheConfiguration {
             cm.createCache(com.patient.application.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(com.patient.application.domain.PersistentToken.class.getName(), jcacheConfiguration);
             cm.createCache(com.patient.application.domain.User.class.getName() + ".persistentTokens", jcacheConfiguration);
+            cm.createCache(com.patient.application.domain.Patient.class.getName(), jcacheConfiguration);
+            cm.createCache(com.patient.application.domain.Patient.class.getName() + ".enrollments", jcacheConfiguration);
+            cm.createCache(com.patient.application.domain.Contact.class.getName(), jcacheConfiguration);
+            cm.createCache(com.patient.application.domain.Enrollment.class.getName(), jcacheConfiguration);
+            cm.createCache(com.patient.application.domain.NextOfKin.class.getName(), jcacheConfiguration);
+            cm.createCache(com.patient.application.domain.NextOfKin.class.getName() + ".patients", jcacheConfiguration);
+            cm.createCache(com.patient.application.domain.ChangeSet.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

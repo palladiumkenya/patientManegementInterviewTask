@@ -1,8 +1,8 @@
-import {Component, ElementRef, OnInit, Renderer} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Account, LoginModalService, Principal } from '../shared';
+import { Account, Principal } from '../shared';
 import {Router} from '@angular/router';
 import {StateStorageService} from '../shared/auth/state-storage.service';
 import {LoginService} from '../shared/login/login.service';
@@ -26,12 +26,9 @@ export class HomeComponent implements OnInit {
 
     constructor(
         private principal: Principal,
-        private loginModalService: LoginModalService,
         private eventManager: JhiEventManager,
         private loginService: LoginService,
         private stateStorageService: StateStorageService,
-        private elementRef: ElementRef,
-        private renderer: Renderer,
         private router: Router
     ) {
         this.credentials = {};
@@ -80,6 +77,8 @@ export class HomeComponent implements OnInit {
             if (redirect) {
                 this.stateStorageService.storeUrl(null);
                 this.router.navigate([redirect]);
+            } else {
+                this.router.navigate(['/patient']);
             }
         }).catch(() => {
             this.authenticationError = true;

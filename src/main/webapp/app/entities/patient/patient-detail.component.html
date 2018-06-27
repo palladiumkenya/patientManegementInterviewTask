@@ -1,0 +1,60 @@
+
+<div *ngIf="patient">
+    <h2><span jhiTranslate="patientManegementTaskApp.patient.detail.title">Patient</span> {{patient.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="patientManegementTaskApp.patient.surname">Surname</span></dt>
+        <dd>
+            <span>{{patient.surname}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.patient.otherNames">Other Names</span></dt>
+        <dd>
+            <span>{{patient.otherNames}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.patient.dateOfBirth">Date Of Birth</span></dt>
+        <dd>
+            <span>{{patient.dateOfBirth | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.patient.county">County</span></dt>
+        <dd>
+            <span>{{patient.county}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.patient.subcounty">Subcounty</span></dt>
+        <dd>
+            <span>{{patient.subcounty}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.patient.ward">Ward</span></dt>
+        <dd>
+            <span>{{patient.ward}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.patient.village">Village</span></dt>
+        <dd>
+            <span>{{patient.village}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.patient.isDeleted">Is Deleted</span></dt>
+        <dd>
+            <span>{{patient.isDeleted}}</span>
+        </dd>
+        <dt><span jhiTranslate="patientManegementTaskApp.patient.nextOfKin">Next Of Kin</span></dt>
+        <dd>
+            <div *ngIf="patient.nextOfKin">
+                <a [routerLink]="['/next-of-kin', patient.nextOfKin?.id]">{{patient.nextOfKin?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'patient/'+ patient.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

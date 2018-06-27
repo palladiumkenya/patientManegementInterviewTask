@@ -1,0 +1,29 @@
+
+{
+    "patientManegementTaskApp": {
+        "changeSet" : {
+            "home": {
+                "title": "ChangeSets",
+                "createLabel": "Créer un nouveau Change Set",
+                "createOrEditLabel": "Créer ou éditer un Change Set",
+                "search": "Recherche pour Change Set"
+            },
+            "created": "Un nouveau Change Set a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Change Set avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Change Set avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Change Set {{ id }} ?"
+            },
+            "detail": {
+                "title": "Change Set"
+            },
+            "tableName": "Table Name",
+            "operation": "Operation",
+            "columnName": "Column Name",
+            "entity": "Entity",
+            "user": "User",
+            "oldValue": "Old Value",
+            "newValue": "New Value"
+        }
+    }
+}
