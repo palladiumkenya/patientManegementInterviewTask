@@ -14,7 +14,10 @@ import {Contact} from '../contact/contact.model';
 
 @Component({
     selector: 'jhi-patient-add',
-    templateUrl: './patient-new.component.html'
+    templateUrl: './patient-new.component.html',
+    styleUrls: [
+        'patient.css'
+    ]
 })
 export class PatientNewComponent implements OnInit, OnDestroy {
 
@@ -22,6 +25,7 @@ export class PatientNewComponent implements OnInit, OnDestroy {
     contact: Contact;
     nextOfKin: NextOfKin;
     isSaving: boolean;
+    reuseNextOfKin: boolean;
 
     nextofkins: NextOfKin[];
     dateOfBirthDp: any;
@@ -47,6 +51,7 @@ export class PatientNewComponent implements OnInit, OnDestroy {
         this.contact = new Contact();
         this.nextOfKin = new NextOfKin();
         this.isSaving = false;
+        this.reuseNextOfKin = false;
         this.nextOfKinService.query()
             .subscribe((res: HttpResponse<NextOfKin[]>) => { this.nextofkins = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
@@ -60,7 +65,11 @@ export class PatientNewComponent implements OnInit, OnDestroy {
     }
 
     save() {
-        this.saveNextOfKin();
+        if (this.reuseNextOfKin) {
+            this.savePatient();
+        } else {
+            this.saveNextOfKin();
+        }
     }
 
     savePatient() {

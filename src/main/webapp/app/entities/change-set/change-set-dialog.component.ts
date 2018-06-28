@@ -37,20 +37,20 @@ export class ChangeSetDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.changeSet.id !== undefined) {
-            this.subscribeToSaveChangesetResponse(
+            this.subscribeToSaveResponse(
                 this.changeSetService.update(this.changeSet));
         } else {
-            this.subscribeToSaveChangesetResponse(
+            this.subscribeToSaveResponse(
                 this.changeSetService.create(this.changeSet));
         }
     }
 
-    private subscribeToSaveChangesetResponse(result: Observable<HttpResponse<ChangeSet>>) {
+    private subscribeToSaveResponse(result: Observable<HttpResponse<ChangeSet>>) {
         result.subscribe((res: HttpResponse<ChangeSet>) =>
-            this.onSaveChangesetSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    private onSaveChangesetSuccess(result: ChangeSet) {
+    private onSaveSuccess(result: ChangeSet) {
         this.eventManager.broadcast({ name: 'changeSetListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

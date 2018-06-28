@@ -40,6 +40,12 @@
         <dd>
             <div *ngIf="patient.nextOfKin">
                 <a [routerLink]="['/next-of-kin', patient.nextOfKin?.id]">{{patient.nextOfKin?.id}}</a>
+                <button type="submit"
+                        [routerLink]="['/next-of-kin', patient.nextOfKin?.id]"
+                        class="btn btn-outline-primary btn-sm">
+                    <span class="fa fa-eye"></span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                </button>
             </div>
         </dd>
     </dl>

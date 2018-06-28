@@ -20,12 +20,7 @@
         },
         {
             "fieldName": "columnName",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "minlength"
-            ],
-            "fieldValidateRulesMinlength": 3
+            "fieldType": "String"
         },
         {
             "fieldName": "entity",
@@ -36,7 +31,7 @@
         },
         {
             "fieldName": "user",
-            "fieldType": "Double",
+            "fieldType": "String",
             "fieldValidateRules": [
                 "required"
             ]

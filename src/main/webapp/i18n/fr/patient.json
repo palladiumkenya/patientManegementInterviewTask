@@ -26,7 +26,9 @@
             "village": "Village",
             "isDeleted": "Is Deleted",
             "enrollment": "Enrollment",
-            "nextOfKin": "Next Of Kin"
+            "nextOfKin": "Next Of Kin",
+            "reuseNextOfKin": "Réutiliser le plus proche parent",
+            "contact": "Détails du contact"
         }
     }
 }

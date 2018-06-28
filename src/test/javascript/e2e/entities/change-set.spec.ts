@@ -41,8 +41,8 @@ describe('ChangeSet e2e test', () => {
         expect(changeSetDialogPage.getColumnNameInput()).toMatch('columnName');
         changeSetDialogPage.setEntityInput('5');
         expect(changeSetDialogPage.getEntityInput()).toMatch('5');
-        changeSetDialogPage.setUserInput('5');
-        expect(changeSetDialogPage.getUserInput()).toMatch('5');
+        changeSetDialogPage.setUserInput('user');
+        expect(changeSetDialogPage.getUserInput()).toMatch('user');
         changeSetDialogPage.setOldValueInput('oldValue');
         expect(changeSetDialogPage.getOldValueInput()).toMatch('oldValue');
         changeSetDialogPage.setNewValueInput('newValue');

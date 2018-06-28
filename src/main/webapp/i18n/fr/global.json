@@ -4,10 +4,11 @@
         "browsehappy": "Vous utilisez un <strong>ancien</strong> navigateur. Veuillez <a href=\"http://browsehappy.com/?locale=fr\">mettre à jour votre navigateur</a> pour une meilleure expérience.",
         "menu": {
             "home": "Accueil",
+            "databaseEdits": "Modifications de base de données",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entités",
-                "patient": "Patient",
+                "patient": "Les patients",
                 "contact": "Contact",
                 "enrollment": "Enrollment",
                 "nextOfKin": "Next Of Kin",

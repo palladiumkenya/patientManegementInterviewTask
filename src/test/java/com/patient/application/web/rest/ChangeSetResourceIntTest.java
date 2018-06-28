@@ -51,8 +51,8 @@ public class ChangeSetResourceIntTest {
     private static final Double DEFAULT_ENTITY = 1D;
     private static final Double UPDATED_ENTITY = 2D;
 
-    private static final Double DEFAULT_USER = 1D;
-    private static final Double UPDATED_USER = 2D;
+    private static final String DEFAULT_USER = "AAAAAAAAAA";
+    private static final String UPDATED_USER = "BBBBBBBBBB";
 
     private static final String DEFAULT_OLD_VALUE = "AAAAAAAAAA";
     private static final String UPDATED_OLD_VALUE = "BBBBBBBBBB";
@@ -202,24 +202,6 @@ public class ChangeSetResourceIntTest {
 
     @Test
     @Transactional
-    public void checkColumnNameIsRequired() throws Exception {
-        int databaseSizeBeforeTest = changeSetRepository.findAll().size();
-        // set the field null
-        changeSet.setColumnName(null);
-
-        // Create the ChangeSet, which fails.
-
-        restChangeSetMockMvc.perform(post("/api/change-sets")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(changeSet)))
-            .andExpect(status().isBadRequest());
-
-        List<ChangeSet> changeSetList = changeSetRepository.findAll();
-        assertThat(changeSetList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkEntityIsRequired() throws Exception {
         int databaseSizeBeforeTest = changeSetRepository.findAll().size();
         // set the field null
@@ -269,7 +251,7 @@ public class ChangeSetResourceIntTest {
             .andExpect(jsonPath("$.[*].operation").value(hasItem(DEFAULT_OPERATION.toString())))
             .andExpect(jsonPath("$.[*].columnName").value(hasItem(DEFAULT_COLUMN_NAME.toString())))
             .andExpect(jsonPath("$.[*].entity").value(hasItem(DEFAULT_ENTITY.doubleValue())))
-            .andExpect(jsonPath("$.[*].user").value(hasItem(DEFAULT_USER.doubleValue())))
+            .andExpect(jsonPath("$.[*].user").value(hasItem(DEFAULT_USER.toString())))
             .andExpect(jsonPath("$.[*].oldValue").value(hasItem(DEFAULT_OLD_VALUE.toString())))
             .andExpect(jsonPath("$.[*].newValue").value(hasItem(DEFAULT_NEW_VALUE.toString())));
     }
@@ -289,7 +271,7 @@ public class ChangeSetResourceIntTest {
             .andExpect(jsonPath("$.operation").value(DEFAULT_OPERATION.toString()))
             .andExpect(jsonPath("$.columnName").value(DEFAULT_COLUMN_NAME.toString()))
             .andExpect(jsonPath("$.entity").value(DEFAULT_ENTITY.doubleValue()))
-            .andExpect(jsonPath("$.user").value(DEFAULT_USER.doubleValue()))
+            .andExpect(jsonPath("$.user").value(DEFAULT_USER.toString()))
             .andExpect(jsonPath("$.oldValue").value(DEFAULT_OLD_VALUE.toString()))
             .andExpect(jsonPath("$.newValue").value(DEFAULT_NEW_VALUE.toString()));
     }
@@ -401,7 +383,7 @@ public class ChangeSetResourceIntTest {
             .andExpect(jsonPath("$.[*].operation").value(hasItem(DEFAULT_OPERATION.toString())))
             .andExpect(jsonPath("$.[*].columnName").value(hasItem(DEFAULT_COLUMN_NAME.toString())))
             .andExpect(jsonPath("$.[*].entity").value(hasItem(DEFAULT_ENTITY.doubleValue())))
-            .andExpect(jsonPath("$.[*].user").value(hasItem(DEFAULT_USER.doubleValue())))
+            .andExpect(jsonPath("$.[*].user").value(hasItem(DEFAULT_USER.toString())))
             .andExpect(jsonPath("$.[*].oldValue").value(hasItem(DEFAULT_OLD_VALUE.toString())))
             .andExpect(jsonPath("$.[*].newValue").value(hasItem(DEFAULT_NEW_VALUE.toString())));
     }

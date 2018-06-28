@@ -62,11 +62,11 @@ export class PatientDeleteDialogComponent implements OnInit {
         this.changeSet.newValue = 'true';
         this.changeSet.oldValue = 'false';
         this.changeSet.columnName = 'isDeleted';
+        this.changeSet.user = this.account.id;
     }
 
     saveChangeSet() {
         this.createDeletePatientChangeSet();
-        console.log(JSON.stringify(this.changeSet));
         this.isSaving = true;
         if (this.changeSet.id !== undefined) {
             this.subscribeToSaveChangesetResponse(

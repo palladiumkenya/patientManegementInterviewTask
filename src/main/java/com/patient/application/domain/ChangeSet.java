@@ -34,9 +34,7 @@ public class ChangeSet implements Serializable {
     @Column(name = "operation", nullable = false)
     private String operation;
 
-    @NotNull
-    @Size(min = 3)
-    @Column(name = "column_name", nullable = false)
+    @Column(name = "column_name")
     private String columnName;
 
     @NotNull
@@ -45,7 +43,7 @@ public class ChangeSet implements Serializable {
 
     @NotNull
     @Column(name = "jhi_user", nullable = false)
-    private Double user;
+    private String user;
 
     @Column(name = "old_value")
     private String oldValue;
@@ -114,16 +112,16 @@ public class ChangeSet implements Serializable {
         this.entity = entity;
     }
 
-    public Double getUser() {
+    public String getUser() {
         return user;
     }
 
-    public ChangeSet user(Double user) {
+    public ChangeSet user(String user) {
         this.user = user;
         return this;
     }
 
-    public void setUser(Double user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
@@ -182,7 +180,7 @@ public class ChangeSet implements Serializable {
             ", operation='" + getOperation() + "'" +
             ", columnName='" + getColumnName() + "'" +
             ", entity=" + getEntity() +
-            ", user=" + getUser() +
+            ", user='" + getUser() + "'" +
             ", oldValue='" + getOldValue() + "'" +
             ", newValue='" + getNewValue() + "'" +
             "}";

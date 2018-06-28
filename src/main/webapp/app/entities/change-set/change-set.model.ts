@@ -7,7 +7,7 @@ export class ChangeSet implements BaseEntity {
         public operation?: string,
         public columnName?: string,
         public entity?: number,
-        public user?: number,
+        public user?: string,
         public oldValue?: string,
         public newValue?: string,
     ) {

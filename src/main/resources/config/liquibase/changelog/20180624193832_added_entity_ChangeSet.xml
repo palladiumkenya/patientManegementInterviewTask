@@ -31,14 +31,14 @@
             </column>
 
             <column name="column_name" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="entity" type="double">
                 <constraints nullable="false" />
             </column>
 
-            <column name="jhi_user" type="double">
+            <column name="jhi_user" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
 

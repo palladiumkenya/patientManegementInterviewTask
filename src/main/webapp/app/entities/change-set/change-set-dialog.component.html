@@ -41,17 +41,7 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="patientManegementTaskApp.changeSet.columnName" for="field_columnName">Column Name</label>
             <input type="text" class="form-control" name="columnName" id="field_columnName"
-                [(ngModel)]="changeSet.columnName" required minlength="3"/>
-            <div [hidden]="!(editForm.controls.columnName?.dirty && editForm.controls.columnName?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.columnName?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.columnName?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 3 }">
-                   This field is required to be at least 3 characters.
-                </small>
-            </div>
+                [(ngModel)]="changeSet.columnName" />
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="patientManegementTaskApp.changeSet.entity" for="field_entity">Entity</label>
@@ -70,16 +60,12 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="patientManegementTaskApp.changeSet.user" for="field_user">User</label>
-            <input type="number" class="form-control" name="user" id="field_user"
+            <input type="text" class="form-control" name="user" id="field_user"
                 [(ngModel)]="changeSet.user" required/>
             <div [hidden]="!(editForm.controls.user?.dirty && editForm.controls.user?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.user?.errors?.required" jhiTranslate="entity.validation.required">
                    This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.user?.errors?.number" jhiTranslate="entity.validation.number">
-                    This field should be a number.
                 </small>
             </div>
         </div>

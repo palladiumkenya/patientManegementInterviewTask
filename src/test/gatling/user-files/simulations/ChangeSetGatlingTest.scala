@@ -72,7 +72,7 @@ class ChangeSetGatlingTest extends Simulation {
             .exec(http("Create new changeSet")
             .post("/api/change-sets")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "tableName":"SAMPLE_TEXT", "operation":"SAMPLE_TEXT", "columnName":"SAMPLE_TEXT", "entity":null, "user":null, "oldValue":"SAMPLE_TEXT", "newValue":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "tableName":"SAMPLE_TEXT", "operation":"SAMPLE_TEXT", "columnName":"SAMPLE_TEXT", "entity":null, "user":"SAMPLE_TEXT", "oldValue":"SAMPLE_TEXT", "newValue":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_changeSet_url"))).exitHereIfFailed
             .pause(10)
