@@ -1,0 +1,96 @@
+<div>
+    <h2>
+        <span jhiTranslate="patientManegementTaskApp.patient.home.title">Patients</span>
+        <button class="btn btn-primary float-right jh-create-entity create-patient" [routerLink]="['../patient-add']">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="patientManegementTaskApp.patient.home.createLabel">
+            Create new Patient
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'patientManegementTaskApp.patient.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="patients">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="surname"><span jhiTranslate="patientManegementTaskApp.patient.surname">Surname</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="otherNames"><span jhiTranslate="patientManegementTaskApp.patient.otherNames">Other Names</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dateOfBirth"><span jhiTranslate="patientManegementTaskApp.patient.dateOfBirth">Date Of Birth</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="county"><span jhiTranslate="patientManegementTaskApp.patient.county">County</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="subcounty"><span jhiTranslate="patientManegementTaskApp.patient.subcounty">Subcounty</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="ward"><span jhiTranslate="patientManegementTaskApp.patient.ward">Ward</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="village"><span jhiTranslate="patientManegementTaskApp.patient.village">Village</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="nextOfKin.id"><span jhiTranslate="patientManegementTaskApp.patient.nextOfKin">Next Of Kin</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let patient of patients ;trackBy: trackId">
+                <td><a [routerLink]="['../patient', patient.id ]">{{patient.id}}</a></td>
+                <td>{{patient.surname}}</td>
+                <td>{{patient.otherNames}}</td>
+                <td>{{patient.dateOfBirth | date:'mediumDate'}}</td>
+                <td>{{patient.county}}</td>
+                <td>{{patient.subcounty}}</td>
+                <td>{{patient.ward}}</td>
+                <td>{{patient.village}}</td>
+                <td>
+                    <div *ngIf="patient.nextOfKin">
+                        <a [routerLink]="['../next-of-kin', patient.nextOfKin?.id ]" > {{patient.nextOfKin?.id}} </a>
+                        &nbsp;
+                        <button type="submit"
+                                [routerLink]="['../next-of-kin', patient.nextOfKin?.id ]"
+                                class="btn btn-outline-primary btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../patient', patient.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'patient/'+ patient.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'patient/'+ patient.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

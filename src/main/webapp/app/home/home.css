@@ -1,0 +1,59 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+
+.hipster {
+    display: inline-block;
+    width: 347px;
+    height: 497px;
+    background: url("../../content/images/hipster.png") no-repeat center top;
+    background-size: contain;
+}
+
+/* wait autoprefixer update to allow simple generation of high pixel density media query */
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+    .hipster {
+        background: url("../../content/images/hipster2x.png") no-repeat center top;
+        background-size: contain;
+    }
+}
+
+.no-bg{
+    background: none !important;
+}
+.home-content{
+    min-height: 407px;
+}
+.home-intro{
+    border-radius: 8px;
+    margin-top: 8%;
+    color: white;
+    opacity: 0.4;
+    padding: 10px;
+    background-color: #0a0a0a;
+}
+.home-intro h1{
+    font-size: 50px;
+    font-weight: 400;
+}
+.lg-group{
+    margin-top: 15%;
+}
+.lg-group button{
+    margin-top: 20px;
+}
+.pd-top{
+    margin-top: 20px;
+}
+.pr-home-r2{
+    border-radius: 10px;
+    padding-top: 30px;
+    background-color: white;
+    padding-bottom: 30px;
+}

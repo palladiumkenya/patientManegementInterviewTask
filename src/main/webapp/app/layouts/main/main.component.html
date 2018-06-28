@@ -1,0 +1,14 @@
+<div [ngClass]="{'home-header':isHomePage()}">
+    <div class="mynav">
+        <router-outlet name="navbar"></router-outlet>
+    </div>
+    <div class="container-fluid">
+        <div class="card jh-card no-bg">
+            <router-outlet></router-outlet>
+            <router-outlet name="popup"></router-outlet>
+        </div>
+    </div>
+</div>
+<div>
+    <jhi-footer></jhi-footer>
+</div>

@@ -1,0 +1,241 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPatientLabel" jhiTranslate="patientManegementTaskApp.patient.home.createOrEditLabel">Create or edit a Patient</h4>
+    </div>
+    <div class="">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!patient.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="patient.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="patientManegementTaskApp.patient.surname" for="field_surname">Surname</label>
+            <input type="text" class="form-control" name="surname" id="field_surname"
+                   [(ngModel)]="patient.surname" required minlength="3"/>
+            <div [hidden]="!(editForm.controls.surname?.dirty && editForm.controls.surname?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.surname?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.surname?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 3 }">
+                    This field is required to be at least 3 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="patientManegementTaskApp.patient.otherNames" for="field_otherNames">Other Names</label>
+            <input type="text" class="form-control" name="otherNames" id="field_otherNames"
+                   [(ngModel)]="patient.otherNames" required minlength="3"/>
+            <div [hidden]="!(editForm.controls.otherNames?.dirty && editForm.controls.otherNames?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.otherNames?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.otherNames?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 3 }">
+                    This field is required to be at least 3 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="patientManegementTaskApp.patient.dateOfBirth" for="field_dateOfBirth">Date Of Birth</label>
+            <div class="input-group">
+                <input id="field_dateOfBirth" type="text" class="form-control" name="dateOfBirth" ngbDatepicker  #dateOfBirthDp="ngbDatepicker" [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="patient.dateOfBirth"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateOfBirthDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="patientManegementTaskApp.patient.county" for="field_county">County</label>
+            <input type="text" class="form-control" name="county" id="field_county"
+                   [(ngModel)]="patient.county" required minlength="3"/>
+            <div [hidden]="!(editForm.controls.county?.dirty && editForm.controls.county?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.county?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.county?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 3 }">
+                    This field is required to be at least 3 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="patientManegementTaskApp.patient.subcounty" for="field_subcounty">Subcounty</label>
+            <input type="text" class="form-control" name="subcounty" id="field_subcounty"
+                   [(ngModel)]="patient.subcounty" required minlength="3"/>
+            <div [hidden]="!(editForm.controls.subcounty?.dirty && editForm.controls.subcounty?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.subcounty?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.subcounty?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 3 }">
+                    This field is required to be at least 3 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="patientManegementTaskApp.patient.ward" for="field_ward">Ward</label>
+            <input type="text" class="form-control" name="ward" id="field_ward"
+                   [(ngModel)]="patient.ward" required minlength="3"/>
+            <div [hidden]="!(editForm.controls.ward?.dirty && editForm.controls.ward?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.ward?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.ward?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 3 }">
+                    This field is required to be at least 3 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="patientManegementTaskApp.patient.village" for="field_village">Village</label>
+            <input type="text" class="form-control" name="village" id="field_village"
+                   [(ngModel)]="patient.village" required minlength="3"/>
+            <div [hidden]="!(editForm.controls.village?.dirty && editForm.controls.village?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.village?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.village?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 3 }">
+                    This field is required to be at least 3 characters.
+                </small>
+            </div>
+        </div>
+
+        <!-- ================== Contact  ================================== -->
+        <div class="modal-header">
+            <h4 class="modal-title" id="myContactLabel" jhiTranslate="patientManegementTaskApp.patient.contact">Contact details</h4>
+        </div>
+        <p></p>
+        <p></p>
+        <div class="form-group" [hidden]="!contact.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="contact.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="patientManegementTaskApp.contact.cellPhone" for="field_cellPhone">Cell Phone</label>
+            <input type="text" class="form-control" name="cellPhone" id="field_cellPhone"
+                   [(ngModel)]="contact.cellPhone" required minlength="3"/>
+            <div [hidden]="!(editForm.controls.cellPhone?.dirty && editForm.controls.cellPhone?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.cellPhone?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.cellPhone?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 3 }">
+                    This field is required to be at least 3 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="patientManegementTaskApp.contact.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                   [(ngModel)]="contact.email" required minlength="3"/>
+            <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.email?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.email?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 3 }">
+                    This field is required to be at least 3 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="patientManegementTaskApp.contact.alternativeCellNumber" for="field_alternativeCellNumber">Alternative Cell Number</label>
+            <input type="text" class="form-control" name="alternativeCellNumber" id="field_alternativeCellNumber"
+                   [(ngModel)]="contact.alternativeCellNumber" />
+        </div>
+        <!-- ================== End Contact =============================== -->
+
+        <!-- ===================== Next of kin ============================ -->
+
+        <div class="modal-header">
+            <h4 class="modal-title" id="myNextOfKinLabel" jhiTranslate="patientManegementTaskApp.patient.nextOfKin">Next Of Kin</h4>
+        </div>
+        <p></p>
+        <p></p>
+        <div class="form-group">
+            <input type="checkbox" class="big-check-box" name="isDeleted" id="reuseNextOfKin" [(ngModel)]="reuseNextOfKin" />
+            <label class="form-control-label" jhiTranslate="patientManegementTaskApp.patient.reuseNextOfKin" for="reuseNextOfKin">Re-use Next of in</label>
+        </div>
+
+        <div [ngSwitch]="reuseNextOfKin">
+            <div *ngSwitchCase="true">
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="patientManegementTaskApp.patient.nextOfKin" for="field_nextOfKin">Next Of Kin</label>
+                    <select class="form-control" id="field_nextOfKin" name="nextOfKin" [(ngModel)]="patient.nextOfKin" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="nextOfKinOption.id === patient.nextOfKin?.id ? patient.nextOfKin : nextOfKinOption" *ngFor="let nextOfKinOption of nextofkins; trackBy: trackNextOfKinById">{{nextOfKinOption.idNumber}} {{nextOfKinOption.surname}} {{nextOfKinOption.otherNames}}</option>
+                    </select>
+                </div>
+            </div>
+            <div *ngSwitchCase="false">
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="patientManegementTaskApp.nextOfKin.surname" for="field_surname">Surname</label>
+                    <input type="text" class="form-control" name="surname" id="field_surname"
+                           [(ngModel)]="nextOfKin.surname" required minlength="3"/>
+                    <div [hidden]="!(editForm.controls.surname?.dirty && editForm.controls.surname?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.surname?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.surname?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 3 }">
+                            This field is required to be at least 3 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="patientManegementTaskApp.nextOfKin.otherNames" for="field_otherNames">Other Names</label>
+                    <input type="text" class="form-control" name="otherNames" id="field_otherNames"
+                           [(ngModel)]="nextOfKin.otherNames" required minlength="3"/>
+                    <div [hidden]="!(editForm.controls.otherNames?.dirty && editForm.controls.otherNames?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.otherNames?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.otherNames?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 3 }">
+                            This field is required to be at least 3 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="patientManegementTaskApp.nextOfKin.idNumber" for="field_idNumber">Id Number</label>
+                    <input type="text" class="form-control" name="idNumber" id="field_idNumber"
+                           [(ngModel)]="nextOfKin.idNumber" required/>
+                    <div [hidden]="!(editForm.controls.idNumber?.dirty && editForm.controls.idNumber?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.idNumber?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== END Next of kin ======================== -->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
+

@@ -1,0 +1,26 @@
+
+{
+    "patientManegementTaskApp": {
+        "nextOfKin" : {
+            "home": {
+                "title": "NextOfKins",
+                "createLabel": "Créer un nouveau Next Of Kin",
+                "createOrEditLabel": "Créer ou éditer un Next Of Kin",
+                "search": "Recherche pour Next Of Kin"
+            },
+            "created": "Un nouveau Next Of Kin a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Next Of Kin avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Next Of Kin avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Next Of Kin {{ id }} ?"
+            },
+            "detail": {
+                "title": "Next Of Kin"
+            },
+            "surname": "Surname",
+            "otherNames": "Other Names",
+            "idNumber": "Id Number",
+            "patient": "Patient"
+        }
+    }
+}

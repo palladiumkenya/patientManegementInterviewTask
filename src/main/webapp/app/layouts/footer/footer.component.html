@@ -1,0 +1,15 @@
+<div [ngSwitch]="isHomePage()">
+    <div *ngSwitchCase="true" class="home-footer">
+        <div class="container-fluid">
+            <p> &copy; 2018 </p>
+            <p jhiTranslate="footer">This is your footer</p>
+        </div>
+    </div>
+    <div *ngSwitchCase="false">
+        <div class="container-fluid">
+            <div class="footer card jh-card no-bg">
+                <p jhiTranslate="footer">This is your footer </p>
+            </div>
+        </div>
+    </div>
+</div>
