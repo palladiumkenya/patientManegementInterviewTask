@@ -23,11 +23,12 @@ class County(ChoiceEnum):
 class ContactType(ChoiceEnum):
     T = "Telephone"
     E = "Email"
-    A = "Address"
+    A = "Postal Address"
 
 class ActionType(ChoiceEnum):
     A = "Add Record"
     E = "Edit Record"
     D = "Delete Record"
     S = "Search Operation"
+    P = "API Access"
     

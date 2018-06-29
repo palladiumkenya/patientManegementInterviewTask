@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('records/',include('records.urls')),
     path('', RedirectView.as_view(url='/records/', permanent=True)),
+    path('api/', include('records.api.urls'))
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
