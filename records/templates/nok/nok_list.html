@@ -1,0 +1,59 @@
+{% extends "shared/main_layout.html" %}
+
+{% block content %}
+    <div class="p-3 mb-2 bg-info text-white">
+        {{ patient.first_name }} {% if patient.middle_name %} {{patient.middle_name}} {% else %}{% endif %} {{ patient.last_name }}'s Next of Kins
+    </div>
+    
+    <div class="table-responsive p-3 bg-white">
+        <div class="text-right">
+            <a class="btn btn-primary" href="{% url 'nok_create' patient.id %}" title="Add Next of Kin">
+                <span class="oi oi-plus" title="Add Next of Kin" aria-hidden="true"></span>
+            </a>
+        </div>
+        <br/>
+        {% if nok_list %}
+        <table class="table table-hover table-striped tablesorter">
+            <thead class="thead-dark">
+            <tr>
+                <th class="header"> Name <i class="icon-sort"></i></th>
+                <th class="header"> Location <i class="icon-sort"></i></th>
+                <th class="header"> Age <i class="icon-sort"></i></th>
+                <th class="header"> Gender <i class="icon-sort"></i></th>
+                <th class="header"> Actions <i class="icon-sort"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+        
+        {% for nok in nok_list %}
+            <tr>
+                <td>{{ nok.first_name }} {% if nok.middle_name %} {{nok.middle_name}} {% else %}{% endif %} {{ nok.last_name }}</td>
+                <td>{{ nok.get_county_display }}, {{ nok.ward }}, {{ nok.village }}</td>
+                <td>{{ nok.calculate_age }}</td>
+                <td>{{ nok.get_gender_display }}</td>
+                <td>
+                    <a class="btn btn-warning" href="{% url 'nok_update' patient.id nok.id %}" title="Edit Bio-Data"><span class="oi oi-pencil" title="Edit Bio-Data"></span></a>
+                    <a class="btn btn-info" href="{% url 'patient_location_update' patient.id nok.id %}" title="Edit Location"><span class="oi oi-map-marker" title="Edit Location"></span></a>
+                    <a class="btn btn-success" href="{% url 'contacts' nok.id %}" title="Contacts"><span class="oi oi-phone" title="Contacts"></span></a>
+                    <a class="btn btn-primary" href="{% url 'nok_enroll' nok.id %}" title="Enroll Patient"><span class="oi oi-transfer" title="Enroll Patient"></span></a>
+                    <a class="btn btn-danger" href="{% url 'nok_delete' nok.id %}" title="Delete Next of Kin"><span class="oi oi-trash" title="Delete Next of Kin"></span></a>
+                </td>
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+        </table>
+        {% else %}
+        <p>There are no next of kins registered.</p>
+        {% endif %} 
+    </div>
+    
+    
+    <div class="text-left">
+        <a class="btn btn-default" href="{% url 'patients' %}" title="Back to list">
+            <span class="oi oi-arrow-left" title="Back to list" aria-hidden="true"></span> Back To List
+        </a>
+    </div>
+    <br/>    
+    
+{% endblock %}

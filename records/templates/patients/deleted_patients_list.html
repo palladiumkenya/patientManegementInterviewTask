@@ -1,0 +1,37 @@
+{% extends "shared/main_layout.html" %}
+
+{% block content %}
+
+    
+    <div class="p-3 mb-2 bg-primary text-white">
+        <h3>Deleted Patients</h3>
+    </div>
+    
+    <div class="table-responsive p-3 bg-white box-shadow">
+        {% if patient_list %}
+            <table class="table table-hover table-striped tablesorter">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="header"> Patient <i class="icon-sort"></i></th>
+                        <th class="header"> Enrollment # <i class="icon-sort"></i></th>
+                        <th class="header"> Date Deleted <i class="icon-sort"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                {% for patient in patient_list %}
+                    <tr>
+                        <td>{{ patient.first_name }} {% if patient.middle_name %} {{patient.middle_name}} {% else %}{% endif %} {{ patient.last_name }}</td>
+                        <td>{{ patient.enrollment_number }}</td>
+                        <td>{{ patient.date_deleted }}</td>
+                    </tr>
+                {% endfor %}
+                
+                </tbody>
+            </table>
+        {% else %}
+        <p>There are no patients deleted.</p>
+        {% endif %}
+    </div>
+    
+{% endblock %}
